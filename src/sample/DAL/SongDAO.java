@@ -30,6 +30,7 @@ public class SongDAO {
                 String album = rs.getString("Album");
                 String filePath = rs.getString("Filepath");
 
+
                 Song song = new Song(id, title, artist ,album, filePath);
                 allSongs.add(song);
             }

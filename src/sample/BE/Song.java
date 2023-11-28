@@ -1,11 +1,18 @@
 package sample.BE;
 
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
+
+import java.io.File;
+
 public class Song {
     private int id;
     private String title;
     private String artist;
     private String album;
     private String filePath;
+    private MediaPlayer mediaPlayer;
 
     public Song(int id, String title, String artist, String album, String filePath){
         this.id = id;
@@ -13,12 +20,18 @@ public class Song {
         this.artist = artist;
         this.album = album;
         this.filePath = filePath;
+        this.mediaPlayer = new MediaPlayer(new Media(new File(filePath).toURI().toString()));
     }
     public Song(String title, String artist, String album, String filePath){
         this.title = title;
         this.artist = artist;
         this.album = album;
         this.filePath = filePath;
+        this.mediaPlayer = new MediaPlayer(new Media(new File(filePath).toURI().toString()));
+    }
+
+    public double getDuration(){
+        return mediaPlayer.getTotalDuration().toMinutes();
     }
 
     public int getId() {
@@ -55,6 +68,10 @@ public class Song {
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
+    }
+
+    public MediaPlayer getMediaPlayer(){
+        return this.mediaPlayer;
     }
 
     @Override
