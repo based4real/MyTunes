@@ -59,6 +59,6 @@ public class Song {
 
     @Override
     public String toString(){
-        return id + ": " + title + album;
+        return title + album;
     }
 }
