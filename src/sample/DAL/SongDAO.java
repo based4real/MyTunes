@@ -41,7 +41,7 @@ public class SongDAO {
             throw new Exception("Could not get songs from database", ex);
         }
     }
-    public Song createMovie(Song song) throws Exception {
+    public Song createSong(Song song) throws Exception {
         // SQL command
         String sql = "INSERT INTO dbo.Songs (Title,Artist,Album,Filepath) VALUES (?,?,?,?);";
 
@@ -78,7 +78,7 @@ public class SongDAO {
         }
     }
 
-        public void updateMovie(Song song) throws Exception {
+        public void updateSong(Song song) throws Exception {
             // SQL command
             String sql = "UPDATE dbo.Songs SET Title = ?, Artist = ?, Album = ?, Filepath = ? WHERE Id = ?";
 
@@ -101,7 +101,7 @@ public class SongDAO {
                 throw new Exception("Could not update song", ex);
             }
         }
-    public void deleteMovie(Song song) throws Exception {
+    public void deleteSong(Song song) throws Exception {
         // SQL command
         String sql = "DELETE FROM dbo.Songs WHERE ID = (?);";
 

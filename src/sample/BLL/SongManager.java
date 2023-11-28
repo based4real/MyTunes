@@ -19,14 +19,14 @@ public class SongManager {
     }
 
     public Song createNewSong(Song newSong) throws Exception {
-        return songDAO.createMovie(newSong);
+        return songDAO.createSong(newSong);
     }
 
     public void updateSong(Song selectedSong) throws Exception{
-        songDAO.updateMovie(selectedSong);
+        songDAO.updateSong(selectedSong);
     }
 
     public void deleteSong(Song selectedSong) throws Exception {
-        songDAO.deleteMovie(selectedSong);
+        songDAO.deleteSong(selectedSong);
     }
 }
