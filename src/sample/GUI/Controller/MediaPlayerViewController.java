@@ -8,7 +8,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -21,8 +20,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MediaPlayerViewController implements Initializable {
-    @FXML
-    private Label lblSongLength;
     @FXML
     private Button btnPlay;
     @FXML
@@ -41,29 +38,8 @@ public class MediaPlayerViewController implements Initializable {
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ObservableList<Song> songs = songModel.getObservableSongs();
-
-        colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
-        colArtist.setCellValueFactory(new PropertyValueFactory<>("artist"));
-        colAlbum.setCellValueFactory(new PropertyValueFactory<>("album"));
-        colDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
-
-        tblSongs.setItems(songModel.getObservableSongs());
-
-        for (Song s : songs) {
-            MediaPlayer m = s.getMediaPlayer();
-            if (m.getStatus() == MediaPlayer.Status.UNKNOWN) {
-                System.out.println("WAITING");
-                m.statusProperty().addListener((obs, oldStatus, newStatus) -> {
-                    if (newStatus == MediaPlayer.Status.READY) {
-                        tblSongs.getColumns().setAll(colTitle, colArtist, colAlbum, colDuration);
-                    }
-                });
-            } else {
-                System.out.println("NOT READY");
-            }
-        }
-
+        setupSongTableView();
+        setupSongsData();
     }
 
     public void openNewSongWindow(ActionEvent actionEvent) {
@@ -80,7 +56,36 @@ public class MediaPlayerViewController implements Initializable {
         }
     }
 
+    public void setupSongTableView(){
+        ObservableList<Song> songs = songModel.getObservableSongs();
+        colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        colArtist.setCellValueFactory(new PropertyValueFactory<>("artist"));
+        colAlbum.setCellValueFactory(new PropertyValueFactory<>("album"));
+        colDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
+        tblSongs.setItems(songs);
+    }
+
+    public void setupSongsData(){
+        ObservableList<Song> songs = songModel.getObservableSongs();
+        for (Song s : songs) {
+            MediaPlayer m = s.getMediaPlayer();
+            if (m.getStatus() == MediaPlayer.Status.UNKNOWN) {
+                m.statusProperty().addListener((obs, oldStatus, newStatus) -> {
+                    if (newStatus == MediaPlayer.Status.READY) {
+                        tblSongs.getColumns().setAll(colTitle, colArtist, colAlbum, colDuration);
+                    }
+                });
+            } else {
+                System.out.println("NOT READY");
+            }
+        }
+    }
+
     public void playSong(ActionEvent actionEvent) {
-        tblSongs.getSelectionModel().getSelectedItem().getMediaPlayer().play();
+        if (tblSongs.getSelectionModel().getSelectedItem().getMediaPlayer().getStatus() != MediaPlayer.Status.PLAYING){
+            tblSongs.getSelectionModel().getSelectedItem().getMediaPlayer().play();
+        } else {
+            tblSongs.getSelectionModel().getSelectedItem().getMediaPlayer().pause();
+        }
     }
 }

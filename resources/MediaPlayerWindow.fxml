@@ -73,6 +73,5 @@
             <Button mnemonicParsing="false" text="&gt;&gt;" />
          </children>
       </HBox>
-      <Label fx:id="lblSongLength" layoutX="227.0" layoutY="42.0" text="Label" />
    </children>
 </AnchorPane>

@@ -43,9 +43,14 @@ public class NewSongViewController {
         File selectedFile = fc.showOpenDialog(null);
 
         if (selectedFile != null){
-            txfTitle.setText(selectedFile.getName());
-            txfArtist.setText(selectedFile.getName());
-            txfAlbum.setText(selectedFile.getName());
+            String stringToSplit = selectedFile.getPath();
+            String[] subStrings = stringToSplit.split("-");
+            String title = subStrings[1];
+            String artist = subStrings[2];
+            String album = subStrings[3];
+            txfTitle.setText(title);
+            txfArtist.setText(artist);
+            txfAlbum.setText(album);
             txfFile.setText(selectedFile.getPath());
         } else {
             System.out.println("file is not valid");
