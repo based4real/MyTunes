@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
+import sample.BE.Song;
+import sample.GUI.Model.SongModel;
 
 ;
 
@@ -25,6 +27,16 @@ public class NewSongViewController {
     @FXML
     private TextField txfFile;
 
+    private SongModel songModel;
+
+    public NewSongViewController(){
+        try {
+            songModel = new SongModel();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void chooseNewSong(ActionEvent actionEvent) {
         FileChooser fc = new FileChooser();
         File selectedFile = fc.showOpenDialog(null);
@@ -43,5 +55,18 @@ public class NewSongViewController {
     }
 
     public void saveNewSong(ActionEvent actionEvent) {
+        if (txfTitle.getText().isEmpty() || txfArtist.getText().isEmpty()
+                || txfAlbum.getText().isEmpty() || txfFile.getText().isEmpty()) {
+            return;
+        }
+        String title = txfTitle.getText();
+        String artist = txfArtist.getText();
+        String album = txfAlbum.getText();
+        String file = txfFile.getText();
+        try {
+            songModel.createNewSong(new Song(title,artist,album,file));
+        } catch (Exception e) {
+            System.out.println("Error");
+        }
     }
 }

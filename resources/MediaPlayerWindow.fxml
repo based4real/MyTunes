@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GUI.Controller.MediaPlayerViewController">
    <children>
       <VBox layoutY="100.0" prefHeight="350.0" prefWidth="1000.0">
          <children>
@@ -33,11 +33,11 @@
                      </columnResizePolicy>
                   </TableView>
                   <Button mnemonicParsing="false" text="Button" />
-                  <TableView prefHeight="325.0" prefWidth="475.0">
+                  <TableView fx:id="tblSongs" prefHeight="325.0" prefWidth="475.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="Title" />
-                      <TableColumn prefWidth="75.0" text="Artist" />
-                        <TableColumn prefWidth="75.0" text="Album" />
+                      <TableColumn fx:id="colTitle" prefWidth="75.0" text="Title" />
+                      <TableColumn fx:id="colArtist" prefWidth="75.0" text="Artist" />
+                        <TableColumn fx:id="colAlbum" prefWidth="75.0" text="Album" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -59,7 +59,7 @@
       </HBox>
       <HBox alignment="CENTER_LEFT" layoutX="505.0" layoutY="430.0" maxWidth="200.0" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
          <children>
-            <Button mnemonicParsing="false" text="New..." />
+            <Button fx:id="btnNewSongWindow" mnemonicParsing="false" onAction="#openNewSongWindow" text="New..." />
             <Button mnemonicParsing="false" text="Delete" />
             <Button mnemonicParsing="false" text="Edit..." />
          </children>

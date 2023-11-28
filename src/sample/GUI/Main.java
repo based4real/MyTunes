@@ -15,6 +15,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/MediaPlayerWindow.fxml"));
         Parent root = loader.load();
+        primaryStage.setTitle("MediaPlayer");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }

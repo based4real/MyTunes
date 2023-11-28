@@ -53,7 +53,7 @@ public class SongDAO {
             stmt.setString(1,song.getTitle());
             stmt.setString(2, song.getArtist());
             stmt.setString(3, song.getAlbum());
-            stmt.setString(4, song.getAlbum());
+            stmt.setString(4, song.getFilePath());
 
             // Run the specified SQL statement
             stmt.executeUpdate();
