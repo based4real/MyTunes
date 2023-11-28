@@ -20,7 +20,7 @@ public class SongDAO {
         try (Connection conn = databaseConnector.getConnection();
             Statement stmt = conn.createStatement())
         {
-            String sql = "SELECT * FROM dbo.Songs;";
+            String sql = "SELECT * FROM Songs;";
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -29,7 +29,6 @@ public class SongDAO {
                 String artist = rs.getString("Artist");
                 String album = rs.getString("Album");
                 String filePath = rs.getString("Filepath");
-
 
                 Song song = new Song(id, title, artist ,album, filePath);
                 allSongs.add(song);

@@ -30,8 +30,13 @@ public class Song {
         this.mediaPlayer = new MediaPlayer(new Media(new File(filePath).toURI().toString()));
     }
 
-    public double getDuration(){
-        return mediaPlayer.getTotalDuration().toMinutes();
+    public String getDuration(){
+        double seconds = mediaPlayer.getTotalDuration().toSeconds();
+
+        double secs = seconds % 60;
+        double minutes = (seconds / 60) % 60;
+
+        return String.format("%d:%02d", (int)minutes, (int)secs);
     }
 
     public int getId() {
@@ -72,6 +77,10 @@ public class Song {
 
     public MediaPlayer getMediaPlayer(){
         return this.mediaPlayer;
+    }
+
+    public boolean isSongReady() {
+        return mediaPlayer.getStatus().equals(MediaPlayer.Status.READY);
     }
 
     @Override
