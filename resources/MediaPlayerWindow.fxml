@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -78,6 +79,8 @@
       <Label fx:id="lblSongDuration" layoutX="575.0" layoutY="42.0" />
       <Label fx:id="lblSongCurrentTime" layoutX="242.0" layoutY="42.0" />
       <Slider fx:id="sliderVolume" layoutX="697.0" layoutY="43.0" />
-      <Label fx:id="lblVolume" layoutX="837.0" layoutY="42.0" text="Label" />
+      <Label fx:id="lblVolume" layoutX="837.0" layoutY="42.0" />
+      <TextField fx:id="txtSongFilter" layoutX="810.0" layoutY="530.0" promptText="Enter title or artist" />
+      <Label layoutX="780.0" layoutY="535.0" text="Filter:" />
    </children>
 </AnchorPane>

@@ -24,6 +24,8 @@ import java.util.ResourceBundle;
 public class MediaPlayerViewController implements Initializable {
 
     @FXML
+    private TextField txtSongFilter;
+    @FXML
     private Slider sliderPlayTime, sliderVolume;
 
     @FXML
@@ -60,6 +62,7 @@ public class MediaPlayerViewController implements Initializable {
         setupSongsData();
         initalizeVolumeControl();
         checkTableClick();
+        filterSongs();
     }
 
 
@@ -202,5 +205,15 @@ public class MediaPlayerViewController implements Initializable {
 
     public void btnNextSong(ActionEvent actionEvent) {
         playNextOrLast(tblSongs.getSelectionModel().getSelectedIndex(), true);
+    }
+
+    private void filterSongs(){
+        txtSongFilter.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            try {
+                songModel.filterSong(newValue);
+            } catch (Exception e) {
+                System.out.println("Error");
+            }
+        });
     }
 }

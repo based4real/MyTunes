@@ -5,6 +5,8 @@ import javafx.collections.ObservableList;
 import sample.BE.Song;
 import sample.BLL.SongManager;
 
+import java.util.List;
+
 public class SongModel {
     private ObservableList<Song> songsToBeViewed;
 
@@ -32,5 +34,11 @@ public class SongModel {
     public void deleteSong(Song selectedSong) throws Exception {
         songManager.deleteSong(selectedSong);
         songsToBeViewed.remove(selectedSong);
+    }
+
+    public void filterSong(String query) throws Exception {
+        List<Song> searchResults = songManager.filterSongs(query);
+        songsToBeViewed.clear();
+        songsToBeViewed.addAll(searchResults);
     }
 }
