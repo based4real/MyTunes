@@ -32,4 +32,8 @@ public class MediaPlayerModel {
     public boolean isPlaying() {
         return mediaPlayerHandler.isPlaying();
     }
+
+    public void restartSong() {
+        mediaPlayerHandler.restartSong();
+    }
 }

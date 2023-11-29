@@ -105,9 +105,8 @@ public class MediaPlayerViewController implements Initializable {
     private void checkTableClick() {
         // Tjek for doubbelt klik i table songs
         tblSongs.setOnMouseClicked((MouseEvent event) -> {
-            if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2){
+            if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2)
                 playSelectedSong(tblSongs.getSelectionModel().getSelectedItem());
-            }
         });
     }
 
@@ -151,9 +150,8 @@ public class MediaPlayerViewController implements Initializable {
 
             // wasClicked er VIGTIG, ellers kommer der "buggy" lyd
             wasClicked = Math.abs(oldTime.doubleValue() - newTime.doubleValue()) / 100 > 10;
-            if (!sliderPlayTime.isValueChanging() && !wasDragged && wasClicked) {
+            if (!sliderPlayTime.isValueChanging() && !wasDragged && wasClicked)
                 mediaPlayer.seek(new Duration(sliderPlayTime.getValue()));
-            }
         });
 
 
@@ -184,11 +182,18 @@ public class MediaPlayerViewController implements Initializable {
         int selectedIdx = tblSongs.getSelectionModel().getSelectedIndex();
         int songPos = next ? selectedIdx + 1 : selectedIdx - 1;
 
-        if (selectedIdx == -1 || tblSongs.getItems().size() <= songPos)
+        MediaPlayer selectedMediaPlayer = tblSongs.getSelectionModel().getSelectedItem().getMediaPlayer();
+        if (selectedMediaPlayer.getCurrentTime().toSeconds() > 3) {
+            mediaPlayerModel.restartSong();
+            return;
+        }
+
+        if (selectedIdx == -1 || songPos < 0 || tblSongs.getItems().size() <= songPos)
             return;
 
         playSelectedSong(tblSongs.getItems().get(songPos));
         tblSongs.getSelectionModel().select(songPos);
+
     }
 
     public void btnLastSong(ActionEvent actionEvent) {

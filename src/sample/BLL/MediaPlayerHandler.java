@@ -1,6 +1,7 @@
 package sample.BLL;
 
 import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 import sample.BE.Song;
 
 import java.io.IOException;
@@ -10,7 +11,6 @@ public class MediaPlayerHandler {
 
     private MediaPlayer lastSong, currentSong;
     private SongManager songManager;
-    private boolean isPlaying = false;
 
     public MediaPlayerHandler() throws IOException {
         this.songManager = new SongManager();
@@ -33,13 +33,12 @@ public class MediaPlayerHandler {
 
     private boolean shouldPause(MediaPlayer song) {
         if (song == currentSong) {
-            if (isPlaying)
+            MediaPlayer.Status status = song.getStatus();
+            if (status == MediaPlayer.Status.PLAYING)
                 song.pause();
-            else
+            else if (status == MediaPlayer.Status.PAUSED)
                 song.play();
 
-
-            isPlaying = !isPlaying;
             return true;
         }
         return false;
@@ -53,11 +52,15 @@ public class MediaPlayerHandler {
         currentSong.play();
 
         lastSong = song;
-        isPlaying = true;
     }
 
     public boolean isPlaying() {
-        return isPlaying;
+        return (currentSong.getStatus() == MediaPlayer.Status.PLAYING);
+    }
+
+    public void restartSong() {
+        if (isPlaying())
+            currentSong.seek(new Duration(0));
     }
 
     public MediaPlayer getCurrentSong() {
