@@ -5,8 +5,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.media.Media;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import sample.BE.Song;
 import sample.GUI.Model.SongModel;
 
@@ -58,6 +58,8 @@ public class NewSongViewController {
     }
 
     public void cancelNewSong(ActionEvent actionEvent) {
+        Stage stage = (Stage) btnCancel.getScene().getWindow();
+        stage.close();
     }
 
     public void saveNewSong(ActionEvent actionEvent) {
