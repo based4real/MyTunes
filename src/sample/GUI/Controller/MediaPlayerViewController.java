@@ -216,4 +216,15 @@ public class MediaPlayerViewController implements Initializable {
             }
         });
     }
+
+    public void deleteSong(ActionEvent actionEvent) {
+        Song selectedSong = tblSongs.getSelectionModel().getSelectedItem();
+        if (selectedSong != null){
+            try {
+                songModel.deleteSong(selectedSong);
+            } catch (Exception e) {
+                System.out.println("Error");
+            }
+        }
+    }
 }

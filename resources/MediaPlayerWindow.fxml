@@ -64,7 +64,7 @@
       <HBox alignment="CENTER_LEFT" layoutX="505.0" layoutY="430.0" maxWidth="200.0" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
          <children>
             <Button fx:id="btnNewSongWindow" mnemonicParsing="false" onAction="#openNewSongWindow" text="New..." />
-            <Button mnemonicParsing="false" text="Delete" />
+            <Button fx:id="btnDeleteSong" mnemonicParsing="false" onAction="#deleteSong" text="Delete" />
             <Button mnemonicParsing="false" text="Edit..." />
          </children>
       </HBox>
