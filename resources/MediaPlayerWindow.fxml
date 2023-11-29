@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -68,10 +69,15 @@
       </HBox>
       <HBox alignment="CENTER" layoutX="20.0" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
          <children>
-            <Button mnemonicParsing="false" text="&lt;&lt;" />
+            <Button mnemonicParsing="false" onAction="#btnLastSong" text="&lt;&lt;" />
             <Button fx:id="btnPlay" mnemonicParsing="false" onAction="#playSong" text="▶" />
-            <Button mnemonicParsing="false" text="&gt;&gt;" />
+            <Button mnemonicParsing="false" onAction="#btnNextSong" text="&gt;&gt;" />
          </children>
       </HBox>
+      <Slider fx:id="sliderPlayTime" layoutX="278.0" layoutY="43.0" prefHeight="16.0" prefWidth="292.0" />
+      <Label fx:id="lblSongDuration" layoutX="575.0" layoutY="42.0" />
+      <Label fx:id="lblSongCurrentTime" layoutX="242.0" layoutY="42.0" />
+      <Slider fx:id="sliderVolume" layoutX="697.0" layoutY="43.0" />
+      <Label fx:id="lblVolume" layoutX="837.0" layoutY="42.0" text="Label" />
    </children>
 </AnchorPane>

@@ -4,18 +4,25 @@ import sample.BE.Song;
 import sample.DAL.SongDAO;
 
 import java.io.IOException;
+import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SongManager {
 
     private SongDAO songDAO;
+    private List<Song> allSongs = new ArrayList<>();
+
 
     public SongManager() throws IOException {
         songDAO = new SongDAO();
     }
 
     public List<Song> getAllSongs() throws Exception {
-        return songDAO.getAllSongs();
+        if (allSongs.isEmpty())
+            allSongs = songDAO.getAllSongs();
+
+        return allSongs;
     }
 
     public Song createNewSong(Song newSong) throws Exception {

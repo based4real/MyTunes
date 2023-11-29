@@ -2,7 +2,6 @@ package sample.BE;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.util.Duration;
 
 import java.io.File;
 
@@ -32,6 +31,15 @@ public class Song {
 
     public String getDuration(){
         double seconds = mediaPlayer.getTotalDuration().toSeconds();
+
+        double secs = seconds % 60;
+        double minutes = (seconds / 60) % 60;
+
+        return String.format("%d:%02d", (int)minutes, (int)secs);
+    }
+
+    public String getCurrentDuration() {
+        double seconds = mediaPlayer.getCurrentTime().toSeconds();
 
         double secs = seconds % 60;
         double minutes = (seconds / 60) % 60;
