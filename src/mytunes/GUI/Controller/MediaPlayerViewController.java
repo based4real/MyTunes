@@ -1,5 +1,6 @@
 package mytunes.GUI.Controller;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,12 +21,15 @@ import mytunes.GUI.Model.MediaPlayerModel;
 import mytunes.GUI.Model.PlaylistModel;
 import mytunes.GUI.Model.SongModel;
 
+import javax.swing.*;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.ResourceBundle;
 
 public class MediaPlayerViewController implements Initializable {
 
-    public TableView tblPlaylistSongs;
+    public TableView<Song> tblPlaylistSongs;
     public TableColumn colPlistSongID;
     public TableColumn colPlistSongTitle;
 
@@ -79,11 +83,65 @@ public class MediaPlayerViewController implements Initializable {
         setupSongsData();
 
         setupPlaylistTableView();
+        setupPlistSongsTableView();
 
         initalizeVolumeControl();
         checkTableClick();
         filterSongs();
+        createContextMenu();
     }
+
+    private void createContextMenu() {
+        tblSongs.setRowFactory(tableView -> {
+            final TableRow row = new TableRow();
+            final ContextMenu contextMenu = new ContextMenu();
+            final MenuItem removeMenuItem = new MenuItem("Remove");
+
+            final Menu addToPlaylistSubMenu = new Menu("Add to playlist");
+
+            try {
+                for (Playlist p : playlistModel.getPlaylists()) {
+                    MenuItem playlistMenuItem = new MenuItem(p.getName());
+
+                    addToPlaylistSubMenu.getItems().add(playlistMenuItem);
+
+                    playlistMenuItem.setOnAction(event -> {
+                        try {
+                            Song song = (Song) row.getItem();
+                            playlistModel.addSongToPlaylist(p, song);
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                        tblPlaylistSongs.refresh();
+                    });
+
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+            removeMenuItem.setOnAction(event -> {
+                System.out.println(row.getItem()); // HERE
+
+                this.tblSongs.getItems().remove(row.getItem());
+            });
+
+            contextMenu.getItems().add(removeMenuItem);
+            contextMenu.getItems().add(addToPlaylistSubMenu);
+
+
+            // Set context menu on row, but use a binding to make it only show for non-empty rows:
+            row.contextMenuProperty().bind(
+                    Bindings.when(row.emptyProperty())
+                            .then((ContextMenu) null)
+                            .otherwise(contextMenu)
+            );
+
+            return row;
+        });
+
+    }
+
 
     public void openNewSongWindow(ActionEvent actionEvent) {
         try {
@@ -113,6 +171,28 @@ public class MediaPlayerViewController implements Initializable {
         colPlaylistID.setCellValueFactory(new PropertyValueFactory<>("id"));
         colPlaylistNavn.setCellValueFactory(new PropertyValueFactory<>("name"));
         tblPlaylists.setItems(playlists);
+    }
+
+    private void setupPlistSongsTableView() {
+        tblPlaylists.setRowFactory( tv -> {
+            TableRow<Playlist> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+
+                ObservableList<Song> playlistSongs = null;
+                try {
+                    Playlist plist = (Playlist) row.getItem();
+                    playlistSongs = playlistModel.getObservableSongs((Playlist) row.getItem());
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+                colPlistSongID.setCellValueFactory(new PropertyValueFactory<>("id"));
+                colPlistSongTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+
+                tblPlaylistSongs.setItems(playlistSongs);
+
+            });
+            return row;
+        });
     }
 
     private void setupSongsData(){
@@ -209,6 +289,9 @@ public class MediaPlayerViewController implements Initializable {
 
     private void playNextOrLast(int idx, boolean next) {
         int selectedIdx = tblSongs.getSelectionModel().getSelectedIndex();
+        if (selectedIdx == -1)
+            return;
+
         int songPos = next ? selectedIdx + 1 : selectedIdx - 1;
 
         MediaPlayer selectedMediaPlayer = tblSongs.getSelectionModel().getSelectedItem().getMediaPlayer();
