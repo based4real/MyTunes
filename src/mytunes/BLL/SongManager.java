@@ -14,7 +14,6 @@ public class SongManager {
     private SongDAO songDAO;
     private List<Song> allSongs = new ArrayList<>();
 
-
     public SongManager() throws IOException {
         songDAO = new SongDAO();
     }

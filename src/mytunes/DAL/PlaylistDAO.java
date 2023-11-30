@@ -1,11 +1,14 @@
 package mytunes.DAL;
 
+import javafx.application.Application;
 import mytunes.BE.Playlist;
 import mytunes.BE.Song;
 import mytunes.DAL.DB.DatabaseConnector;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlaylistDAO {
 
@@ -13,6 +16,55 @@ public class PlaylistDAO {
 
     public PlaylistDAO() throws IOException {
         databaseConnector = new DatabaseConnector();
+    }
+
+    public List<Playlist> getallPlaylists() throws Exception {
+        ArrayList<Playlist> allPlaylists = new ArrayList<>();
+
+        try (Connection conn = databaseConnector.getConnection();
+             Statement stmt = conn.createStatement())
+        {
+            String sql = "SELECT * FROM Playlists;";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                int order_id = rs.getInt("order_id");
+
+                Playlist playlist = new Playlist(id, name, order_id);
+                allPlaylists.add(playlist);
+            }
+            return allPlaylists;
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+            throw new Exception("Could not get playlists from database", ex);
+        }
+    }
+
+    public int getNextOrderID() throws Exception {
+        try (Connection conn = databaseConnector.getConnection();
+             Statement stmt = conn.createStatement())
+        {
+            String sql = "SELECT order_id FROM Playlists;";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            int newID = 0;
+            while (rs.next()) {
+                int id = rs.getInt("order_id");
+
+                if (id > newID)
+                    newID = id;
+            }
+            return newID + 1;
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+            throw new Exception("Could not get playlists from database", ex);
+        }
     }
 
     public Playlist createPlaylist(Playlist playlist) throws Exception {
@@ -47,6 +99,9 @@ public class PlaylistDAO {
             ex.printStackTrace();
             throw new Exception("Could not create playlist", ex);
         }
+    }
 
+    public static void main(String[] args) throws Exception {
+        PlaylistDAO playlistDAO = new PlaylistDAO();
     }
 }

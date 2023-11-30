@@ -56,7 +56,7 @@
       </VBox>
       <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="430.0" maxWidth="222.0" prefHeight="100.0" prefWidth="222.0" spacing="20.0">
          <children>
-            <Button mnemonicParsing="false" text="New..." />
+            <Button mnemonicParsing="false" onAction="#openNewPlaylistWindow" text="New..." />
             <Button mnemonicParsing="false" text="Edit..." />
             <Button mnemonicParsing="false" text="Delete" />
          </children>

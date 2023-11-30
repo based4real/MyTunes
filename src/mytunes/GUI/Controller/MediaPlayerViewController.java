@@ -227,4 +227,22 @@ public class MediaPlayerViewController implements Initializable {
             }
         }
     }
+
+    public void openNewPlaylistWindow(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/NewPlaylistWindow.fxml"));
+            Parent root = loader.load();
+
+            NewPlaylistWindowController newPlaylistWindowController = loader.getController();
+            newPlaylistWindowController.setParentController(this);
+
+            Stage stage = new Stage();
+            stage.setTitle("New Playlist");
+            stage.setScene(new Scene(root));
+            stage.show();
+        }
+        catch (Exception e){
+            System.out.println("Cant load NewPlaylistWindow");
+        }
+    }
 }
