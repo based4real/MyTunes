@@ -186,7 +186,7 @@ public class MediaPlayerViewController implements Initializable {
         int songPos = next ? selectedIdx + 1 : selectedIdx - 1;
 
         MediaPlayer selectedMediaPlayer = tblSongs.getSelectionModel().getSelectedItem().getMediaPlayer();
-        if (selectedMediaPlayer.getCurrentTime().toSeconds() > 3) {
+        if (selectedMediaPlayer.getCurrentTime().toSeconds() > 3 && !next) {
             mediaPlayerModel.restartSong();
             return;
         }
