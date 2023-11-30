@@ -14,14 +14,29 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import mytunes.BE.Playlist;
 import mytunes.BE.Song;
 import mytunes.GUI.Model.MediaPlayerModel;
+import mytunes.GUI.Model.PlaylistModel;
 import mytunes.GUI.Model.SongModel;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MediaPlayerViewController implements Initializable {
+
+    public TableView tblPlaylistSongs;
+    public TableColumn colPlistSongID;
+    public TableColumn colPlistSongTitle;
+
+    @FXML
+    private TableColumn<Playlist, String> colPlaylistNavn;
+
+    @FXML
+    private TableColumn<Playlist, Integer> colPlaylistID;
+
+    @FXML
+    private TableView<Playlist> tblPlaylists;
 
     @FXML
     private TextField txtSongFilter;
@@ -44,6 +59,7 @@ public class MediaPlayerViewController implements Initializable {
     private Button btnNewSongWindow;
     private SongModel songModel;
     private MediaPlayerModel mediaPlayerModel;
+    private PlaylistModel playlistModel;
 
     private boolean wasDragged = false;
     private boolean wasClicked = false;
@@ -52,6 +68,7 @@ public class MediaPlayerViewController implements Initializable {
         try {
             songModel = new SongModel();
             mediaPlayerModel = new MediaPlayerModel();
+            playlistModel = new PlaylistModel();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -60,11 +77,13 @@ public class MediaPlayerViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         setupSongTableView();
         setupSongsData();
+
+        setupPlaylistTableView();
+
         initalizeVolumeControl();
         checkTableClick();
         filterSongs();
     }
-
 
     public void openNewSongWindow(ActionEvent actionEvent) {
         try {
@@ -80,13 +99,20 @@ public class MediaPlayerViewController implements Initializable {
         }
     }
 
-    private void setupSongTableView(){
+    private void setupSongTableView() {
         ObservableList<Song> songs = songModel.getObservableSongs();
         colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         colArtist.setCellValueFactory(new PropertyValueFactory<>("artist"));
         colAlbum.setCellValueFactory(new PropertyValueFactory<>("album"));
         colDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
         tblSongs.setItems(songs);
+    }
+
+    private void setupPlaylistTableView() {
+        ObservableList<Playlist> playlists = playlistModel.getObservablePlaylists();
+        colPlaylistID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colPlaylistNavn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        tblPlaylists.setItems(playlists);
     }
 
     private void setupSongsData(){

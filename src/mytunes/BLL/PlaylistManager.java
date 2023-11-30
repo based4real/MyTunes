@@ -24,7 +24,7 @@ public class PlaylistManager {
     }
 
     public List<Playlist> getAllPlaylists() throws Exception {
-        if (allPlaylists == null)
+        if (allPlaylists.isEmpty())
             allPlaylists = playlistDAO.getallPlaylists();
 
         return allPlaylists;

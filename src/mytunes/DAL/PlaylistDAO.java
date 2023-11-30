@@ -27,10 +27,14 @@ public class PlaylistDAO {
             String sql = "SELECT * FROM Playlists;";
             ResultSet rs = stmt.executeQuery(sql);
 
+            System.out.println("XD");
+
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 int order_id = rs.getInt("order_id");
+
+                System.out.println(name);
 
                 Playlist playlist = new Playlist(id, name, order_id);
                 allPlaylists.add(playlist);
