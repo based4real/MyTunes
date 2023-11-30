@@ -121,6 +121,7 @@ public class PlaylistDAO {
                     ResultSet rs2 = stmt2.executeQuery();
 
                     while (rs2.next()) {
+
                         int songId = rs2.getInt("Id");
                         String title = rs2.getString("Title");
                         String artist = rs2.getString("Artist");
@@ -133,16 +134,14 @@ public class PlaylistDAO {
                     ex.printStackTrace();
                     throw new Exception("Could not get playlists from database", ex);
                 }
-                return allSongsInPlaylist;
-
             }
+            return allSongsInPlaylist;
         }
         catch (SQLException ex)
         {
             ex.printStackTrace();
             throw new Exception("Could not get playlists from database", ex);
         }
-        return null;
     }
 
     public void addSongToPlaylist(Playlist playlist, Song song) throws Exception {
