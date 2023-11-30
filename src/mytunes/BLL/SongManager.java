@@ -1,8 +1,8 @@
-package sample.BLL;
+package mytunes.BLL;
 
-import sample.BE.Song;
-import sample.BLL.util.SongFilter;
-import sample.DAL.SongDAO;
+import mytunes.BE.Song;
+import mytunes.BLL.util.SongFilter;
+import mytunes.DAL.SongDAO;
 
 import java.io.IOException;
 import java.util.ArrayList;

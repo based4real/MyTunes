@@ -1,4 +1,4 @@
-package sample.BE;
+package mytunes.BE;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;

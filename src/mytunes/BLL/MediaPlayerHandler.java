@@ -1,8 +1,8 @@
-package sample.BLL;
+package mytunes.BLL;
 
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
-import sample.BE.Song;
+import mytunes.BE.Song;
 
 import java.io.IOException;
 import java.util.List;

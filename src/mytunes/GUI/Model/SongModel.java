@@ -1,9 +1,9 @@
-package sample.GUI.Model;
+package mytunes.GUI.Model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import sample.BE.Song;
-import sample.BLL.SongManager;
+import mytunes.BE.Song;
+import mytunes.BLL.SongManager;
 
 import java.util.List;
 

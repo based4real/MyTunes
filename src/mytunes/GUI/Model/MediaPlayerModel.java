@@ -1,7 +1,7 @@
-package sample.GUI.Model;
+package mytunes.GUI.Model;
 
 import javafx.scene.media.MediaPlayer;
-import sample.BLL.MediaPlayerHandler;
+import mytunes.BLL.MediaPlayerHandler;
 
 import java.io.IOException;
 

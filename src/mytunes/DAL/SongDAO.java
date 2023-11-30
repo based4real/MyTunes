@@ -1,6 +1,7 @@
-package sample.DAL;
+package mytunes.DAL;
 
-import sample.BE.Song;
+import mytunes.BE.Song;
+import mytunes.DAL.DB.DatabaseConnector;
 
 import java.io.IOException;
 import java.sql.*;

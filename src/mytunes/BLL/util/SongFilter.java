@@ -1,6 +1,6 @@
-package sample.BLL.util;
+package mytunes.BLL.util;
 
-import sample.BE.Song;
+import mytunes.BE.Song;
 
 import java.util.ArrayList;
 import java.util.List;

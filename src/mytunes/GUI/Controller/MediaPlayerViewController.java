@@ -1,4 +1,4 @@
-package sample.GUI.Controller;
+package mytunes.GUI.Controller;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,9 +14,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import sample.BE.Song;
-import sample.GUI.Model.MediaPlayerModel;
-import sample.GUI.Model.SongModel;
+import mytunes.BE.Song;
+import mytunes.GUI.Model.MediaPlayerModel;
+import mytunes.GUI.Model.SongModel;
 
 import java.net.URL;
 import java.util.ResourceBundle;

@@ -1,4 +1,4 @@
-package sample.GUI.Controller;
+package mytunes.GUI.Controller;
 
 import java.io.File;
 import javafx.event.ActionEvent;
@@ -7,8 +7,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import sample.BE.Song;
-import sample.GUI.Model.SongModel;
+import mytunes.BE.Song;
+import mytunes.GUI.Model.SongModel;
 
 ;
 

@@ -1,4 +1,4 @@
-package sample.DAL;
+package mytunes.DAL.DB;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
