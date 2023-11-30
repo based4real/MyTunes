@@ -16,12 +16,7 @@ public class MediaPlayerHandler {
         this.songManager = new SongManager();
     }
 
-    private List<Song> getAllSongs() throws Exception {
-        return songManager.getAllSongs();
-    }
-
     private void stopPlayingSong(MediaPlayer song) {
-
         if (song.getStatus() == MediaPlayer.Status.PLAYING)
             song.stop();
 

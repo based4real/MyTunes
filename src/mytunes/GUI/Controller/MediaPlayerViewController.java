@@ -104,45 +104,44 @@ public class MediaPlayerViewController implements Initializable {
         return result;
     }
 
+    private void contextAddToPlaylist(TableRow row, Menu playlistSubMenu) {
+        try {
+            for (Playlist p : playlistModel.getPlaylists()) {
+                MenuItem playlistMenuItem = new MenuItem(p.getName());
+                playlistSubMenu.getItems().add(playlistMenuItem);
+
+                playlistMenuItem.setOnAction(event -> {
+                    try {
+                        Song song = (Song) row.getItem();
+
+                        if (playlistModel.isSongInPlaylist(song, p)) {
+                            Optional<ButtonType> result = alertPlaylist();
+                            if (!result.get().equals(ButtonType.OK))
+                                return;
+                        }
+
+                        if (playlistModel.addSongToPlaylist(p, song) && tblPlaylists.getSelectionModel().getSelectedItem() == p)
+                            updatePlaylistSongs(p);
+
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private void createContextMenu() {
         tblSongs.setRowFactory(tableView -> {
             final TableRow row = new TableRow();
             final ContextMenu contextMenu = new ContextMenu();
             final MenuItem removeMenuItem = new MenuItem("Remove");
 
-            final Menu addToPlaylistSubMenu = new Menu("Add to playlist");
+            final Menu playlistSubMenu = new Menu("Add to playlist");
 
-            try {
-                for (Playlist p : playlistModel.getPlaylists()) {
-                    MenuItem playlistMenuItem = new MenuItem(p.getName());
-                    addToPlaylistSubMenu.getItems().add(playlistMenuItem);
-
-                    playlistMenuItem.setOnAction(event -> {
-                        try {
-                            Song song = (Song) row.getItem();
-
-                            if (playlistModel.isSongInPlaylist(song, p)) {
-                                Optional<ButtonType> result = alertPlaylist();
-                                if (result.get().equals(ButtonType.OK)) {
-                                    if (playlistModel.addSongToPlaylist(p, song))
-                                        if (tblPlaylists.getSelectionModel().getSelectedItem() == p)
-                                            updatePlaylistSongs(p);
-                                }
-                            } else {
-                                if (playlistModel.addSongToPlaylist(p, song))
-                                    if (tblPlaylists.getSelectionModel().getSelectedItem() == p)
-                                        updatePlaylistSongs(p);
-                            }
-
-                        } catch (Exception e) {
-                            throw new RuntimeException(e);
-                        }
-                    });
-
-                }
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+            contextAddToPlaylist(row, playlistSubMenu);
 
             removeMenuItem.setOnAction(event -> {
                 System.out.println(row.getItem()); // HERE
@@ -151,7 +150,7 @@ public class MediaPlayerViewController implements Initializable {
             });
 
             contextMenu.getItems().add(removeMenuItem);
-            contextMenu.getItems().add(addToPlaylistSubMenu);
+            contextMenu.getItems().add(playlistSubMenu);
 
 
             // Set context menu on row, but use a binding to make it only show for non-empty rows:

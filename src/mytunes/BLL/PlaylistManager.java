@@ -48,7 +48,6 @@ public class PlaylistManager {
         //Contains er lidt dum metode da objekter ændrer adresser.
         //Da id i DB er primær nøgle, burde dette ikke være et problem.
         for (Song song : getPlaylistSongs(playlist)) {
-            System.out.println(song.getId() + " " + s.getId());
             if (song.getId() == s.getId())
                 return true;
         }
