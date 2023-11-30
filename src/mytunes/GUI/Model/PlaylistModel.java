@@ -24,7 +24,7 @@ public class PlaylistModel {
     public ObservableList<Song> getObservableSongs(Playlist playlist) throws Exception {
         SongsToBeViewed = FXCollections.observableArrayList();
 
-        if (getSongs(playlist) == null)
+        if (playlist == null || getSongs(playlist) == null)
             return SongsToBeViewed;
 
         SongsToBeViewed.addAll(getSongs(playlist));
@@ -44,11 +44,15 @@ public class PlaylistModel {
         return playlistManager.getPlaylistSongs(playlist);
     }
 
-    public void addSongToPlaylist(Playlist playlist, Song song) throws Exception {
-        playlistManager.addSongToPlaylist(playlist, song);
+    public boolean addSongToPlaylist(Playlist playlist, Song song) throws Exception {
+        return playlistManager.addSongToPlaylist(playlist, song);
     }
 
     public void createPlaylist(String name) throws Exception {
         playlistManager.createPlaylist(new Playlist(name));
+    }
+
+    public boolean isSongInPlaylist(Song s, Playlist playlist) throws Exception {
+        return playlistManager.isSongInPlaylist(s, playlist);
     }
 }

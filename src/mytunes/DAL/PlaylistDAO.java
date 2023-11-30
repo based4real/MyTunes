@@ -121,14 +121,14 @@ public class PlaylistDAO {
                     ResultSet rs2 = stmt2.executeQuery();
 
                     while (rs2.next()) {
-
                         int songId = rs2.getInt("Id");
                         String title = rs2.getString("Title");
                         String artist = rs2.getString("Artist");
                         String album = rs2.getString("Album");
                         String filePath = rs2.getString("Filepath");
 
-                        allSongsInPlaylist.add(new Song(songId, title, artist ,album, filePath));
+                        Song song = new Song(songId, title, artist ,album, filePath);
+                        allSongsInPlaylist.add(song);
                     }
                 } catch (SQLException ex) {
                     ex.printStackTrace();
@@ -144,7 +144,7 @@ public class PlaylistDAO {
         }
     }
 
-    public void addSongToPlaylist(Playlist playlist, Song song) throws Exception {
+    public boolean addSongToPlaylist(Playlist playlist, Song song) throws Exception {
         String sql = "INSERT INTO dbo.playlists_songs (playlist_id,song_id) VALUES (?,?);";
 
         //
@@ -165,6 +165,8 @@ public class PlaylistDAO {
             if (rs.next()) {
                 id = rs.getInt(1);
             }
+
+            return true;
         }
         catch (SQLException ex)
         {

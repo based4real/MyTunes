@@ -3,6 +3,8 @@ package mytunes.BE;
 import mytunes.BLL.PlaylistManager;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Playlist {
 
@@ -10,6 +12,7 @@ public class Playlist {
     private String name;
 
     private PlaylistManager playlistManager;
+    private List<Song> playlistSongs = new ArrayList<>();
 
     public Playlist(int id, String name, int orderID) {
         this.id = id;
@@ -44,4 +47,17 @@ public class Playlist {
     public int getOrderID() {
         return orderID;
     }
+
+    public void addToPlaylist(Song s)  {
+        playlistSongs.add(s);
+    }
+
+    public void setPlaylistSongList(List<Song> list)  {
+        playlistSongs.addAll(list);
+    }
+
+    public List<Song> getPlaylistSongs() {
+        return playlistSongs;
+    }
+
 }

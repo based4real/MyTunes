@@ -23,11 +23,18 @@ public class PlaylistManager {
     }
 
     public List<Song> getPlaylistSongs(Playlist playlist) throws Exception {
-        return playlistDAO.getSongs(playlist);
+        if (playlist.getPlaylistSongs().isEmpty())
+            playlist.setPlaylistSongList(playlistDAO.getSongs(playlist));
+
+        return playlist.getPlaylistSongs();
     }
 
-    public void addSongToPlaylist(Playlist playlist, Song song) throws Exception {
-        playlistDAO.addSongToPlaylist(playlist, song);
+    public boolean addSongToPlaylist(Playlist playlist, Song song) throws Exception {
+        if (playlistDAO.addSongToPlaylist(playlist, song)) {
+            playlist.addToPlaylist(song);
+            return true;
+        }
+        return false;
     }
 
     public List<Playlist> getAllPlaylists() throws Exception {
@@ -35,6 +42,17 @@ public class PlaylistManager {
             allPlaylists = playlistDAO.getallPlaylists();
 
         return allPlaylists;
+    }
+
+    public boolean isSongInPlaylist(Song s, Playlist playlist) throws Exception {
+        //Contains er lidt dum metode da objekter ændrer adresser.
+        //Da id i DB er primær nøgle, burde dette ikke være et problem.
+        for (Song song : getPlaylistSongs(playlist)) {
+            System.out.println(song.getId() + " " + s.getId());
+            if (song.getId() == s.getId())
+                return true;
+        }
+        return false;
     }
 
     public int getNextOrderID() throws Exception {

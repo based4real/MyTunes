@@ -25,6 +25,7 @@ import javax.swing.*;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MediaPlayerViewController implements Initializable {
@@ -64,6 +65,7 @@ public class MediaPlayerViewController implements Initializable {
     private SongModel songModel;
     private MediaPlayerModel mediaPlayerModel;
     private PlaylistModel playlistModel;
+    private ObservableList<Song> playlistSongs = null;
 
     private boolean wasDragged = false;
     private boolean wasClicked = false;
@@ -91,6 +93,17 @@ public class MediaPlayerViewController implements Initializable {
         createContextMenu();
     }
 
+    private Optional<ButtonType> alertPlaylist() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Allerede tilføjet");
+        ((Button) alert.getDialogPane().lookupButton(ButtonType.OK)).setText("Tilføj alligevel");
+        ((Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL)).setText("Tilføj ikke");
+
+        alert.setHeaderText("Denne sang ?");
+        Optional<ButtonType> result = alert.showAndWait();
+        return result;
+    }
+
     private void createContextMenu() {
         tblSongs.setRowFactory(tableView -> {
             final TableRow row = new TableRow();
@@ -102,17 +115,28 @@ public class MediaPlayerViewController implements Initializable {
             try {
                 for (Playlist p : playlistModel.getPlaylists()) {
                     MenuItem playlistMenuItem = new MenuItem(p.getName());
-
                     addToPlaylistSubMenu.getItems().add(playlistMenuItem);
 
                     playlistMenuItem.setOnAction(event -> {
                         try {
                             Song song = (Song) row.getItem();
-                            playlistModel.addSongToPlaylist(p, song);
+
+                            if (playlistModel.isSongInPlaylist(song, p)) {
+                                Optional<ButtonType> result = alertPlaylist();
+                                if (result.get().equals(ButtonType.OK)) {
+                                    if (playlistModel.addSongToPlaylist(p, song))
+                                        if (tblPlaylists.getSelectionModel().getSelectedItem() == p)
+                                            updatePlaylistSongs(p);
+                                }
+                            } else {
+                                if (playlistModel.addSongToPlaylist(p, song))
+                                    if (tblPlaylists.getSelectionModel().getSelectedItem() == p)
+                                        updatePlaylistSongs(p);
+                            }
+
                         } catch (Exception e) {
                             throw new RuntimeException(e);
                         }
-                        tblPlaylistSongs.refresh();
                     });
 
                 }
@@ -139,7 +163,6 @@ public class MediaPlayerViewController implements Initializable {
 
             return row;
         });
-
     }
 
 
@@ -174,25 +197,10 @@ public class MediaPlayerViewController implements Initializable {
     }
 
     private void setupPlistSongsTableView() {
-        tblPlaylists.setRowFactory( tv -> {
-            TableRow<Playlist> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
+        colPlistSongID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colPlistSongTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
 
-                ObservableList<Song> playlistSongs = null;
-                try {
-                    Playlist plist = (Playlist) row.getItem();
-                    playlistSongs = playlistModel.getObservableSongs((Playlist) row.getItem());
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-                colPlistSongID.setCellValueFactory(new PropertyValueFactory<>("id"));
-                colPlistSongTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
-
-                tblPlaylistSongs.setItems(playlistSongs);
-
-            });
-            return row;
-        });
+        tablePlaylistSongsClick();
     }
 
     private void setupSongsData(){
@@ -210,6 +218,27 @@ public class MediaPlayerViewController implements Initializable {
             }
         }
     }
+
+    private void tablePlaylistSongsClick() {
+        tblPlaylists.setRowFactory( tv -> {
+            TableRow<Playlist> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                Playlist plist = (Playlist) row.getItem();
+                try {
+                    updatePlaylistSongs(plist);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            return row;
+        });
+    }
+
+    private void updatePlaylistSongs(Playlist playlist) throws Exception {
+        playlistSongs = playlistModel.getObservableSongs(playlist);
+        tblPlaylistSongs.setItems(playlistSongs);
+    }
+
 
     private void checkTableClick() {
         // Tjek for doubbelt klik i table songs
