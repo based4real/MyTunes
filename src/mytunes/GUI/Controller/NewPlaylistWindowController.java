@@ -26,12 +26,8 @@ public class NewPlaylistWindowController {
         this.stage = stage;
     }
 
-    public NewPlaylistWindowController() {
-        try {
-            playlistModel = new PlaylistModel();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public NewPlaylistWindowController() throws Exception {
+        playlistModel = new PlaylistModel();
     }
     public void btnCreatePlaylist(ActionEvent actionEvent) throws Exception {
         playlistModel.createPlaylist(txtPlaylistName.getText());

@@ -9,6 +9,7 @@ import java.util.List;
 public class Playlist {
 
     private int id, orderID;
+
     private String name;
 
     private PlaylistManager playlistManager;

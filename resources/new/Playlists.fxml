@@ -13,9 +13,9 @@
       <HBox prefHeight="49.0" prefWidth="181.0">
          <children>
             <ImageView fx:id="cover" fitHeight="49.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true" />
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <VBox prefHeight="49.0" prefWidth="281.0">
                <children>
-                  <Label fx:id="playlistName" text="Navn" textFill="WHITESMOKE">
+                  <Label fx:id="playlistName" prefHeight="18.0" prefWidth="249.0" text="Navn" textFill="WHITESMOKE">
                      <VBox.margin>
                         <Insets left="10.0" top="5.0" />
                      </VBox.margin>
