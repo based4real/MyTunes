@@ -1,0 +1,153 @@
+.background_color {
+    -fx-background-color: rgb(0,0,0);
+}
+
+.tabs_buttons {
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-text-fill: rgba(179, 179, 179);
+    -fx-stroke: rgba(179, 179, 179);
+}
+
+.tabs_buttons:hover {
+    -fx-text-fill: rgba(225, 225, 225);
+    -fx-stroke: rgba(225, 225, 225);
+    -fx-cursor: hand;
+}
+
+.tabs_background {
+    -fx-background-color: rgb(18,18,18);
+    -fx-background-radius: 10px;
+}
+
+/* Plus og next ikon ved playlister */
+.button_library:pressed {
+    -fx-text-fill: rgb(111, 111, 111);
+    -fx-stroke: rgb(111, 111, 111);
+}
+
+.button-playlist-more {
+    -icon-paint: rgb(179, 179, 179);
+    -fx-background-color: -icon-paint;
+    -size: 16;
+    -fx-min-height: -size;
+    -fx-min-width: -size;
+    -fx-max-height: -size;
+    -fx-max-width: -size;
+
+    -fx-shape: "M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8";
+}
+
+.button-playlist-more:hover {
+    -fx-background-color: rgb(225, 225, 225);
+    -fx-cursor: hand;
+}
+
+/* ---------------------------------------------- */
+
+/* Playlister og album knap */
+.playlists_album {
+    -fx-background-color: rgb(35,35,35);
+    -fx-text-fill: rgba(232, 232, 232);
+    -fx-background-radius: 20px;
+}
+
+.playlists_album:hover {
+    -fx-background-color: rgb(42, 41, 42);
+    -fx-cursor: hand;
+}
+
+.playlists_album:pressed {
+    -fx-background-color: rgb(27, 27, 27);
+    -fx-cursor: hand;
+}
+
+/* ---------------------------------------------- */
+.search_playlist {
+    -fx-background-color: transparent;
+    -fx-prompt-text-fill: transparent;;
+}
+
+.search_playlist:hover {
+    -fx-prompt-text-fill: rgba(179, 179, 179, 255);
+    -fx-background-color: rgba(42, 41, 42, 0.2);
+}
+
+.search_playlist:focused {
+    -fx-text-fill: rgba(179, 179, 179);
+    -fx-background-color: rgb(42, 41, 42);
+    -fx-prompt-text-fill: rgba(179, 179, 179, 255);
+}
+
+.playlist_vbox {
+    -fx-background-color: rgb(18,18,18);
+}
+
+.libraries_vbox {
+    -fx-background-color: rgb(18,18,18);
+    -fx-background-radius: 10 10 0 0;
+}
+
+.scroll-pane_playlists {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane_playlists > .viewport{
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-bar:vertical:disabled {
+    -fx-opacity: 0;
+}
+
+.test {
+    box-shadow: rgba(0,0,0,0.8) 0 0 10px;
+}
+
+.button-plus {
+    -icon-paint: rgb(179, 179, 179);
+    -fx-background-color: -icon-paint;
+    -size: 16;
+    -fx-min-height: -size;
+    -fx-min-width: -size;
+    -fx-max-height: -size;
+    -fx-max-width: -size;
+
+    -fx-shape: "M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4";
+}
+
+.button-plus:hover {
+    -fx-background-color: rgb(225, 225, 225);
+    -fx-cursor: hand;
+}
+
+.button-plus > .arrow-button {
+    -fx-padding: 0;
+}
+
+.button-plus > .arrow-button > .arrow {
+    -fx-padding: 0;
+}
+
+.menu-item:focused .label {
+    -fx-text-fill: white;
+}
+
+.context-menu {
+    -fx-background-color: rgb(40, 40, 40);
+    -fx-padding: 3 3 3 3;
+}
+
+/* Hover i Context menu */
+.menu-item {
+    -fx-background: rgb(62, 62, 62) ;
+}
+
+.menu-item .label{
+    -fx-font-size: 14.0 pt;
+    -fx-font-weight: 500;
+    -fx-text-fill: rgb(225, 225, 225);
+}
+
+.menu-item .label:hover{
+    -fx-background-color: rgb(255, 0, 0);
+}

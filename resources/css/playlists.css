@@ -1,0 +1,114 @@
+.playlist-button {
+    -fx-background-radius: 10px;
+    -fx-background-color: transparent;
+}
+
+.playlist-button:hover {
+    -fx-background-color: rgb(26, 26, 26);
+    -fx-cursor: hand;
+}
+
+.playlist-button:pressed {
+    -fx-background-color: rgb(0, 0, 0);
+}
+
+.playlist-button:focused {
+    -fx-background-color: rgb(35, 35, 35);
+}
+
+.playlist_backnext {
+    -fx-background-radius: 60px;
+    -fx-background-color: rgb(0, 0, 0);
+    -fx-stroke: rgb(225, 225, 225);
+    -fx-text-fill: rgb(225, 225, 225);
+}
+
+.playlist_play {
+    -fx-background-radius: 60px;
+    -fx-background-color: #FDA50F;
+}
+
+.playlist_play:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-scale-z: 1.05;
+    -fx-cursor: hand;
+}
+
+.playlist_misc {
+    -fx-background-color: transparent;
+    -fx-stroke: rgb(150, 150, 150);
+}
+
+.playlist_misc_icon {
+    -fx-stroke: rgb(150, 150, 150);
+}
+
+.playlist_misc_icon:hover {
+    -fx-stroke: rgb(225, 225, 225);
+}
+
+.playlist_misc:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-scale-z: 1.05;
+    -fx-cursor: hand;
+}
+
+.table-view{
+    -fx-background-color: transparent;
+}
+
+.table-view:focused {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent rgba(75, 75, 75, 75) transparent;
+}
+
+.table-view .column-header-background .label {
+    -fx-background-color: transparent;
+    -fx-text-fill: rgb(150, 150, 150);
+}
+
+.table-view .column-header,
+.table-view .column-header .filler,
+.table-view .column-header-background .filler {
+    -fx-background-color: transparent;
+}
+
+.table-view .table-cell {
+    -fx-text-fill: rgb(150, 150, 150);
+    -fx-font-size: 14px;
+}
+
+.table-view:row-selection .table-row-cell:filled:hover {
+    -fx-background-color: rgb(45, 45, 45);
+}
+
+/* Splittes ned imellem tabel */
+.table-row-cell{
+    /*-fx-background-color: -fx-table-cell-border-color, #616161;*/
+    -fx-border-color: transparent;
+    -fx-table-cell-border-color: transparent;
+
+-fx-background-color: transparent;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+
+.table-row-cell:odd{
+    /*-fx-background-color: -fx-table-cell-border-color, #424242;*/
+    -fx-background-color: transparent;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+
+
+.table-row-cell:selected {
+    -fx-background-color: #005797;
+    -fx-background-insets: 0;
+    -fx-background-radius: 1;
+}

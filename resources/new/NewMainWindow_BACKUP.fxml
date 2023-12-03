@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="background_color" stylesheets="@../css/newstyle.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.GUI.Controller.ny.MainWindowController">
+   <left>
+      <VBox prefHeight="829.0" prefWidth="370.0" VBox.vgrow="always">
+         <children>
+            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="114.0" prefWidth="362.0" styleClass="tabs_background">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets bottom="8.0" left="8.0" top="25.0" />
+               </VBox.margin>
+               <children>
+                  <Button alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="215.0" styleClass="tabs_buttons" text="Hjem" textFill="WHITESMOKE">
+                     <graphic>
+                        <SVGPath id="icon_altersize" content="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z" fill="WHITESMOKE" scaleX="1.5" scaleY="1.5" stroke="WHITESMOKE">
+                           <styleClass>
+                              <String fx:value="icon_altersize" />
+                              <String fx:value="tabs_buttons" />
+                           </styleClass>
+                        </SVGPath>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets left="15.0" top="5.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Button>
+                  <Button alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="215.0" styleClass="tabs_buttons" text="Søg" textFill="WHITESMOKE">
+                     <graphic>
+                        <SVGPath id="icon_altersize" content="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" fill="WHITESMOKE" scaleX="1.5" scaleY="1.5" stroke="WHITESMOKE">
+                           <styleClass>
+                              <String fx:value="icon_altersize" />
+                              <String fx:value="tabs_buttons" />
+                           </styleClass>
+                        </SVGPath>
+                     </graphic>
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="15.0" top="5.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox prefHeight="154.0" prefWidth="362.0" styleClass="libraries_vbox">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <children>
+                  <HBox>
+                     <VBox.margin>
+                        <Insets left="8.0" top="5.0" />
+                     </VBox.margin>
+                     <children>
+                        <Button alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="215.0" text="Dit bibliotek" textFill="WHITESMOKE">
+                           <graphic>
+                              <SVGPath id="icon_altersize" content="M2 3a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11A.5.5 0 0 0 2 3m2-2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7A.5.5 0 0 0 4 1m2.765 5.576A.5.5 0 0 0 6 7v5a.5.5 0 0 0 .765.424l4-2.5a.5.5 0 0 0 0-.848l-4-2.5z M1.5 14.5A1.5 1.5 0 0 1 0 13V6a1.5 1.5 0 0 1 1.5-1.5h13A1.5 1.5 0 0 1 16 6v7a1.5 1.5 0 0 1-1.5 1.5zm13-1a.5.5 0 0 0 .5-.5V6a.5.5 0 0 0-.5-.5h-13A.5.5 0 0 0 1 6v7a.5.5 0 0 0 .5.5z" fill="WHITESMOKE" scaleX="1.5" scaleY="1.5" stroke="WHITESMOKE">
+                                 <styleClass>
+                                    <String fx:value="icon_altersize" />
+                                    <String fx:value="tabs_buttons" />
+                                 </styleClass>
+                              </SVGPath>
+                           </graphic>
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="8.0" />
+                           </HBox.margin>
+                           <styleClass>
+                              <String fx:value="tabs_buttons" />
+                              <String fx:value="button_library" />
+                           </styleClass>
+                        </Button>
+                        <Button alignment="TOP_LEFT" graphicTextGap="0.0" mnemonicParsing="false" styleClass="button-plus" text="plus">
+                           <HBox.margin>
+                              <Insets left="60.0" top="15.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button alignment="TOP_LEFT" graphicTextGap="0.0" mnemonicParsing="false" styleClass="button-playlist-more" text="vis mere">
+                           <HBox.margin>
+                              <Insets left="25.0" top="15.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" styleClass="playlists_album" text="Playlister">
+                           <HBox.margin>
+                              <Insets left="8.0" top="8.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="playlists_album" text="Album">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="8.0" top="8.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <SVGPath content="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" stroke="#b3b3b3" styleClass="icon_altersize">
+                           <HBox.margin>
+                              <Insets left="15.0" top="3.0" />
+                           </HBox.margin>
+                        </SVGPath>
+                        <TextField promptText="Søg i dit bibliotek" styleClass="search_playlist">
+                           <HBox.margin>
+                              <Insets left="8.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="15.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets left="8.0" />
+               </VBox.margin>
+            </VBox>
+            <VBox prefHeight="79.0" prefWidth="362.0" styleClass="playlist_vbox" VBox.vgrow="ALWAYS">
+               <children>
+                  <ScrollPane hbarPolicy="NEVER" prefHeight="0.0" prefWidth="370.0" styleClass="scroll-pane_playlists" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                     <content>
+                        <VBox fx:id="boxPlaylists" prefHeight="74.0" spacing="8.0" />
+                     </content>
+                  </ScrollPane>
+               </children>
+               <VBox.margin>
+                  <Insets left="8.0" />
+               </VBox.margin>
+            </VBox>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <BorderPane.margin>
+            <Insets bottom="5.0" right="5.0" />
+         </BorderPane.margin>
+      </VBox>
+   </left>
+</BorderPane>
