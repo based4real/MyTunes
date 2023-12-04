@@ -66,7 +66,7 @@
                         <String fx:value="media_shuffle" />
                      </styleClass>
                   </Button>
-                  <Button mnemonicParsing="false" text="back">
+                  <Button mnemonicParsing="false" scaleX="0.85" scaleY="0.85" text="back">
                      <styleClass>
                         <String fx:value="media_left" />
                         <String fx:value="media_controls" />
@@ -75,7 +75,7 @@
                         <Insets />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" scaleX="1.5" scaleY="1.5" text="play">
+                  <Button mnemonicParsing="false" scaleX="1.75" scaleY="1.75" text="play">
                      <styleClass>
                         <String fx:value="media_play" />
                         <String fx:value="media_controls" />
@@ -84,7 +84,7 @@
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" text="forward">
+                  <Button mnemonicParsing="false" scaleX="0.85" scaleY="0.85" text="forward">
                      <styleClass>
                         <String fx:value="media_right" />
                         <String fx:value="media_controls" />
@@ -105,9 +105,9 @@
                         <Insets />
                      </HBox.margin>
                   </Label>
-                  <Slider prefHeight="14.0" prefWidth="275.0" HBox.hgrow="ALWAYS">
+                  <Slider fx:id="sliderTime" prefHeight="5.0" prefWidth="275.0" styleClass="media_slider" HBox.hgrow="ALWAYS">
                      <HBox.margin>
-                        <Insets />
+                        <Insets top="2.0" />
                      </HBox.margin>
                      <padding>
                         <Insets left="-5.0" />
@@ -130,7 +130,7 @@
                   <Insets right="15.0" top="22.0" />
                </HBox.margin>
             </SVGPath>
-            <Slider prefHeight="14.0" prefWidth="101.0">
+            <Slider fx:id="sliderAudio" prefHeight="14.0" prefWidth="101.0">
                <HBox.margin>
                   <Insets top="20.0" />
                </HBox.margin>
