@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="664.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.GUI.Controller.ny.LibraryController">
+<VBox prefHeight="1044.0" prefWidth="205.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.GUI.Controller.ny.LibraryController">
    <children>
       <VBox prefHeight="154.0" prefWidth="362.0" styleClass="libraries_vbox">
          <opaqueInsets>
@@ -114,11 +114,11 @@
             <Insets left="8.0" />
          </VBox.margin>
       </VBox>
-      <VBox prefHeight="79.0" prefWidth="362.0" styleClass="playlist_vbox" VBox.vgrow="ALWAYS">
+      <VBox alignment="CENTER" prefHeight="0.0" prefWidth="0.0" styleClass="playlist_vbox" VBox.vgrow="ALWAYS">
          <children>
-            <ScrollPane hbarPolicy="NEVER" prefHeight="0.0" prefWidth="370.0" styleClass="scroll-pane_playlists" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+            <ScrollPane fitToHeight="true" hbarPolicy="NEVER" pannable="true" prefHeight="356.0" prefWidth="357.0" styleClass="scroll-pane_playlists" vmax="200.0" VBox.vgrow="ALWAYS">
                <content>
-                  <VBox fx:id="boxPlaylists" prefHeight="74.0" spacing="8.0" />
+                  <VBox fx:id="boxPlaylists" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="0.0" prefWidth="0.0" spacing="8.0" />
                </content>
             </ScrollPane>
          </children>

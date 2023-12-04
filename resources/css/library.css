@@ -94,12 +94,55 @@
 
 .scroll-pane_playlists {
     -fx-background-color: transparent;
+    -fx-fit-to-height: true;
+    -fx-fit-to-width: true;
 }
 
 .scroll-pane_playlists > .viewport{
     -fx-background-color: transparent;
 }
 
+.scroll-bar:vertical:hover {
+    -fx-background-color: rgb(137, 137, 137);
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: rgb(90, 90, 90);
+    -fx-pref-width: 16.5;
+    -fx-padding: 3;
+}
+
+.scroll-bar:horizontal {
+    -fx-background-color: rgb(90, 90, 90);
+
+    -fx-pref-height: 16.5;
+    -fx-padding: 3;
+}
+
+.scroll-bar:horizontal > .increment-button,
+.scroll-bar:horizontal > .decrement-button {
+    -fx-background-insets: 0 0 0 0 , 0 0 0 0, 0 0 0 0, 0 0 0 0 0;
+}
+.scroll-bar:vertical > .increment-button,
+.scroll-bar:vertical > .decrement-button {
+    -fx-background-insets: 0 0 0 0, 0 0 0 0, 0 0 0 0;
+}
+.scroll-bar:horizontal > .decrement-button > .decrement-arrow {
+    -fx-padding: 0 0 0 0;
+}
+.scroll-bar:horizontal > .increment-button > .increment-arrow {
+    -fx-padding: 0 0 0 0;
+}
+.scroll-bar:vertical > .decrement-button > .decrement-arrow {
+    -fx-padding: 0 0 0 0;
+}
+.scroll-bar:vertical > .increment-button > .increment-arrow {
+    -fx-padding: 0 0 0 0;
+}
+.scroll-bar > .increment-button,
+.scroll-bar > .decrement-button {
+    -fx-padding: 0 0 0 0;
+}
 .text-area .scroll-bar:vertical:disabled {
     -fx-opacity: 0;
 }

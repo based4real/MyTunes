@@ -21,6 +21,9 @@ public class MainWindowController implements Initializable {
     @FXML
     private VBox mainSection;
 
+    @FXML
+    private VBox mainShit;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
@@ -34,6 +37,7 @@ public class MainWindowController implements Initializable {
 
     public void switchView(Parent view) {
         mainWindow.setCenter(view);
+       // mainShit.getChildren().add(view);
     }
 
     private void loadLibrarySection() throws IOException {

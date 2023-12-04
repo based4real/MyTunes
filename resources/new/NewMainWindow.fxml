@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="662.0" prefWidth="1044.0" styleClass="background_color" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.GUI.Controller.ny.MainWindowController">
+<BorderPane fx:id="mainWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="1044.0" styleClass="background_color" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.GUI.Controller.ny.MainWindowController">
    <left>
       <VBox fillWidth="false" prefHeight="259.0" prefWidth="370.0" VBox.vgrow="always">
          <children>
@@ -18,7 +18,7 @@
                   <Insets />
                </opaqueInsets>
                <VBox.margin>
-                  <Insets bottom="8.0" left="8.0" top="25.0" />
+                  <Insets bottom="8.0" left="8.0" top="8.0" />
                </VBox.margin>
                <children>
                   <Button alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#btnHome" prefHeight="49.0" prefWidth="215.0" styleClass="tabs_buttons" text="Hjem" textFill="WHITESMOKE">
@@ -55,7 +55,7 @@
                   </Button>
                </children>
             </VBox>
-            <VBox fx:id="librarySection" prefHeight="423.0" prefWidth="362.0" styleClass="tabs_background" VBox.vgrow="ALWAYS">
+            <VBox fx:id="librarySection" prefHeight="368.0" prefWidth="362.0" styleClass="tabs_background" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets bottom="4.0" left="8.0" />
                </VBox.margin></VBox>
@@ -75,4 +75,11 @@
       <URL value="@../css/newstyle.css" />
       <URL value="@../css/library.css" />
    </stylesheets>
+   <center>
+      <VBox fx:id="mainShit" prefHeight="200.0" prefWidth="100.0" styleClass="tabs_background" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="8.0" right="8.0" top="8.0" />
+         </BorderPane.margin>
+      </VBox>
+   </center>
 </BorderPane>
