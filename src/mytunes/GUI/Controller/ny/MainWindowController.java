@@ -5,6 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.SplitPane;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import mytunes.BE.Playlist;
 import mytunes.GUI.Model.MediaPlayerModel;
@@ -41,6 +44,5 @@ public class MainWindowController implements Initializable {
 
         LibraryController libraryController = fxmlLoader.getController();
         libraryController.LoadPlaylistSongsView(mainWindow);
-
     }
 }

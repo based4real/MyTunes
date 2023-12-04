@@ -49,8 +49,12 @@ public class Playlist {
         return orderID;
     }
 
-    public void addToPlaylist(Song s)  {
-        playlistSongs.add(s);
+    public void setOrderID(int newOrder) {
+        orderID = newOrder;
+    }
+
+    public boolean addToPlaylist(Song s)  {
+        return playlistSongs.add(s);
     }
 
     public void setPlaylistSongList(List<Song> list)  {

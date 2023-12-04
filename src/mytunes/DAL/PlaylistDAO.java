@@ -1,5 +1,6 @@
 package mytunes.DAL;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import javafx.application.Application;
 import mytunes.BE.Playlist;
 import mytunes.BE.Song;
@@ -35,12 +36,70 @@ public class PlaylistDAO {
                 Playlist playlist = new Playlist(id, name, order_id);
                 allPlaylists.add(playlist);
             }
+
             return allPlaylists;
         }
         catch (SQLException ex)
         {
             ex.printStackTrace();
             throw new Exception("Could not get playlists from database", ex);
+        }
+    }
+
+    public boolean updateOrder(Playlist playlistNew, Playlist playlistOld) throws Exception {
+        String sql = "UPDATE Playlists SET order_id = ? WHERE id = ?;";
+
+        // Create connection here so we can check later
+        // In the catch statements.
+
+        Connection conn = null;
+        try {
+            conn = databaseConnector.getConnection();
+            conn.setAutoCommit(false);  // Start a transaction
+
+            int orderIDNew = playlistNew.getOrderID();
+            int orderIDOld = playlistOld.getOrderID();
+
+            // Update our old value with order id from new playlist.
+            try (PreparedStatement stmtOld = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                stmtOld.setInt(1, playlistNew.getOrderID());
+                stmtOld.setInt(2, playlistOld.getId());
+                stmtOld.executeUpdate();
+            }
+
+            // Update our new value with order id from old playlist.
+            try (PreparedStatement stmtNew = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                stmtNew.setInt(1, playlistOld.getOrderID());
+                stmtNew.setInt(2, playlistNew.getId());
+                stmtNew.executeUpdate();
+            }
+
+            conn.commit();  // If both updates succeed, commit the transaction
+
+            // Update order_id values in array
+            playlistNew.setOrderID(orderIDOld);
+            playlistOld.setOrderID(orderIDNew);
+
+            return true;
+        } catch (SQLException e) {
+            if (conn != null) {
+                try {
+                    conn.rollback();  // If an error occurs, rollback the transaction
+                } catch (SQLException ex) {
+                    ex.printStackTrace();  // Handle rollback exception
+                }
+            }
+            e.printStackTrace();
+            throw new Exception("Could not update playlist order in the database", e);
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.setAutoCommit(true);
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -175,7 +234,4 @@ public class PlaylistDAO {
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        PlaylistDAO playlistDAO = new PlaylistDAO();
-    }
 }

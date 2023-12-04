@@ -6,7 +6,11 @@ import mytunes.DAL.PlaylistDAO;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+
+import static java.util.Comparator.comparing;
 
 public class PlaylistManager {
 
@@ -30,16 +34,17 @@ public class PlaylistManager {
     }
 
     public boolean addSongToPlaylist(Playlist playlist, Song song) throws Exception {
-        if (playlistDAO.addSongToPlaylist(playlist, song)) {
-            playlist.addToPlaylist(song);
-            return true;
-        }
+        if (playlistDAO.addSongToPlaylist(playlist, song))
+            return playlist.addToPlaylist(song);
+
         return false;
     }
 
     public List<Playlist> getAllPlaylists() throws Exception {
-        if (allPlaylists.isEmpty())
+        if (allPlaylists.isEmpty()) {
             allPlaylists = playlistDAO.getallPlaylists();
+            Collections.sort(allPlaylists, comparing(Playlist::getOrderID));
+        }
 
         return allPlaylists;
     }
@@ -47,10 +52,10 @@ public class PlaylistManager {
     public boolean isSongInPlaylist(Song s, Playlist playlist) throws Exception {
         //Contains er lidt dum metode da objekter ændrer adresser.
         //Da id i DB er primær nøgle, burde dette ikke være et problem.
-        for (Song song : getPlaylistSongs(playlist)) {
+        for (Song song : getPlaylistSongs(playlist))
             if (song.getId() == s.getId())
                 return true;
-        }
+
         return false;
     }
 
@@ -58,4 +63,7 @@ public class PlaylistManager {
         return playlistDAO.getNextOrderID();
     }
 
+    public boolean updateOrder(Playlist playlistNew, Playlist playlistOld) throws Exception {
+        return playlistDAO.updateOrder(playlistNew, playlistOld);
+    }
 }

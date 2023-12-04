@@ -40,6 +40,10 @@ public class PlaylistModel {
         return playlistManager.getAllPlaylists();
     }
 
+    public boolean updateOrder(Playlist playlistNew, Playlist playlistOld) throws Exception {
+        return playlistManager.updateOrder(playlistNew, playlistOld);
+    }
+
     public List<Song> getSongs(Playlist playlist) throws Exception {
         return playlistManager.getPlaylistSongs(playlist);
     }
