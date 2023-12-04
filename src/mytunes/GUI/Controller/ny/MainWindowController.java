@@ -12,28 +12,24 @@ import java.util.ResourceBundle;
 
 public class MainWindowController implements Initializable {
 
-    public VBox librarySection;
-    public BorderPane mainWindow;
+    @FXML
+    private VBox librarySection;
 
     @FXML
-    private AnchorPane homeTab, playlistTab;
+    private BorderPane mainWindow;
+
+    @FXML
+    private VBox mainSection;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
             loadLibrarySection();
+            loadMediaPlayerSection();
            // loadPlaylistSection();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public void setPlaylistTab(AnchorPane pane) {
-        playlistTab = pane;
-    }
-
-    public void setHomeTab(AnchorPane pane) {
-        homeTab = pane;
     }
 
     public void switchView(Parent view) {
@@ -50,6 +46,14 @@ public class MainWindowController implements Initializable {
         LibraryController libraryController = fxmlLoader.getController();
         libraryController.setMainWindowController(this);
         libraryController.LoadPlaylistSongsView(mainWindow);
+    }
+
+    private void loadMediaPlayerSection() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/new/MediaPlayer.fxml"));
+        AnchorPane anchorPane = fxmlLoader.load();
+
+        mainWindow.setBottom(anchorPane);
     }
 
     public void btnHome(ActionEvent actionEvent) throws IOException {

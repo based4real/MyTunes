@@ -13,9 +13,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.SVGPath?>
 
-<AnchorPane styleClass="tabs_background" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.GUI.Controller.ny.PlaylistContainer">
+<AnchorPane prefHeight="375.0" prefWidth="671.0" styleClass="tabs_background" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.GUI.Controller.ny.PlaylistContainer">
    <children>
-      <VBox minHeight="0.0" minWidth="0.0" prefHeight="493.0" prefWidth="522.0">
+      <VBox minHeight="0.0" minWidth="0.0" prefHeight="279.0" prefWidth="522.0">
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                <children>
@@ -79,7 +79,7 @@
             <Insets />
          </opaqueInsets>
       </VBox>
-      <GridPane alignment="CENTER" layoutY="186.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="186.0">
+      <GridPane alignment="CENTER" layoutY="186.0" prefHeight="106.0" prefWidth="527.0" AnchorPane.bottomAnchor="-4.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="186.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
          </columnConstraints>
@@ -87,7 +87,7 @@
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <TableView fx:id="tblSongsPlaylist" styleClass="playlist_songs" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+            <TableView fx:id="tblSongsPlaylist" prefHeight="218.0" prefWidth="669.0" styleClass="playlist_songs" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                <columns>
                   <TableColumn fx:id="columnID" prefWidth="75.0" text="#" />
                   <TableColumn fx:id="columnTitle" prefWidth="108.0" text="Titel" />
