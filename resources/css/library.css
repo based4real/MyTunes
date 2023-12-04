@@ -370,11 +370,10 @@
 }
 
 .media_slider .track {
-    -fx-background-color: rgb(77, 77, 77);
     -fx-pref-height: 3px;
-}
-
-.media_slider .thumb {
+    -fx-background-color: -fx-shadow-highlight-color,
+        linear-gradient(to bottom, derive(-fx-text-box-border, -10%), -fx-text-box-border),
+        -track-color;
 }
 
 .media_slider .track:hover {
