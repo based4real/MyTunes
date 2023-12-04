@@ -17,6 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import mytunes.BE.Playlist;
+import mytunes.GUI.Main;
 import mytunes.GUI.Model.PlaylistModel;
 
 import java.io.IOException;
@@ -32,6 +33,11 @@ public class LibraryController implements Initializable {
 
     private PlaylistContainer playlistContainer;
 
+    @FXML
+    private AnchorPane playlistContainerPane;
+
+    private MainWindowController mainWindowController;
+
     public LibraryController() {
         try {
             playlistModel = new PlaylistModel();
@@ -40,8 +46,13 @@ public class LibraryController implements Initializable {
         }
     }
 
+    public void setMainWindowController(MainWindowController controller) {
+        mainWindowController = controller;
+    }
+
     private void checkPlaylistClick(Button btn, Playlist p) throws IOException {
         btn.setOnAction(e -> {
+            mainWindowController.switchView(playlistContainerPane);
             try {
                 playlistContainer.tablePlaylistSongsClick(p);
             } catch (Exception ex) {
@@ -136,6 +147,7 @@ public class LibraryController implements Initializable {
         fxmlLoader.setLocation(getClass().getResource("/new/PlaylistContainer.fxml"));
         AnchorPane anchorPane = fxmlLoader.load();
 
+        playlistContainerPane = anchorPane;
         playlistContainer = fxmlLoader.getController();
 
         mainWindow.setCenter(anchorPane);

@@ -65,10 +65,6 @@ public class PlaylistContainer implements Initializable {
 
     }
 
-    public String hello() {
-        return "hey";
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("CALLED");

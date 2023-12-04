@@ -1,19 +1,11 @@
 package mytunes.GUI.Controller.ny;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.SplitPane;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.TransferMode;
+import javafx.scene.Parent;
 import javafx.scene.layout.*;
-import mytunes.BE.Playlist;
-import mytunes.GUI.Model.MediaPlayerModel;
-import mytunes.GUI.Model.PlaylistModel;
-import mytunes.GUI.Model.SongModel;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,8 +14,9 @@ public class MainWindowController implements Initializable {
 
     public VBox librarySection;
     public BorderPane mainWindow;
-    public HBox playlistContainer;
 
+    @FXML
+    private AnchorPane homeTab, playlistTab;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -35,6 +28,18 @@ public class MainWindowController implements Initializable {
         }
     }
 
+    public void setPlaylistTab(AnchorPane pane) {
+        playlistTab = pane;
+    }
+
+    public void setHomeTab(AnchorPane pane) {
+        homeTab = pane;
+    }
+
+    public void switchView(Parent view) {
+        mainWindow.setCenter(view);
+    }
+
     private void loadLibrarySection() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/new/Library.fxml"));
@@ -43,6 +48,15 @@ public class MainWindowController implements Initializable {
         librarySection.getChildren().add(vbox);
 
         LibraryController libraryController = fxmlLoader.getController();
+        libraryController.setMainWindowController(this);
         libraryController.LoadPlaylistSongsView(mainWindow);
+    }
+
+    public void btnHome(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/new/HomeContainer.fxml"));
+        AnchorPane anchorPane = fxmlLoader.load();
+
+        switchView(anchorPane);
     }
 }

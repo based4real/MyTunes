@@ -14,6 +14,11 @@
     -fx-cursor: hand;
 }
 
+.tabs_buttons:focused {
+    -fx-text-fill: rgba(255, 255, 255);
+    -fx-stroke: rgba(255, 255, 255);
+}
+
 .tabs_background {
     -fx-background-color: rgb(18,18,18);
     -fx-background-radius: 10px;
