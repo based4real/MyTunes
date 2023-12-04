@@ -7,6 +7,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.SceneAntialiasing;
 import javafx.scene.control.Button;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
@@ -15,8 +18,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import mytunes.BE.Playlist;
+import mytunes.GUI.Controller.NewPlaylistWindowController;
 import mytunes.GUI.Main;
 import mytunes.GUI.Model.PlaylistModel;
 
@@ -159,6 +164,25 @@ public class LibraryController implements Initializable {
             addToPlaylist();
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void menuCreatePlaylist(ActionEvent actionEvent) {
+
+    }
+
+    public void menuImportSong(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/new/popup/ImportSong.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("New song import");
+            stage.setScene(new Scene(root));
+            stage.show();
+        }
+        catch (Exception e){
+            System.out.println("Cant load import song window");
         }
     }
 }

@@ -62,7 +62,6 @@ public class PlaylistContainer implements Initializable {
 
         playlistSongs = playlistModel.getObservableSongs(p);
         tblSongsPlaylist.setItems(playlistSongs);
-
     }
 
     @Override

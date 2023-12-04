@@ -156,3 +156,107 @@
 .menu-item .label:hover{
     -fx-background-color: rgb(255, 0, 0);
 }
+
+/* Song import */
+/* ---------------------------------------------- */
+.import_background {
+    -fx-background-color: rgb(18,18,18);
+}
+
+.textfield_import {
+    -fx-prompt-text-fill: rgba(179, 179, 179, 255);
+    -fx-background-color: rgba(42, 41, 42, 0.2);
+    -fx-background-radius: 5px;
+}
+
+.textfield_import:hover {
+    -fx-prompt-text-fill: rgba(179, 179, 179, 255);
+    -fx-background-color: rgba(42, 41, 42, 0.2);
+}
+
+.textfield_import:focused {
+    -fx-text-fill: rgba(179, 179, 179);
+    -fx-background-color: rgb(42, 41, 42);
+    -fx-prompt-text-fill: rgba(179, 179, 179, 255);
+}
+
+.import_category .list-cell
+{
+    -fx-background: white;
+    -fx-background-color: rgba(42, 41, 42, 0.2);
+    -fx-text-fill: -fx-text-base-color;
+    -fx-padding: 3 0 2 7;
+    -fx-cell-size: 1.66667em;
+}
+
+.import_category .list-view
+{
+    -fx-background-color: rgb(42, 41, 42), rgba(42, 41, 42, 0.2);
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 8, 0.0 , 0 , 0 );
+}
+
+.import_category .list-view .list-cell
+{
+    -fx-padding: 4 0 4 5;
+
+    /* No alternate highlighting */
+    -fx-background-color: white;
+}
+
+.import_category .list-view .list-cell:filled:selected, .import_category .list-view .list-cell:filled:selected:hover
+{
+    -fx-background: -fx-accent;
+    -fx-background-color: -fx-selection-bar;
+    -fx-text-fill: -fx-selection-bar-text;
+}
+
+.import_category .list-view .list-cell:filled:hover
+{
+    -fx-background-color: white;
+    -fx-text-fill: -fx-text-inner-color;
+}
+
+.import_category
+{
+    -fx-background-color: rgba(42, 41, 42, 0.2);
+    -fx-background-radius: 5, 5, 4, 3;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-padding: 0;
+}
+
+.import_category:hover
+{
+    -fx-color: rgb(42, 41, 42);
+}
+
+.import_category:showing
+{
+    -fx-color: rgb(42, 41, 42);
+}
+
+.import_category:focused {
+    -fx-background-color: rgba(42, 41, 42, 0.2);
+    -fx-background-radius: 6.4, 4, 5, 3;
+    -fx-background-insets: -1.4, 0, 1, 2;
+}
+
+.import_category:disabled {
+    -fx-opacity: .4;
+}
+
+.import_choose {
+    -fx-background-color: rgba(42, 41, 42, 0.2);
+    -fx-text-fill: rgba(179, 179, 179);
+    -fx-stroke: rgba(179, 179, 179);
+}
+
+.import_choose:hover {
+    -fx-background-color: rgb(42, 41, 42);
+    -fx-cursor: hand;
+}
+
+.import_choose:focused {
+    -fx-text-fill: rgba(255, 255, 255);
+    -fx-stroke: rgba(255, 255, 255);
+}
