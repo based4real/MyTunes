@@ -1,4 +1,4 @@
-package mytunes.DAL;
+package mytunes.DAL.DB;
 
 import mytunes.BE.Song;
 import mytunes.DAL.DB.DatabaseConnector;

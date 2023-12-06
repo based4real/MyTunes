@@ -2,12 +2,11 @@ package mytunes.BLL;
 
 import mytunes.BE.Playlist;
 import mytunes.BE.Song;
-import mytunes.DAL.PlaylistDAO;
+import mytunes.DAL.DB.PlaylistDAO;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import static java.util.Comparator.comparing;

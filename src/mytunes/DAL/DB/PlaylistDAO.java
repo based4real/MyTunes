@@ -1,4 +1,4 @@
-package mytunes.DAL;
+package mytunes.DAL.DB;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import javafx.application.Application;

@@ -11,8 +11,8 @@ import java.net.http.HttpResponse;
 public class DiscogsConnector {
 
     private static final String API = "https://api.discogs.com/database";
-    private static final String KEY = "ehogaRvEStpfLvSxUBDD";
-    private static final String SECRET = "GJuWsuJooCqnMLNUqOqjHNHoCbOVnnal";
+    private static final String KEY = "KEY";
+    private static final String SECRET = "SECRET";
 
     public DiscogsConnector() {
 

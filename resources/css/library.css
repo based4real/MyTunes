@@ -304,6 +304,32 @@
     -fx-stroke: rgba(255, 255, 255);
 }
 
+.import_import {
+    -fx-background-color: rgb(252, 161, 15);
+    -fx-text-fill: rgba(45, 45, 45);
+}
+
+.import_import:hover {
+    -fx-background-color: rgba(252, 161, 15, 0.75);
+    -fx-cursor: hand;
+}
+
+.import_search {
+    -fx-background-color: rgba(42, 41, 42, 0.5);
+    -fx-text-fill: rgba(179, 179, 179);
+    -fx-stroke: rgba(179, 179, 179);
+}
+
+.import_search:hover {
+    -fx-background-color: rgb(42, 41, 42);
+    -fx-cursor: hand;
+}
+
+.import_search:focused {
+    -fx-text-fill: rgba(255, 255, 255);
+    -fx-stroke: rgba(255, 255, 255);
+}
+
 /* media player control */
 .media_background {
     -fx-background-color: rgb(0,0,0);

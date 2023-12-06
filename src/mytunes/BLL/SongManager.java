@@ -2,7 +2,7 @@ package mytunes.BLL;
 
 import mytunes.BE.Song;
 import mytunes.BLL.util.SongFilter;
-import mytunes.DAL.SongDAO;
+import mytunes.DAL.DB.SongDAO;
 
 import java.io.IOException;
 import java.util.ArrayList;

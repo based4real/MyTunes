@@ -1,69 +1,87 @@
 package mytunes.DAL.REST;
 
+import mytunes.DAL.REST.types.MBRelease;
+import mytunes.DAL.REST.utils.JsonUtil;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URI;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.List;
 
 public class MusicBrainzConnector {
 
     private static final String API = "http://musicbrainz.org/ws/2";
 
+    private JSONArray data;
+
+    private MBRelease mbRelease;
+
     public MusicBrainzConnector() {
 
     }
 
-    private String spacesToJson(String str) {
-        return str.replaceAll("\\s","%20");
-    }
-
-    private JSONArray getArrayFromURL(HttpResponse<String> bodyParam, String option) throws Exception {
-        JSONObject json = new JSONObject(bodyParam.body());
-        return json.getJSONArray(option);
-    }
-
-    public HttpResponse<String> searchSong(String song) throws Exception {
+    public JSONArray searchSong(String artist, String title) throws Exception {
         HttpClient httpClient = HttpClient.newHttpClient();
 
-        //http://musicbrainz.org/ws/2/release-group?query=hips dont lie&fmt=json&limit=1
+        String artistEnc = URLEncoder.encode(artist, "UTF-8");
+        String titleEnc = URLEncoder.encode(title, "UTF-8");
+
+        // A bit stupid, but for some reason the uri was annoying me with the %2A (asterisk)
+        URI uri = new URI("https://musicbrainz.org/ws/2/release-group/?query=recording:" + titleEnc + "%20AND%20artist:" + artistEnc + "%2A&fmt=json&limit=1&inc=");
+
         HttpRequest getRequest = HttpRequest.newBuilder()
-                .uri(new URI(String.format("%s/release-group?query=%s&limit=1&fmt=json", API, spacesToJson(song))))
+                .uri(uri)
                 .build();
 
         HttpResponse<String> getResponse = httpClient.send(getRequest, HttpResponse.BodyHandlers.ofString());
 
-        return getResponse;
+        if (JsonUtil.isValidJson(getResponse.body())) {
+            data = JsonUtil.getArrayFromURL(getResponse, "release-groups");
+            mbRelease = new MBRelease(data);
+            return data;
+        } else
+            return new JSONArray();
     }
 
-    public void connectHttp() throws Exception {
-        HttpResponse<String> getResponse = searchSong("liqwyd feel so good");
-        JSONArray jsonArray = getArrayFromURL(getResponse, "release-groups");
+    public boolean searchSongFromText(String artist, String title) throws Exception {
+        JSONArray results = searchSong(artist, title);
+        return (results.length() != 0);
+    }
 
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject object = jsonArray.getJSONObject(i);
-            String id = object.getString("id");
-            String title = object.getString("title");
+    public boolean holdsData() throws Exception {
+        return (data.length() != 0);
+    }
 
-            JSONArray artist_arr = object.getJSONArray("artist-credit");
-            JSONObject artist_object = (JSONObject) artist_arr.get(0);
-            String artist = artist_object.getString("name");
 
-            JSONArray releases_arr = object.getJSONArray("releases");
-            JSONObject releases_object = (JSONObject) releases_arr.get(0);
-            String releases = releases_object.getString("id");
+    public String getArtist() throws Exception {
+        return mbRelease.getArtist();
+    }
 
-            System.out.println(id);
-            System.out.println("release id: " + releases);
-            System.out.println(title);
-            System.out.println(artist);
-        }
+    public String getTitle() throws Exception {
+        return mbRelease.getTitle();
+    }
+
+    public String getPictureID() throws Exception {
+        return mbRelease.getPictureID();
+    }
+
+    public String getFeatures() throws JSONException {
+        return mbRelease.getFeatures();
+    }
+
+    public List<String> getGenre() throws JSONException {
+        return mbRelease.getGenre();
     }
 
     public static void main(String[] args) throws Exception {
-            MusicBrainzConnector musicBrainzConnector = new MusicBrainzConnector();
-            musicBrainzConnector.connectHttp();
+        MusicBrainzConnector musicBrainzConnector = new MusicBrainzConnector();
+        musicBrainzConnector.searchSong("eminem", "lose yourself");
+
+        System.out.println(musicBrainzConnector.getPictureID());
     }
 }
