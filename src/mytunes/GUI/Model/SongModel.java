@@ -36,9 +36,11 @@ public class SongModel {
         songsToBeViewed.remove(selectedSong);
     }
 
+    /*
     public void filterSong(String query) throws Exception {
         List<Song> searchResults = songManager.filterSongs(query);
         songsToBeViewed.clear();
         songsToBeViewed.addAll(searchResults);
     }
+    */
 }

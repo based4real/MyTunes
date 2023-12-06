@@ -23,8 +23,7 @@ public class PlaylistDAO {
         ArrayList<Playlist> allPlaylists = new ArrayList<>();
 
         try (Connection conn = databaseConnector.getConnection();
-             Statement stmt = conn.createStatement())
-        {
+             Statement stmt = conn.createStatement()) {
             String sql = "SELECT * FROM Playlists;";
             ResultSet rs = stmt.executeQuery(sql);
 
@@ -38,9 +37,7 @@ public class PlaylistDAO {
             }
 
             return allPlaylists;
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             ex.printStackTrace();
             throw new Exception("Could not get playlists from database", ex);
         }
@@ -105,8 +102,7 @@ public class PlaylistDAO {
 
     public int getNextOrderID() throws Exception {
         try (Connection conn = databaseConnector.getConnection();
-             Statement stmt = conn.createStatement())
-        {
+             Statement stmt = conn.createStatement()) {
             String sql = "SELECT order_id FROM Playlists;";
             ResultSet rs = stmt.executeQuery(sql);
 
@@ -118,9 +114,7 @@ public class PlaylistDAO {
                     newID = id;
             }
             return newID + 1;
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             ex.printStackTrace();
             throw new Exception("Could not get playlists from database", ex);
         }
@@ -131,8 +125,7 @@ public class PlaylistDAO {
 
         //
         try (Connection conn = databaseConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
-        {
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             // Bind parameters
             stmt.setString(1, playlist.getName());
             stmt.setString(2, Integer.toString(playlist.getOrderID()));
@@ -152,9 +145,7 @@ public class PlaylistDAO {
             Playlist createdPlaylist = new Playlist(id, playlist.getName(), playlist.getOrderID());
 
             return createdPlaylist;
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             ex.printStackTrace();
             throw new Exception("Could not create playlist", ex);
         }
@@ -163,44 +154,37 @@ public class PlaylistDAO {
     public List<Song> getSongs(Playlist playlist) throws Exception {
         ArrayList<Song> allSongsInPlaylist = new ArrayList<>();
 
-        String sql = "SELECT song_id FROM playlists_songs WHERE playlist_id = ?;";
+        String sql = "SELECT songs.*, artists.name as artistName\n" +
+                "FROM songs\n" +
+                "JOIN playlists_songs ON songs.id = playlists_songs.song_id\n" +
+                "JOIN playlists ON playlists_songs.playlist_id = playlists.id\n" +
+                "JOIN artists ON songs.Artist = artists.id\n" +
+                "WHERE playlists.id = ?;";
 
         try (Connection conn = databaseConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
         {
             stmt.setInt(1, playlist.getId());
+
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                String sqlSong = "SELECT * FROM Songs WHERE Id = ?;";
-                int id = rs.getInt("song_id");
+                int songId = rs.getInt("Id");
+                String title = rs.getString("Title");
+                String artist = rs.getString("artistName");
+                String album = rs.getString("Album");
+                String filePath = rs.getString("Filepath");
+                String musicBrainzID = rs.getString("SongID");
+                String pictureURL = rs.getString("PictureURL");
 
-                try (PreparedStatement stmt2 = conn.prepareStatement(sqlSong, Statement.RETURN_GENERATED_KEYS)) {
-                    stmt2.setInt(1, id);
-                    ResultSet rs2 = stmt2.executeQuery();
-
-                    while (rs2.next()) {
-                        int songId = rs2.getInt("Id");
-                        String title = rs2.getString("Title");
-                        String artist = rs2.getString("Artist");
-                        String album = rs2.getString("Album");
-                        String filePath = rs2.getString("Filepath");
-
-                        Song song = new Song(songId, title, artist ,album, filePath);
-                        allSongsInPlaylist.add(song);
-                    }
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                    throw new Exception("Could not get playlists from database", ex);
-                }
+                Song song = new Song(musicBrainzID, songId, title, artist, album, filePath, pictureURL);
+                allSongsInPlaylist.add(song);
             }
-            return allSongsInPlaylist;
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             ex.printStackTrace();
             throw new Exception("Could not get playlists from database", ex);
         }
+        return allSongsInPlaylist;
     }
 
     public boolean addSongToPlaylist(Playlist playlist, Song song) throws Exception {

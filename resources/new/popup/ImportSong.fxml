@@ -33,19 +33,6 @@
          <children>
             <HBox prefHeight="30.0" prefWidth="335.0">
                <children>
-                  <Label text="Titel" textFill="#e1e1e1">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="65.0" top="5.0" />
-                     </HBox.margin>
-                  </Label>
-                  <TextField fx:id="txtTitel" prefHeight="30.0" prefWidth="245.0" promptText="...." styleClass="textfield_import" />
-               </children>
-            </HBox>
-            <HBox prefHeight="30.0" prefWidth="335.0">
-               <children>
                   <Label text="Artist" textFill="#e1e1e1">
                      <font>
                         <Font size="14.0" />
@@ -54,7 +41,33 @@
                         <Insets right="60.0" top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="txtArtist" prefHeight="30.0" prefWidth="245.0" promptText="...." styleClass="textfield_import" />
+                  <TextField fx:id="txtArtist" prefHeight="30.0" prefWidth="117.0" promptText="...." styleClass="textfield_import" />
+                  <Label text="ft." textFill="#e1e1e1">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="txtFeature" disable="true" prefHeight="30.0" prefWidth="105.0" promptText="...." styleClass="textfield_import">
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="30.0" prefWidth="335.0">
+               <children>
+                  <Label text="Title" textFill="#e1e1e1">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="65.0" top="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="txtTitel" prefHeight="30.0" prefWidth="245.0" promptText="...." styleClass="textfield_import" />
                </children>
             </HBox>
             <HBox prefHeight="30.0" prefWidth="335.0">
@@ -125,7 +138,7 @@
       <HBox layoutX="177.0" layoutY="372.0" prefHeight="52.0" prefWidth="204.0" spacing="25.0">
          <children>
             <Button mnemonicParsing="false" onAction="#btnSearch" styleClass="import_search" text="Search for data" />
-            <Button disable="true" mnemonicParsing="false" onAction="#btnImport" styleClass="import_import" text="Import" />
+            <Button fx:id="btnImportFX" disable="true" mnemonicParsing="false" onAction="#btnImport" styleClass="import_import" text="Import" />
          </children>
       </HBox>
    </children>

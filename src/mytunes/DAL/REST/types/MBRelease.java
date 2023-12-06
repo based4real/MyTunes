@@ -46,6 +46,19 @@ public class MBRelease {
         return object.getString("id");
     }
 
+    public String getArtistID() throws JSONException {
+        JSONObject artist = getArtistObject().getJSONObject("artist");
+        return artist.getString("id");
+    }
+
+    public String getArtistAlias() throws JSONException {
+        JSONObject artist = getArtistObject().getJSONObject("artist");
+        JSONArray alias = artist.getJSONArray("aliases");
+        JSONObject toObject = JsonUtil.arrayToObject(alias);
+        return toObject.getString("name");
+
+    }
+
     public String getPictureID() throws JSONException {
         JSONObject object = JsonUtil.getArrayFromObject(data, "releases");
         return object.getString("id");
@@ -63,7 +76,8 @@ public class MBRelease {
 
         for (int j = 0; j < tagsArray.length(); j++) {
             JSONObject tagObject = tagsArray.getJSONObject(j);
-            genres.add(tagObject.getString("name"));
+            String val = tagObject.getString("name");
+            genres.add(val);
         }
 
         return genres;

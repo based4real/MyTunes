@@ -60,4 +60,20 @@ public class SongImportManager {
     public boolean holdsData() throws Exception {
         return musicBrainzConnector.holdsData();
     }
+
+    public String getFeatures() throws JSONException {
+        return musicBrainzConnector.getFeatures();
+    }
+
+    public String getAlias() throws JSONException {
+        return musicBrainzConnector.getArtistAlias();
+    }
+
+    public String getArtistID() throws JSONException {
+        return musicBrainzConnector.getArtistID();
+    }
+
+    public String getSongID() throws JSONException {
+        return musicBrainzConnector.getSongID();
+    }
 }

@@ -37,7 +37,23 @@ public class SongImportModel {
         return songImportManager.getGenre();
     }
 
-        public String getPictureURL() throws Exception {
+    public String getPictureURL() throws Exception {
         return songImportManager.getPictureURL();
+    }
+
+    public String getFeatures() throws JSONException {
+        return songImportManager.getFeatures();
+    }
+
+    public String getAlias() throws JSONException {
+        return songImportManager.getAlias();
+    }
+
+    public String getArtistID() throws JSONException {
+        return songImportManager.getArtistID();
+    }
+
+    public String getSongID() throws JSONException {
+        return songImportManager.getSongID();
     }
 }

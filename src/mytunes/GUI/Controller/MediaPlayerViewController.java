@@ -89,7 +89,7 @@ public class MediaPlayerViewController implements Initializable {
 
         initalizeVolumeControl();
         checkTableClick();
-        filterSongs();
+        //filterSongs();
         createContextMenu();
     }
 
@@ -344,6 +344,7 @@ public class MediaPlayerViewController implements Initializable {
         playNextOrLast(tblSongs.getSelectionModel().getSelectedIndex(), true);
     }
 
+    /*
     private void filterSongs(){
         txtSongFilter.textProperty().addListener((observableValue, oldValue, newValue) -> {
             try {
@@ -352,7 +353,7 @@ public class MediaPlayerViewController implements Initializable {
                 System.out.println("Error");
             }
         });
-    }
+    }*/
 
     public void deleteSong(ActionEvent actionEvent) {
         Song selectedSong = tblSongs.getSelectionModel().getSelectedItem();

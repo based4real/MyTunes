@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SongFilter {
+    /*
     public List<Song> filter(List<Song> searchBase, String query) {
         List<Song> searchResult = new ArrayList<>();
 
@@ -25,5 +26,5 @@ public class SongFilter {
 
     private boolean compareToSongArtist(String query, Song song) {
         return song.getArtist().toLowerCase().contains(query.toLowerCase());
-    }
+    }*/
 }

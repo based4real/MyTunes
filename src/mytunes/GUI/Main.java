@@ -16,8 +16,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        //FXMLLoader loader = new FXMLLoader(getClass().getResource("/new/NewMainWindow.fxml"));
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/new/popup/ImportSong.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/new/NewMainWindow.fxml"));
+        //FXMLLoader loader = new FXMLLoader(getClass().getResource("/new/popup/ImportSong.fxml"));
         Parent root = loader.load();
         primaryStage.setTitle("MediaPlayer");
         Scene scene = new Scene(root, -1, -1, true, SceneAntialiasing.BALANCED);

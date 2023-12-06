@@ -61,6 +61,7 @@ public class NewSongViewController {
         Stage stage = (Stage) btnCancel.getScene().getWindow();
         stage.close();
     }
+    /*
 
     public void saveNewSong(ActionEvent actionEvent) {
         if (txfTitle.getText().isEmpty() || txfArtist.getText().isEmpty()
@@ -72,9 +73,9 @@ public class NewSongViewController {
         String album = txfAlbum.getText();
         String file = txfFile.getText();
         try {
-            songModel.createNewSong(new Song(title,artist,album,file));
+            songModel.createNewSong(new Song("tst", title,artist,album,file));
         } catch (Exception e) {
             System.out.println("Error");
         }
-    }
+    }*/
 }

@@ -1,5 +1,6 @@
 package mytunes.DAL.REST;
 
+import mytunes.BLL.util.CacheSystem;
 import mytunes.DAL.REST.types.MBRelease;
 import mytunes.DAL.REST.utils.JsonUtil;
 import org.json.JSONArray;
@@ -78,10 +79,34 @@ public class MusicBrainzConnector {
         return mbRelease.getGenre();
     }
 
+    public String getArtistID() throws JSONException {
+        return mbRelease.getArtistID();
+    }
+
+    public String getArtistAlias() throws JSONException {
+        return mbRelease.getArtistAlias();
+    }
+
+
+    public String getSongID() throws JSONException {
+        return mbRelease.getReleaseID();
+    }
+
     public static void main(String[] args) throws Exception {
         MusicBrainzConnector musicBrainzConnector = new MusicBrainzConnector();
-        musicBrainzConnector.searchSong("eminem", "lose yourself");
+        musicBrainzConnector.searchSong("eminem", "the real slim shady");
 
-        System.out.println(musicBrainzConnector.getPictureID());
+        musicBrainzConnector.getArtistAlias();
+        String id = musicBrainzConnector.getPictureID();
+        System.out.println(id);
+        CoverArt coverArt = new CoverArt(id);
+        String thumb = coverArt.getFrontThumbnail();
+
+        CacheSystem cacheSystem = new CacheSystem();
+
+        cacheSystem.storeImage(thumb);
+        System.out.println(thumb);
+
     }
+
 }

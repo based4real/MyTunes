@@ -2,6 +2,7 @@ package mytunes.GUI.Controller.ny.PopUp;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -10,38 +11,55 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
+import mytunes.BE.Artist;
+import mytunes.BE.Song;
+import mytunes.GUI.Model.ArtistModel;
 import mytunes.GUI.Model.MediaPlayerModel;
 import mytunes.GUI.Model.SongImportModel;
+import mytunes.GUI.Model.SongModel;
 
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
-import java.io.IOException;
 
 public class ImportSongController {
 
-    public ImageView imgPreview;
     @FXML
-    private TextField txtTitel, txtArtist, txtTime, txtFile, txtPicture;
+    private ImageView imgPreview;
+
+    @FXML
+    private Button btnImportFX;
+
+    @FXML
+    private TextField txtTitel, txtArtist, txtTime, txtFile, txtPicture, txtFeature;
 
     @FXML
     private ComboBox dropCategory;
 
     private SongImportModel songImportModel;
     private MediaPlayerModel mediaPlayerModel;
+    private ArtistModel artistModel;
+    private SongModel songModel;
 
-    public ImportSongController() throws IOException {
+    private String artistID, artistName, artistAlias;
+    private String songID, songTitle, songArtist, songAlbum, songfilePath;
+
+    private File selectedFile;
+
+    public ImportSongController() throws Exception {
         songImportModel = new SongImportModel();
         mediaPlayerModel = new MediaPlayerModel();
+        artistModel = new ArtistModel();
+        songModel = new SongModel();
     }
-
 
     private void setDisabled(boolean disabled) {
         txtArtist.setDisable(disabled);
         txtTitel.setDisable(disabled);
+        txtFeature.setDisable(disabled);
         txtFile.setDisable(disabled);
         txtTime.setDisable(disabled);
         dropCategory.setDisable(disabled);
         txtPicture.setDisable(disabled);
+        btnImportFX.setDisable(disabled);
     }
 
     private void setPreviewImg(String url) {
@@ -61,7 +79,7 @@ public class ImportSongController {
         fileChooser.setTitle("Select Music File");
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 
-        File selectedFile = fileChooser.showOpenDialog(null);
+        selectedFile = fileChooser.showOpenDialog(null);
         if (selectedFile != null) {
             songImportModel.searchSong(selectedFile.getName());
 
@@ -103,16 +121,32 @@ public class ImportSongController {
 
         if (songImportModel.holdsData()) {
             txtTitel.setText(songImportModel.getTitle());
+            txtArtist.setText(songImportModel.getArtist());
+
+            txtFeature.setText(songImportModel.getFeatures());
             String pic = songImportModel.getPictureURL();
             dropCategory.getItems().addAll(songImportModel.getGenre());
             txtPicture.setText(pic);
-            txtArtist.setText(songImportModel.getArtist());
+
             setPreviewImg(pic);
 
             setDisabled(false);
-        }
+         }
     }
 
-    public void btnImport(ActionEvent actionEvent) {
+    public void btnImport(ActionEvent actionEvent) throws Exception {
+        artistID = songImportModel.getArtistID();
+        artistName = songImportModel.getArtist();
+        artistAlias = songImportModel.getAlias();
+
+        songID = songImportModel.getSongID();
+        songTitle = songImportModel.getTitle();
+        songArtist = songImportModel.getArtist();
+        songAlbum = "none";
+        songfilePath = selectedFile.getPath();
+
+        Artist artist = artistModel.createArtist(new Artist(artistID, artistName, artistAlias));
+        System.out.println(artist.getPrimaryID());
+        songModel.createNewSong(new Song(songID, songTitle, artist.getPrimaryID(), songAlbum, songfilePath, txtPicture.getText()));
     }
 }

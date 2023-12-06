@@ -6,27 +6,28 @@ import javafx.scene.media.MediaPlayer;
 import java.io.File;
 
 public class Song {
-    private int id;
-    private String title;
-    private String artist;
-    private String album;
-    private String filePath;
+    private int id, artistID;
+    private String title, songID, album, filePath, artistName, pictureURL;
     private MediaPlayer mediaPlayer;
 
-    public Song(int id, String title, String artist, String album, String filePath){
+    public Song(String songID, int id, String title, String artistName, String album, String filePath, String pictureURL){
+        this.songID = songID;
         this.id = id;
         this.title = title;
-        this.artist = artist;
+        this.artistName = artistName;
         this.album = album;
         this.filePath = filePath;
         this.mediaPlayer = new MediaPlayer(new Media(new File(filePath).toURI().toString()));
+        this.pictureURL = pictureURL;
     }
-    public Song(String title, String artist, String album, String filePath){
+    public Song(String songID, String title, int artistID, String album, String filePath, String pictureURL){
+        this.songID = songID;
         this.title = title;
-        this.artist = artist;
+        this.artistID = artistID;
         this.album = album;
         this.filePath = filePath;
         this.mediaPlayer = new MediaPlayer(new Media(new File(filePath).toURI().toString()));
+        this.pictureURL = pictureURL;
     }
 
     public String getDuration(){
@@ -47,6 +48,14 @@ public class Song {
         return String.format("%d:%02d", (int)minutes, (int)secs);
     }
 
+    public String getArtistName() {
+        return artistName;
+    }
+
+    public String getMusicBrainzID() {
+        return songID;
+    }
+
     public int getId() {
         return id;
     }
@@ -59,12 +68,12 @@ public class Song {
         this.title = title;
     }
 
-    public String getArtist() {
-        return artist;
+    public int getArtistID() {
+        return artistID;
     }
 
-    public void setArtist(String artist) {
-        this.artist = artist;
+    public void setArtistID(int id) {
+        this.artistID = id;
     }
 
     public String getAlbum() {
@@ -94,5 +103,9 @@ public class Song {
     @Override
     public String toString(){
         return title + album;
+    }
+
+    public String getPictureURL() {
+        return pictureURL;
     }
 }
