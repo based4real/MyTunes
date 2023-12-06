@@ -72,6 +72,9 @@ public class MBRelease {
         JSONObject releaseGroupObject = data.getJSONObject(0);
         List<String> genres = new ArrayList<>();
 
+        if (!releaseGroupObject.has("tags"))
+            return genres;
+
         JSONArray tagsArray = releaseGroupObject.getJSONArray("tags");
 
         for (int j = 0; j < tagsArray.length(); j++) {

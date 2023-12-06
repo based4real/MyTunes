@@ -79,6 +79,10 @@
     -fx-background-color: transparent;
 }
 
+.table-view .column-header .label {
+    -fx-alignment: CENTER_LEFT;
+}
+
 .table-view .table-cell {
     -fx-text-fill: rgb(150, 150, 150);
     -fx-font-size: 14px;
@@ -106,9 +110,12 @@
     -fx-padding: 0.0em;
 }
 
-
 .table-row-cell:selected {
     -fx-background-color: #005797;
     -fx-background-insets: 0;
     -fx-background-radius: 1;
+}
+
+.playlist-column-title {
+    -fx-fill: rgb(255, 255, 255);
 }

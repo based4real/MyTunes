@@ -89,13 +89,12 @@
          <children>
             <TableView fx:id="tblSongsPlaylist" prefHeight="218.0" prefWidth="669.0" styleClass="playlist_songs" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                <columns>
-                  <TableColumn fx:id="columnID" prefWidth="75.0" text="#" />
-                  <TableColumn fx:id="columnTitle" prefWidth="108.0" text="Titel" />
-                  <TableColumn fx:id="columnArtist" prefWidth="83.0" text="Artist" />
-                  <TableColumn fx:id="columnGenre" prefWidth="72.0" text="Genre" />
-                  <TableColumn fx:id="columnAdded" prefWidth="77.0" text="Tilføjet" />
-                  <TableColumn fx:id="columnAlbum" prefWidth="58.0" text="Album" />
-                  <TableColumn fx:id="columnDuration" prefWidth="52.0">
+                  <TableColumn fx:id="columnID" prefWidth="63.0" text="#" />
+                  <TableColumn fx:id="columnTitle" prefWidth="197.0" text="Titel" />
+                  <TableColumn fx:id="columnGenre" minWidth="5.0" prefWidth="93.0" text="Genre" />
+                  <TableColumn fx:id="columnAdded" prefWidth="126.0" text="Tilføjet" />
+                  <TableColumn fx:id="columnAlbum" prefWidth="127.0" text="Album" />
+                  <TableColumn fx:id="columnDuration" prefWidth="59.0">
                      <graphic>
                         <SVGPath content="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0 " fill="#969696" />
                      </graphic>
