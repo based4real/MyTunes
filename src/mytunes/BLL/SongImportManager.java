@@ -26,7 +26,6 @@ public class SongImportManager {
 
     private String getTitleFromStr(String name) {
         String[] parts = name.split("-");
-        System.out.println(parts[1].trim());
         return parts[1].trim();
     }
 
