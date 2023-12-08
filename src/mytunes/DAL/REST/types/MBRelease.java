@@ -180,13 +180,12 @@ public class MBRelease {
     }
 
     public List<String> getGenre() throws JSONException {
-        JSONObject releaseGroupObject = data.getJSONObject(0);
         List<String> genres = new ArrayList<>();
 
-        if (!releaseGroupObject.has("tags"))
+        if (!object.has("tags"))
             return genres;
 
-        JSONArray tagsArray = releaseGroupObject.getJSONArray("tags");
+        JSONArray tagsArray = object.getJSONArray("tags");
 
         for (int j = 0; j < tagsArray.length(); j++) {
             JSONObject tagObject = tagsArray.getJSONObject(j);
