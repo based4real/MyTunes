@@ -7,10 +7,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
@@ -30,6 +32,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LibraryController implements Initializable {
+
+    @FXML
+    private TextField txtPlaylistFilter;
 
     @FXML
     private VBox boxPlaylists;
@@ -158,10 +163,35 @@ public class LibraryController implements Initializable {
         mainWindow.setCenter(anchorPane);
     }
 
+    private void txtPlaylistFilterListener() {
+        txtPlaylistFilter.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            try {
+                searchForPlaylists();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private void searchForPlaylists() {
+
+
+        for (Node node : boxPlaylists.getChildren()) {
+            if (node instanceof Button existingButton) {
+                PlaylistController playlistController = (PlaylistController) existingButton.getUserData();
+                boolean visible = playlistController.getplaylistLabel().contains(txtPlaylistFilter.getText());
+
+                existingButton.setVisible(visible);
+                existingButton.setManaged(visible);
+            }
+        }
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
             addToPlaylist();
+            txtPlaylistFilterListener();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

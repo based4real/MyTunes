@@ -32,6 +32,12 @@ public class PlaylistModel {
         return SongsToBeViewed;
     }
 
+    public void filterPlaylist(String query) throws Exception {
+        List<Playlist> searchResults = playlistManager.filterPlaylists(query);
+        playlistToBeViewed.clear();
+        playlistToBeViewed.addAll(searchResults);
+    }
+
     public ObservableList<Playlist> getObservablePlaylists() {
         return playlistToBeViewed;
     }

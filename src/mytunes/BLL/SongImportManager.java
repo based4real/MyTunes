@@ -53,7 +53,7 @@ public class SongImportManager {
     }
 
     public boolean searchSongFromText(String artist, String title) throws Exception {
-        return musicBrainzConnector.searchSongFromText(artist, title);
+        return musicBrainzConnector.searchSong(artist, title);
     }
 
     public boolean holdsData() throws Exception {

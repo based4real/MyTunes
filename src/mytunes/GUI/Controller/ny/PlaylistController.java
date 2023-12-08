@@ -23,6 +23,10 @@ public class PlaylistController {
         this.playlist = playlist;
     }
 
+    public String getplaylistLabel() {
+        return playlistName.getText();
+    }
+
     public Playlist getPlaylist() {
         return playlist;
     }

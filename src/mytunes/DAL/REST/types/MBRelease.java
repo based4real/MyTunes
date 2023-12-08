@@ -1,5 +1,6 @@
 package mytunes.DAL.REST.types;
 
+import mytunes.DAL.REST.ENTITY.Release;
 import mytunes.DAL.REST.utils.JsonUtil;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,33 +13,120 @@ public class MBRelease {
 
     private JSONArray data;
     JSONObject object;
+    private List<Release> albumsList = new ArrayList<>();
 
-    public MBRelease(JSONArray data) throws JSONException {
-        this.data = data;
-        this.object = JsonUtil.arrayToObject(data);
+    public MBRelease(JSONObject data) throws JSONException {
+        this.object = data;
     }
 
     private JSONArray getArtistArray() throws JSONException {
         return object.getJSONArray("artist-credit");
     }
 
-    private JSONObject getArtistObject() throws JSONException {
-        return (JSONObject) getArtistArray().get(0);
+    private JSONArray getReleasesArray() throws JSONException {
+        return object.getJSONArray("releases");
     }
 
-    private String getArtist(JSONObject object) throws JSONException {
-        return object.getString("name");
+    public List<Release> getAlbums() {
+        // Create a list to store Release objects
+        if (!albumsList.isEmpty())
+            return albumsList;
+
+        try {
+            for (int i = 0; i < getReleasesArray().length(); i++) {
+                JSONObject releaseObject = getReleasesArray().getJSONObject(i);
+                String releaseId = releaseObject.getString("id");
+                String title = releaseObject.getString("title");
+                String status = releaseObject.getString("status");
+
+                String releaseGroupId = releaseObject.getJSONObject("release-group").getString("id");
+                String primaryType = releaseObject.getJSONObject("release-group").getString("primary-type");
+
+                JSONArray artistCreditArr = releaseObject.getJSONArray("artist-credit");
+                String artistName = artistCreditArr.getJSONObject(0).getString("name");
+
+                JSONArray mediaArray = releaseObject.getJSONArray("media");
+                JSONObject firstMediaObject = mediaArray.getJSONObject(0);
+                JSONArray trackArray = firstMediaObject.getJSONArray("track");
+                int trackNumber = trackArray.getJSONObject(0).getInt("number");
+
+
+                String releaseDate = releaseObject.has("date") ? releaseObject.getString("date") : "N/A";
+
+                boolean albumType = primaryType.equals("Single");
+
+                Release newRelease = new Release(releaseId, releaseGroupId, title, releaseDate, albumType, trackNumber);
+
+                // Check if the set already contains this release
+                if (!artistName.equals("Various Artists") && status.equals("Official") && !albumsList.contains(newRelease)) {
+                    albumsList.add(newRelease);
+                }
+            }
+        } catch (Exception e) {
+
+        }
+
+        for (Release release : albumsList) {
+            System.out.println("Release ID: " + release.getReleaseId() + " | Date: " + release.getDate() + " | Title: " + release.getTitle() + " | Single: " + release.getIsSingle() + " | Pos: " + release.getSongPos());
+        }
+        return albumsList;
+    }
+
+    private JSONObject getReleaseGroupArray() throws JSONException {
+        return getReleasesArray().getJSONObject(0);
+    }
+
+    private JSONObject getArtistObject() throws JSONException {
+        JSONArray artist = getArtistArray();
+
+        for (int i = 0; i < artist.length(); i++) {
+            JSONObject artistCredit = artist.getJSONObject(i);
+
+            // Check if "joinphrase" exists in the current artist credit
+            if (!artistCredit.has("joinphrase")) {
+                return artistCredit;
+            }
+        }
+        return new JSONObject();
+    }
+
+    private JSONObject getFeaturesObject() throws JSONException {
+        JSONArray artist = getArtistArray();
+
+        for (int i = 0; i < artist.length(); i++) {
+            JSONObject artistCredit = artist.getJSONObject(i);
+
+            // Check if "joinphrase" exists in the current artist credit
+            if (artistCredit.has("joinphrase")) {
+                return artistCredit;
+            }
+        }
+        return new JSONObject();
+    }
+
+    public String getArtist() throws JSONException {
+        StringBuilder artistStr = new StringBuilder();
+        JSONObject artistCredit = getArtistObject();
+
+        // Check if "joinphrase" exists in the current artist credit
+        if (!artistCredit.has("joinphrase")) {
+            String name = artistCredit.getJSONObject("artist").optString("name", "");
+             artistStr.append(name);
+        }
+
+        return artistStr.toString();
     }
 
     public String getFeatures() throws JSONException {
-        JSONArray features = getArtistArray();
-
+        JSONObject artistCredit = getFeaturesObject();
         StringBuilder featureStr = new StringBuilder();
 
-        for (int i = 1; i < features.length(); i++) {
-            JSONObject test = (JSONObject) getArtistArray().get(i);
-            featureStr.append(getArtist(test));
+        // Check if "joinphrase" exists in the current artist credit
+        if (artistCredit.has("joinphrase")) {
+            String name = artistCredit.getJSONObject("artist").optString("name", "");
+            featureStr.append(name);
         }
+
         return featureStr.toString();
     }
 
@@ -47,21 +135,44 @@ public class MBRelease {
     }
 
     public String getArtistID() throws JSONException {
-        JSONObject artist = getArtistObject().getJSONObject("artist");
-        return artist.getString("id");
+        JSONArray artist = getArtistArray();
+        StringBuilder artistStr = new StringBuilder();
+
+        for (int i = 0; i < artist.length(); i++) {
+            JSONObject artistCredit = artist.getJSONObject(i);
+
+            // Check if "joinphrase" exists in the current artist credit
+            if (!artistCredit.has("joinphrase")) {
+                String name = artistCredit.getJSONObject("id").optString("name", "");
+                artistStr.append(name);
+            }
+        }
+
+        return artistStr.toString();
     }
 
     public String getArtistAlias() throws JSONException {
         JSONObject artist = getArtistObject().getJSONObject("artist");
-        JSONArray alias = artist.getJSONArray("aliases");
-        JSONObject toObject = JsonUtil.arrayToObject(alias);
-        return toObject.getString("name");
 
+        if (artist.has("aliases")) {
+            JSONArray aliases = artist.getJSONArray("aliases");
+
+            for (int i = 0; i < aliases.length(); i++) {
+                JSONObject alias = aliases.getJSONObject(i);
+
+                // Check if the alias has the type "Artist name"
+                if (alias.has("type") && alias.getString("type").equals("Legal name")) {
+                    return alias.getString("name");
+                }
+            }
+        }
+        return null;
     }
 
+
     public String getPictureID() throws JSONException {
-        JSONObject object = JsonUtil.getArrayFromObject(data, "releases");
-        return object.getString("id");
+        JSONObject releaseGroup = getReleaseGroupArray();
+        return releaseGroup.getString("id");
     }
 
     public String getTitle() throws JSONException {
@@ -89,9 +200,5 @@ public class MBRelease {
     public String getFullSongTitle(JSONArray data) throws JSONException {
 
         return "";
-    }
-
-    public String getArtist() throws JSONException {
-        return getArtist(getArtistObject());
     }
 }

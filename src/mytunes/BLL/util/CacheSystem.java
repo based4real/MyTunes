@@ -11,6 +11,9 @@ public class CacheSystem {
     private static final String CACHE_DIR = "image_cache/";
 
     public String storeImage(String url) {
+        if (url == null)
+            return null;
+
         try {
             // Check if the image is already cached locally
             String fileName = getFileNameFromUrl(url);

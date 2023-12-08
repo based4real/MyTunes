@@ -99,7 +99,7 @@
                         <Insets left="15.0" top="3.0" />
                      </HBox.margin>
                   </SVGPath>
-                  <TextField promptText="Søg i dit bibliotek" styleClass="search_playlist">
+                  <TextField fx:id="txtPlaylistFilter" promptText="Søg i dit bibliotek" styleClass="search_playlist">
                      <HBox.margin>
                         <Insets left="8.0" />
                      </HBox.margin>
