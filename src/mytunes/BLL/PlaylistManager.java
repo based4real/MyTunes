@@ -3,7 +3,6 @@ package mytunes.BLL;
 import mytunes.BE.Playlist;
 import mytunes.BE.Song;
 import mytunes.DAL.DB.PlaylistDAO;
-import mytunes.BLL.util.PlaylistFilter;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ import static java.util.Comparator.comparing;
 
 public class PlaylistManager {
 
-    private PlaylistFilter playlistFilter = new PlaylistFilter();
     private PlaylistDAO playlistDAO;
     private List<Playlist> allPlaylists = new ArrayList<>();
     private List<Song> playlistSongs = new ArrayList<>();
@@ -62,10 +60,6 @@ public class PlaylistManager {
 
     public int getNextOrderID() throws Exception {
         return playlistDAO.getNextOrderID();
-    }
-
-    public List<Playlist> filterPlaylists(String query) {
-        return playlistFilter.filter(allPlaylists, query);
     }
 
     public boolean updateOrder(Playlist playlistNew, Playlist playlistOld) throws Exception {
