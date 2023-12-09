@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.SVGPath?>
 
-<AnchorPane prefHeight="375.0" prefWidth="671.0" styleClass="tabs_background" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.GUI.Controller.ny.PlaylistContainer">
+<AnchorPane prefHeight="375.0" prefWidth="671.0" styleClass="tabs_background" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.GUI.Controller.ny.Pages.PlaylistController">
    <children>
       <VBox minHeight="0.0" minWidth="0.0" prefHeight="279.0" prefWidth="522.0">
          <children>
@@ -105,7 +105,7 @@
       </GridPane>
    </children>
    <stylesheets>
-      <URL value="@../css/library.css" />
-      <URL value="@../css/playlists.css" />
+      <URL value="@../../css/library.css" />
+      <URL value="@../../css/playlists.css" />
    </stylesheets>
 </AnchorPane>

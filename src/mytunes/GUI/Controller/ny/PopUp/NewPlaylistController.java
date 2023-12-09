@@ -6,10 +6,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import mytunes.BE.Playlist;
-import mytunes.GUI.Controller.ny.LibraryController;
+import mytunes.GUI.Controller.ny.Containers.LibraryContainer;
 import mytunes.GUI.Model.PlaylistModel;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -22,7 +21,7 @@ public class NewPlaylistController implements Initializable {
     private Button fxBtnNewPlaylist;
 
     private PlaylistModel playlistModel;
-    private LibraryController libraryController;
+    private LibraryContainer libraryContainer;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -44,12 +43,12 @@ public class NewPlaylistController implements Initializable {
         });
     }
 
-    public void setParentController(LibraryController controller) {
-        this.libraryController = controller;
+    public void setParentController(LibraryContainer controller) {
+        this.libraryContainer = controller;
     }
 
     private void addNewButton(Playlist playlist) throws Exception {
-        this.libraryController.addNewPlaylist(playlist);
+        this.libraryContainer.addNewPlaylist(playlist);
     }
 
     public void btnNewPlaylist(ActionEvent actionEvent) throws Exception {

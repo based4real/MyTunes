@@ -14,11 +14,11 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="89.0" prefWidth="620.0" styleClass="media_background" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.GUI.Controller.ny.MediaPlayerController">
+<AnchorPane prefHeight="89.0" prefWidth="620.0" styleClass="media_background" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.GUI.Controller.ny.Containers.MediaPlayerContainer">
    <stylesheets>
-      <URL value="@../css/newstyle.css" />
-      <URL value="@../css/library.css" />
-      <URL value="@../css/playlists.css" />
+      <URL value="@../../css/newstyle.css" />
+      <URL value="@../../css/library.css" />
+      <URL value="@../../css/playlists.css" />
    </stylesheets>
    <children>
       <HBox prefHeight="77.0" prefWidth="167.0">
@@ -28,7 +28,7 @@
                   <Insets left="20.0" top="10.0" />
                </HBox.margin>
                <image>
-                  <Image url="@../test.png" />
+                  <Image url="@../../test.png" />
                </image>
             </ImageView>
             <VBox prefHeight="76.0" prefWidth="92.0">

@@ -1,4 +1,4 @@
-package mytunes.GUI.Controller.ny;
+package mytunes.GUI.Controller.ny.Containers;
 
 import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
@@ -18,17 +18,16 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import mytunes.BE.Playlist;
+import mytunes.GUI.Controller.ny.MainWindowController;
+import mytunes.GUI.Controller.ny.Pages.PlaylistController;
 import mytunes.GUI.Controller.ny.PopUp.NewPlaylistController;
 import mytunes.GUI.Model.PlaylistModel;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.ResourceBundle;
 
-public class LibraryController implements Initializable {
+public class LibraryContainer implements Initializable {
 
     @FXML
     private TextField txtPlaylistFilter;
@@ -38,14 +37,14 @@ public class LibraryController implements Initializable {
 
     private PlaylistModel playlistModel;
 
-    private PlaylistContainer playlistContainer;
+    private PlaylistController playlistController;
 
     @FXML
     private AnchorPane playlistContainerPane;
 
     private MainWindowController mainWindowController;
 
-    public LibraryController() {
+    public LibraryContainer() {
         try {
             playlistModel = new PlaylistModel();
         } catch (Exception e) {
@@ -71,7 +70,7 @@ public class LibraryController implements Initializable {
         btn.setOnAction(e -> {
             mainWindowController.switchView(playlistContainerPane);
             try {
-                playlistContainer.tablePlaylistSongsClick(p);
+                playlistController.tablePlaylistSongsClick(p);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
@@ -113,11 +112,11 @@ public class LibraryController implements Initializable {
                 boxPlaylists.getChildren().add(boxPlaylists.getChildren().indexOf(dropButton), draggedButton);
 
                 // Get the controller of dragged button
-                PlaylistController draggedController = (PlaylistController) draggedButton.getUserData();
+                PlaylistContainer draggedController = (PlaylistContainer) draggedButton.getUserData();
                 Playlist playlistNew = draggedController.getPlaylist();
 
                 // Get the controller of dropped button
-                PlaylistController oldController = (PlaylistController) dropButton.getUserData();
+                PlaylistContainer oldController = (PlaylistContainer) dropButton.getUserData();
                 Playlist playlistOld = oldController.getPlaylist();
 
                 //https://stackoverflow.com/questions/73119688/pressed-state-gets-stuck-after-drag-and-drop
@@ -142,8 +141,8 @@ public class LibraryController implements Initializable {
         for (Node node : boxPlaylists.getChildren()) {
             if (node instanceof Button) {
                 Button button = (Button) node;
-                PlaylistController playlistController = (PlaylistController) button.getUserData();
-                if (playlistController.getPlaylist() == playlist) {
+                PlaylistContainer playlistContainer = (PlaylistContainer) button.getUserData();
+                if (playlistContainer.getPlaylist() == playlist) {
                     boxPlaylists.getChildren().remove(button);
                     break;
                 }
@@ -153,17 +152,17 @@ public class LibraryController implements Initializable {
 
     public void addNewPlaylist(Playlist playlist) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("/new/Playlists.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("/new/containers/Playlists.fxml"));
 
         Button button = fxmlLoader.load();
-        PlaylistController playlistController = fxmlLoader.getController();
+        PlaylistContainer playlistContainer = fxmlLoader.getController();
 
-        playlistController.setPlaylist(playlist);
-        playlistController.setParentController(this);
+        playlistContainer.setPlaylist(playlist);
+        playlistContainer.setParentController(this);
 
         // Set userdata so can be used later to determine which
         // id was dragged to update in database.
-        button.setUserData(playlistController);
+        button.setUserData(playlistContainer);
 
         //boxPlaylists.getChildren().add(button);
         // With 0 on, adds on top instead of bottom
@@ -181,11 +180,11 @@ public class LibraryController implements Initializable {
 
     public void LoadPlaylistSongsView(BorderPane mainWindow) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("/new/PlaylistContainer.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("/new/pages/Playlist.fxml"));
         AnchorPane anchorPane = fxmlLoader.load();
 
         playlistContainerPane = anchorPane;
-        playlistContainer = fxmlLoader.getController();
+        playlistController = fxmlLoader.getController();
 
         mainWindow.setCenter(anchorPane);
     }
@@ -203,8 +202,8 @@ public class LibraryController implements Initializable {
     private void searchForPlaylists() {
         for (Node node : boxPlaylists.getChildren()) {
             if (node instanceof Button existingButton) {
-                PlaylistController playlistController = (PlaylistController) existingButton.getUserData();
-                boolean visible = playlistController.getPlaylistLabel().contains(txtPlaylistFilter.getText());
+                PlaylistContainer playlistContainer = (PlaylistContainer) existingButton.getUserData();
+                boolean visible = playlistContainer.getPlaylistLabel().contains(txtPlaylistFilter.getText());
 
                 existingButton.setVisible(visible);
                 existingButton.setManaged(visible);

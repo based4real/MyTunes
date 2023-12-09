@@ -1,6 +1,5 @@
-package mytunes.GUI.Controller.ny;
+package mytunes.GUI.Controller.ny.Pages;
 
-import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,7 +12,7 @@ import mytunes.GUI.Model.PlaylistModel;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class PlaylistContainer implements Initializable {
+public class PlaylistController implements Initializable {
     @FXML
     private TableView tblSongsPlaylist;
 
@@ -34,7 +33,7 @@ public class PlaylistContainer implements Initializable {
     private PlaylistModel playlistModel;
     private ObservableList<Song> playlistSongs = null;
 
-    public PlaylistContainer() {
+    public PlaylistController() {
         try {
             playlistModel = new PlaylistModel();
         } catch (Exception e) {

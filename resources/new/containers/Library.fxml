@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="1044.0" prefWidth="205.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.GUI.Controller.ny.LibraryController">
+<VBox prefHeight="1044.0" prefWidth="205.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.GUI.Controller.ny.Containers.LibraryContainer">
    <children>
       <VBox prefHeight="154.0" prefWidth="362.0" styleClass="libraries_vbox">
          <opaqueInsets>
@@ -134,7 +134,7 @@
       <Insets bottom="5.0" right="5.0" />
    </padding>
    <stylesheets>
-      <URL value="@../css/newstyle.css" />
-      <URL value="@../css/library.css" />
+      <URL value="@../../css/newstyle.css" />
+      <URL value="@../../css/library.css" />
    </stylesheets>
 </VBox>

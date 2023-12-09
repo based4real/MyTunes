@@ -1,4 +1,4 @@
-package mytunes.GUI.Controller.ny;
+package mytunes.GUI.Controller.ny.Containers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,12 +9,9 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 import mytunes.BE.Playlist;
-import mytunes.BE.Song;
-import mytunes.BLL.util.CacheSystem;
 import mytunes.GUI.Controller.ny.PopUp.EditPlaylistController;
 import mytunes.GUI.Model.PlaylistModel;
 
@@ -22,7 +19,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class PlaylistController implements Initializable {
+public class PlaylistContainer implements Initializable {
 
 
     @FXML
@@ -40,7 +37,7 @@ public class PlaylistController implements Initializable {
 
 
     private Playlist playlist;
-    private LibraryController libraryController;
+    private LibraryContainer libraryContainer;
 
     private PlaylistModel playlistModel;
 
@@ -58,8 +55,8 @@ public class PlaylistController implements Initializable {
         }
     }
 
-    public void setParentController(LibraryController controller) {
-        this.libraryController = controller;
+    public void setParentController(LibraryContainer controller) {
+        this.libraryContainer = controller;
     }
 
     public void setPlaylist(Playlist playlist) throws Exception {
@@ -114,7 +111,7 @@ public class PlaylistController implements Initializable {
 
 
     private void createPlaylist() {
-        libraryController.openPlaylistWindow();
+        libraryContainer.openPlaylistWindow();
     }
 
     private void editPlaylist() {
@@ -143,7 +140,7 @@ public class PlaylistController implements Initializable {
 
     private void deletePlaylist() throws Exception {
         playlistModel.deletePlaylist(playlist);
-        libraryController.removePlaylistButton(playlist);
+        libraryContainer.removePlaylistButton(playlist);
     }
 
     public String getPlaylistLabel() {

@@ -6,6 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.*;
+import mytunes.GUI.Controller.ny.Containers.LibraryContainer;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -42,19 +44,19 @@ public class MainWindowController implements Initializable {
 
     private void loadLibrarySection() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("/new/Library.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("/new/containers/Library.fxml"));
         VBox vbox = fxmlLoader.load();
 
         librarySection.getChildren().add(vbox);
 
-        LibraryController libraryController = fxmlLoader.getController();
-        libraryController.setMainWindowController(this);
-        libraryController.LoadPlaylistSongsView(mainWindow);
+        LibraryContainer libraryContainer = fxmlLoader.getController();
+        libraryContainer.setMainWindowController(this);
+        libraryContainer.LoadPlaylistSongsView(mainWindow);
     }
 
     private void loadMediaPlayerSection() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("/new/MediaPlayer.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("/new/containers/MediaPlayer.fxml"));
         AnchorPane anchorPane = fxmlLoader.load();
 
         mainWindow.setBottom(anchorPane);
@@ -62,7 +64,7 @@ public class MainWindowController implements Initializable {
 
     public void btnHome(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("/new/HomeContainer.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("/new/pages/Home.fxml"));
         AnchorPane anchorPane = fxmlLoader.load();
 
         switchView(anchorPane);
