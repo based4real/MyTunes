@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import mytunes.BE.Song;
 import mytunes.BLL.SongManager;
 
+import java.io.IOException;
 import java.util.List;
 
 public class SongModel {
@@ -12,11 +13,28 @@ public class SongModel {
 
     private SongManager songManager;
 
-    public SongModel() throws Exception {
+    private static SongModel single_instance = null;
+
+    private SongModel() throws Exception {
         songManager = new SongManager();
         songsToBeViewed = FXCollections.observableArrayList();
         songsToBeViewed.addAll(songManager.getAllSongs());
     }
+
+    public static synchronized SongModel getInstance() throws Exception {
+        if (single_instance == null)
+            single_instance = new SongModel();
+
+        return single_instance;
+    }
+
+
+    /*
+    public SongModel() throws Exception {
+        songManager = new SongManager();
+        songsToBeViewed = FXCollections.observableArrayList();
+        songsToBeViewed.addAll(songManager.getAllSongs());
+    }*/
 
     public ObservableList<Song> getObservableSongs() {
         return songsToBeViewed;

@@ -24,7 +24,7 @@ public class EditPlaylistController implements Initializable {
     private PlaylistContainer playlistContainer;
 
     public EditPlaylistController() throws Exception {
-        playlistModel = new PlaylistModel();
+        playlistModel = PlaylistModel.getInstance();
     }
 
     private void enableTextField() {

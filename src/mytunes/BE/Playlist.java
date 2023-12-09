@@ -83,6 +83,10 @@ public class Playlist {
         playlistSongs.addAll(list);
     }
 
+    public void removeSongFromPlaylist(Song song)  {
+        playlistSongs.remove(song);
+    }
+
     public List<Song> getPlaylistSongs() {
         return playlistSongs;
     }

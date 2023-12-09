@@ -25,12 +25,7 @@ public class NewPlaylistController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-            playlistModel = new PlaylistModel();
-            enableTextField();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        enableTextField();
     }
 
     private void enableTextField() {
@@ -57,4 +52,7 @@ public class NewPlaylistController implements Initializable {
         addNewButton(newPlaylist);
     }
 
+    public void setPlaylistModel(PlaylistModel model) {
+        playlistModel = model;
+    }
 }

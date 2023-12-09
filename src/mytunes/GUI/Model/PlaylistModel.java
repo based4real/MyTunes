@@ -14,11 +14,20 @@ public class PlaylistModel {
     private ObservableList<Song> SongsToBeViewed;
 
     private PlaylistManager playlistManager;
+    private static PlaylistModel single_instance = null;
 
-    public PlaylistModel() throws Exception {
+
+    private PlaylistModel() throws Exception {
         playlistManager = new PlaylistManager();
         playlistToBeViewed = FXCollections.observableArrayList();
         playlistToBeViewed.addAll(getPlaylists());
+    }
+
+    public static synchronized PlaylistModel getInstance() throws Exception {
+        if (single_instance == null)
+            single_instance = new PlaylistModel();
+
+        return single_instance;
     }
 
     public ObservableList<Song> getObservableSongs(Playlist playlist) throws Exception {
@@ -66,6 +75,10 @@ public class PlaylistModel {
 
     public void deletePlaylist(Playlist playlist) throws Exception {
         playlistManager.deletePlaylist(playlist);
+    }
+
+    public boolean removeSongFromPlaylist(Playlist playlist, Song song) throws Exception {
+        return playlistManager.removeSongFromPlaylist(playlist, song);
     }
 
 }

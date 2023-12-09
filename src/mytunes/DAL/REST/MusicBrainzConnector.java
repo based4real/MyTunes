@@ -147,7 +147,6 @@ public class MusicBrainzConnector {
 
         cacheSystem.storeImage(thumb);
         System.out.println(thumb);
-
     }
 
 }

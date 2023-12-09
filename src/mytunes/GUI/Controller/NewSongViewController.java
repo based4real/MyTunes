@@ -32,7 +32,7 @@ public class NewSongViewController {
 
     public NewSongViewController(){
         try {
-            songModel = new SongModel();
+            songModel = SongModel.getInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -246,7 +246,6 @@ public class PlaylistDAO {
     }
 
     private void updateOrderIDDelete(Connection conn, int deletedOrderId) throws SQLException {
-        System.out.println(deletedOrderId);
         String updateSql = "UPDATE dbo.Playlists SET order_id = order_id - 1 WHERE order_id >= ?";
         try (PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
             updateStmt.setInt(1, deletedOrderId);
@@ -255,7 +254,6 @@ public class PlaylistDAO {
     }
 
     private void deleteplaylistByID(Connection conn, int playlistID) throws SQLException {
-        System.out.println(playlistID);
         String deleteSql = "DELETE FROM dbo.Playlists WHERE [id] = ?";
         try (PreparedStatement deleteStmt = conn.prepareStatement(deleteSql)) {
             deleteStmt.setInt(1, playlistID);
@@ -263,12 +261,23 @@ public class PlaylistDAO {
         }
     }
 
-    public void deletePlaylist(Playlist playlist) throws Exception {
+    private void deleteSongsInPlaylist(Connection conn, int playlistID) throws SQLException {
+        String deleteSql = "DELETE FROM dbo.playlists_songs WHERE playlist_id = ?";
+        try (PreparedStatement deleteStmt = conn.prepareStatement(deleteSql)) {
+            deleteStmt.setInt(1, playlistID);
+            deleteStmt.executeUpdate();
+        }
+    }
+
+    public boolean deletePlaylist(Playlist playlist) throws Exception {
         try (Connection conn = databaseConnector.getConnection()) {
             // Begin a transaction
             conn.setAutoCommit(false);
 
             try {
+                // Delete songs in the playlist
+                deleteSongsInPlaylist(conn, playlist.getId());
+
                 // Delete playlist
                 deleteplaylistByID(conn, playlist.getId());
 
@@ -277,11 +286,32 @@ public class PlaylistDAO {
 
                 // Commit the transaction
                 conn.commit();
+                return true;
             } catch (Exception ex) {
                 // Rollback the transaction in case of an exception
                 conn.rollback();
                 throw ex;
             }
+        }
+    }
+
+    public boolean removeSongFromPlaylist(Playlist playlist, Song song) throws Exception {
+        String sql = "DELETE FROM dbo.playlists_songs WHERE playlist_id = ? AND song_id = ?;";
+
+        try (Connection conn = databaseConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
+        {
+            stmt.setInt(1, playlist.getId());
+            stmt.setInt(2, song.getId());
+
+            // Run the specified SQL statement
+            stmt.executeUpdate();
+            return true;
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+            throw new Exception("Could not delete song", ex);
         }
     }
 }

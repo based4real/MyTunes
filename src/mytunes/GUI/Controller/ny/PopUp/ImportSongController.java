@@ -48,7 +48,7 @@ public class ImportSongController {
         songImportModel = new SongImportModel();
         mediaPlayerModel = new MediaPlayerModel();
         artistModel = new ArtistModel();
-        songModel = new SongModel();
+        songModel = SongModel.getInstance();
     }
 
     private void setDisabled(boolean disabled) {

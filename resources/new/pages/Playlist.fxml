@@ -87,7 +87,7 @@
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <TableView fx:id="tblSongsPlaylist" prefHeight="218.0" prefWidth="669.0" styleClass="playlist_songs" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+            <TableView fx:id="tblSongsPlaylist" prefHeight="218.0" prefWidth="669.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                <columns>
                   <TableColumn fx:id="columnID" prefWidth="63.0" text="#" />
                   <TableColumn fx:id="columnTitle" prefWidth="197.0" text="Titel" />

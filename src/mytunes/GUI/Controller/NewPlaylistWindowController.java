@@ -27,7 +27,7 @@ public class NewPlaylistWindowController {
     }
 
     public NewPlaylistWindowController() throws Exception {
-        playlistModel = new PlaylistModel();
+        playlistModel = PlaylistModel.getInstance();
     }
     public void btnCreatePlaylist(ActionEvent actionEvent) throws Exception {
         playlistModel.createPlaylist(txtPlaylistName.getText());

@@ -93,7 +93,7 @@
 }
 
 /* Splittes ned imellem tabel */
-.table-row-cell{
+.table-row-cell {
     /*-fx-background-color: -fx-table-cell-border-color, #616161;*/
     -fx-border-color: transparent;
     -fx-table-cell-border-color: transparent;
@@ -111,9 +111,7 @@
 }
 
 .table-row-cell:selected {
-    -fx-background-color: #005797;
-    -fx-background-insets: 0;
-    -fx-background-radius: 1;
+    -fx-background-color: rgb(35, 35, 35);
 }
 
 .playlist-column-title {

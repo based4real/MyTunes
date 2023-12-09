@@ -45,12 +45,8 @@ public class LibraryContainer implements Initializable {
 
     private MainWindowController mainWindowController;
 
-    public LibraryContainer() {
-        try {
-            playlistModel = new PlaylistModel();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public LibraryContainer() throws Exception {
+            playlistModel = PlaylistModel.getInstance();
     }
 
     @Override
@@ -72,6 +68,7 @@ public class LibraryContainer implements Initializable {
             mainWindowController.switchView(playlistContainerPane);
             try {
                 playlistController.tablePlaylistSongsClick(p);
+                playlistController.setPlaylist(p);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
@@ -165,7 +162,6 @@ public class LibraryContainer implements Initializable {
         // id was dragged to update in database.
         button.setUserData(playlistContainer);
 
-        //boxPlaylists.getChildren().add(button);
         // With 0 on, adds on top instead of bottom
         boxPlaylists.getChildren().add(0, button);
 
@@ -174,9 +170,8 @@ public class LibraryContainer implements Initializable {
     }
 
     private void addToPlaylist() throws Exception {
-        for (Playlist p : playlistModel.getPlaylists()) {
+        for (Playlist p : playlistModel.getPlaylists())
             addNewPlaylist(p);
-        }
     }
 
     public void LoadPlaylistSongsView(BorderPane mainWindow) throws IOException {
@@ -219,6 +214,8 @@ public class LibraryContainer implements Initializable {
 
             NewPlaylistController newPlaylistController = loader.getController();
             newPlaylistController.setParentController(this);
+
+            newPlaylistController.setPlaylistModel(playlistModel);
 
             Stage stage = new Stage();
             stage.setTitle("Opret ny playlist");

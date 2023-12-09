@@ -45,7 +45,7 @@ public class PlaylistContainer implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            playlistModel = new PlaylistModel();
+            playlistModel = PlaylistModel.getInstance();
             ContextMenu contextMenu = createContextMenu();
 
             // Attach the right click to the playlist button
@@ -71,21 +71,20 @@ public class PlaylistContainer implements Initializable {
         ContextMenu contextMenu = new ContextMenu();
 
         SVGMenu svgMenu = new SVGMenu();
-        
-        // Add menu items to the context menu
-        MenuItem menuItem1 = svgMenu.createSVGMenuItem("Opret playliste", ICON_PLAYLIST);
 
-        MenuItem menuItem2 = svgMenu.createSVGMenuItem("Rediger oplysninger", ICON_EDIT);
-        MenuItem menuItem3 = svgMenu.createSVGMenuItem("Slet", ICON_DELETE);
+        // Add menu items to the context menu
+        MenuItem createPlaylist = svgMenu.createSVGMenuItem("Opret playliste", ICON_PLAYLIST);
+
+        MenuItem editPlaylist = svgMenu.createSVGMenuItem("Rediger oplysninger", ICON_EDIT);
+        MenuItem deletePlaylist = svgMenu.createSVGMenuItem("Slet", ICON_DELETE);
 
         // Separator
         SeparatorMenuItem separator = new SeparatorMenuItem();
-        separator.getStyleClass().add("seperator");
 
         // Add actions for each menu item
-        menuItem1.setOnAction(event -> createPlaylist());
-        menuItem2.setOnAction(event -> editPlaylist());
-        menuItem3.setOnAction(event -> {
+        createPlaylist.setOnAction(event -> createPlaylist());
+        editPlaylist.setOnAction(event -> editPlaylist());
+        deletePlaylist.setOnAction(event -> {
             try {
                 deletePlaylist();
             } catch (Exception e) {
@@ -94,7 +93,7 @@ public class PlaylistContainer implements Initializable {
         });
 
         // Add menu items to the context menu
-        contextMenu.getItems().addAll(menuItem1, separator, menuItem3, menuItem2);
+        contextMenu.getItems().addAll(createPlaylist, separator, editPlaylist, deletePlaylist);
 
         return contextMenu;
     }

@@ -72,9 +72,9 @@ public class MediaPlayerViewController implements Initializable {
 
     public MediaPlayerViewController(){
         try {
-            songModel = new SongModel();
+            songModel = SongModel.getInstance();
             mediaPlayerModel = new MediaPlayerModel();
-            playlistModel = new PlaylistModel();
+            playlistModel = PlaylistModel.getInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
