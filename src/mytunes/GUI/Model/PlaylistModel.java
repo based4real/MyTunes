@@ -7,6 +7,7 @@ import mytunes.BE.Song;
 import mytunes.BLL.PlaylistManager;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 
 public class PlaylistModel {
@@ -37,6 +38,7 @@ public class PlaylistModel {
             return SongsToBeViewed;
 
         SongsToBeViewed.addAll(getSongs(playlist));
+        SongsToBeViewed.sort(Comparator.comparing(Song::getOrderID));
 
         return SongsToBeViewed;
     }

@@ -1,6 +1,7 @@
 package mytunes.DAL.DB;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
+import mytunes.BE.Playlist;
 import mytunes.BE.Song;
 import mytunes.BLL.util.CacheSystem;
 import mytunes.DAL.DB.DatabaseConnector;
@@ -139,5 +140,64 @@ public class SongDAO {
             ex.printStackTrace();
             throw new Exception("Could not delete song", ex);
         }
+    }
+
+    public boolean updateOrderID(Playlist playlist, Song draggedSong, Song droppedSong) throws Exception {
+        String sql = "UPDATE dbo.Playlists_songs SET order_id = ? WHERE song_id = ? AND playlist_id = ?;";
+
+        // Create connection here, so we can check later
+        // In the catch statements.
+        Connection conn = null;
+        try {
+            conn = databaseConnector.getConnection();
+            conn.setAutoCommit(false);  // Start a transaction
+
+            int orderIDNew = draggedSong.getOrderID();
+            int orderIDOld = droppedSong.getOrderID();
+
+            // Update our old value with order id from new song.
+            try (PreparedStatement stmtOld = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                stmtOld.setInt(1, draggedSong.getOrderID());
+                stmtOld.setInt(2, droppedSong.getId());
+                stmtOld.setInt(3, playlist.getId());
+
+                stmtOld.executeUpdate();
+            }
+
+            // Update our new value with order id from old song.
+            try (PreparedStatement stmtNew = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                stmtNew.setInt(1, droppedSong.getOrderID());
+                stmtNew.setInt(2, draggedSong.getId());
+                stmtNew.setInt(3, playlist.getId());
+                stmtNew.executeUpdate();
+            }
+
+            conn.commit();  // If both updates succeed, commit the transaction
+
+            draggedSong.setOrderID(orderIDOld);
+            droppedSong.setOrderID(orderIDNew);
+
+            return true;
+        } catch (SQLException e) {
+            if (conn != null) {
+                try {
+                    conn.rollback();  // If an error occurs, rollback the transaction
+                } catch (SQLException ex) {
+                    ex.printStackTrace();  // Handle rollback exception
+                }
+            }
+            e.printStackTrace();
+            throw new Exception("Could not update playlist order in the database", e);
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.setAutoCommit(true);
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 }

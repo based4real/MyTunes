@@ -2,6 +2,7 @@ package mytunes.GUI.Model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import mytunes.BE.Playlist;
 import mytunes.BE.Song;
 import mytunes.BLL.SongManager;
 
@@ -54,11 +55,8 @@ public class SongModel {
         songsToBeViewed.remove(selectedSong);
     }
 
-    /*
-    public void filterSong(String query) throws Exception {
-        List<Song> searchResults = songManager.filterSongs(query);
-        songsToBeViewed.clear();
-        songsToBeViewed.addAll(searchResults);
+    public void updateOrderID(Playlist playlist, Song draggedSong, Song droppedSong) throws Exception {
+        songManager.updateOrderID(playlist, draggedSong, droppedSong);
     }
-    */
+
 }

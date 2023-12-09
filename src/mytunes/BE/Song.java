@@ -6,7 +6,7 @@ import javafx.scene.media.MediaPlayer;
 import java.io.File;
 
 public class Song {
-    private int id, artistID;
+    private int id, artistID, orderID;
     private String title, songID, album, filePath, artistName, pictureURL;
     private MediaPlayer mediaPlayer;
 
@@ -28,6 +28,18 @@ public class Song {
         this.filePath = filePath;
         this.mediaPlayer = new MediaPlayer(new Media(new File(filePath).toURI().toString()));
         this.pictureURL = pictureURL;
+    }
+
+    public Song(String songID, int id, String title, String artistName, String album, String filePath, String pictureURL, int orderID){
+        this.songID = songID;
+        this.id = id;
+        this.title = title;
+        this.artistName = artistName;
+        this.album = album;
+        this.filePath = filePath;
+        this.mediaPlayer = new MediaPlayer(new Media(new File(filePath).toURI().toString()));
+        this.pictureURL = pictureURL;
+        this.orderID = orderID;
     }
 
     public String getDuration(){
@@ -107,5 +119,13 @@ public class Song {
 
     public String getPictureURL() {
         return pictureURL;
+    }
+
+    public int getOrderID() {
+        return orderID;
+    }
+
+    public void setOrderID(int orderID) {
+        this.orderID = orderID;
     }
 }

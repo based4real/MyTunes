@@ -33,6 +33,7 @@ public class PlaylistDAO {
                 int order_id = rs.getInt("order_id");
                 String pictureURL = rs.getString("PictureURL");
 
+
                 Playlist playlist = new Playlist(id, name, order_id, pictureURL);
                 allPlaylists.add(playlist);
             }
@@ -47,7 +48,7 @@ public class PlaylistDAO {
     public boolean updateOrder(Playlist playlistNew, Playlist playlistOld) throws Exception {
         String sql = "UPDATE Playlists SET order_id = ? WHERE id = ?;";
 
-        // Create connection here so we can check later
+        // Create connection here, so we can check later
         // In the catch statements.
 
         Connection conn = null;
@@ -156,7 +157,7 @@ public class PlaylistDAO {
     public List<Song> getSongs(Playlist playlist) throws Exception {
         ArrayList<Song> allSongsInPlaylist = new ArrayList<>();
 
-        String sql = "SELECT songs.*, artists.name as artistName\n" +
+        String sql = "SELECT songs.*, artists.name as artistName, playlists_songs.order_id as order_id\n" +
                 "FROM songs\n" +
                 "JOIN playlists_songs ON songs.id = playlists_songs.song_id\n" +
                 "JOIN playlists ON playlists_songs.playlist_id = playlists.id\n" +
@@ -178,8 +179,9 @@ public class PlaylistDAO {
                 String filePath = rs.getString("Filepath");
                 String musicBrainzID = rs.getString("SongID");
                 String pictureURL = rs.getString("PictureURL");
+                int orderID = rs.getInt("order_id");
 
-                Song song = new Song(musicBrainzID, songId, title, artist, album, filePath, pictureURL);
+                Song song = new Song(musicBrainzID, songId, title, artist, album, filePath, pictureURL, orderID);
                 allSongsInPlaylist.add(song);
             }
         } catch (SQLException ex) {
