@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 import mytunes.BE.Playlist;
+import mytunes.GUI.Controller.ny.Custom.SVGMenu;
 import mytunes.GUI.Controller.ny.PopUp.EditPlaylistController;
 import mytunes.GUI.Model.PlaylistModel;
 
@@ -69,11 +70,13 @@ public class PlaylistContainer implements Initializable {
     private ContextMenu createContextMenu() {
         ContextMenu contextMenu = new ContextMenu();
 
+        SVGMenu svgMenu = new SVGMenu();
+        
         // Add menu items to the context menu
-        MenuItem menuItem1 = createSVGMenuItem("Opret playliste", ICON_PLAYLIST);
+        MenuItem menuItem1 = svgMenu.createSVGMenuItem("Opret playliste", ICON_PLAYLIST);
 
-        MenuItem menuItem2 = createSVGMenuItem("Rediger oplysninger", ICON_EDIT);
-        MenuItem menuItem3 = createSVGMenuItem("Slet", ICON_DELETE);
+        MenuItem menuItem2 = svgMenu.createSVGMenuItem("Rediger oplysninger", ICON_EDIT);
+        MenuItem menuItem3 = svgMenu.createSVGMenuItem("Slet", ICON_DELETE);
 
         // Separator
         SeparatorMenuItem separator = new SeparatorMenuItem();
@@ -94,19 +97,6 @@ public class PlaylistContainer implements Initializable {
         contextMenu.getItems().addAll(menuItem1, separator, menuItem3, menuItem2);
 
         return contextMenu;
-    }
-
-    private MenuItem createSVGMenuItem(String text, String svgPath) {
-        MenuItem menuItem = new MenuItem(text);
-        SVGPath svgIcon = new SVGPath();
-
-        svgIcon.setContent(svgPath);
-        svgIcon.setScaleX(1);
-        svgIcon.setScaleY(1);
-        svgIcon.setFill(Color.WHITE);
-
-        menuItem.setGraphic(svgIcon);
-        return menuItem;
     }
 
 

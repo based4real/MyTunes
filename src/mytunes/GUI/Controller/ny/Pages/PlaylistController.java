@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 import mytunes.BE.Playlist;
 import mytunes.BE.Song;
+import mytunes.GUI.Controller.ny.Custom.SVGMenu;
 import mytunes.GUI.Controller.ny.Custom.TitleArtistCell;
 import mytunes.GUI.Model.PlaylistModel;
 
@@ -68,7 +69,7 @@ public class PlaylistController implements Initializable {
         ((Button) alert.getDialogPane().lookupButton(ButtonType.OK)).setText("Tilføj alligevel");
         ((Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL)).setText("Tilføj ikke");
 
-        alert.setHeaderText("Denne sang ?");
+        alert.setHeaderText("Denne sang er allerede i playlisten");
         Optional<ButtonType> result = alert.showAndWait();
         return result;
     }
@@ -89,8 +90,9 @@ public class PlaylistController implements Initializable {
                                 return;
                         }
 
-                        if (playlistModel.addSongToPlaylist(p, song) && tblSongsPlaylist.getSelectionModel().getSelectedItem() == p)
+                        if (playlistModel.addSongToPlaylist(p, song) && tblSongsPlaylist.getSelectionModel().getSelectedItem() == p) {
                             updatePlaylistSongs(p);
+                        }
 
                     } catch (Exception e) {
                         throw new RuntimeException(e);
@@ -107,9 +109,11 @@ public class PlaylistController implements Initializable {
         tblSongsPlaylist.setRowFactory(tableView -> {
             final TableRow row = new TableRow();
             final ContextMenu contextMenu = new ContextMenu();
-            final MenuItem removeMenuItem = new MenuItem("Remove");
 
-            final Menu playlistSubMenu = new Menu("Add to playlist");
+            SVGMenu svgMenu = new SVGMenu();
+
+            final MenuItem removeMenuItem = svgMenu.createSVGMenuItem("Fjern fra playliste", ICON_DELETE);
+            final Menu playlistSubMenu = svgMenu.createSVGMenu("Tilføj til playliste", ICON_PLAYLIST);
 
             contextAddToPlaylist(row, playlistSubMenu);
 
@@ -143,6 +147,19 @@ public class PlaylistController implements Initializable {
 
         menuItem.setGraphic(svgIcon);
         return menuItem;
+    }
+
+    private Menu createSVGMenu(String text, String svgPath) {
+        Menu menu = new Menu(text);
+        SVGPath svgIcon = new SVGPath();
+
+        svgIcon.setContent(svgPath);
+        svgIcon.setScaleX(1);
+        svgIcon.setScaleY(1);
+        svgIcon.setFill(Color.WHITE);
+
+        menu.setGraphic(svgIcon);
+        return menu;
     }
 
 

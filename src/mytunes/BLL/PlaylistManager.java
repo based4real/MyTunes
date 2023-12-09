@@ -15,7 +15,6 @@ public class PlaylistManager {
 
     private PlaylistDAO playlistDAO;
     private List<Playlist> allPlaylists = new ArrayList<>();
-    private List<Song> playlistSongs = new ArrayList<>();
 
     public PlaylistManager() throws IOException {
         playlistDAO = new PlaylistDAO();
