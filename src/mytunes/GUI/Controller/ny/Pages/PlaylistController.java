@@ -64,7 +64,6 @@ public class PlaylistController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupPlistSongsTableView();
-        createContextMenu();
         enableDragAndDrop(tblSongsPlaylist);
     }
 
@@ -126,6 +125,9 @@ public class PlaylistController implements Initializable {
     private void enableDragAndDrop(TableView<Song> tableView) {
         tableView.setRowFactory(tv -> {
             TableRow<Song> row = new TableRow<>();
+
+            // Right click on song element
+            createContextMenu(row);
 
             row.setOnDragDetected(e -> {
                 if (!row.isEmpty()) {
@@ -193,9 +195,7 @@ public class PlaylistController implements Initializable {
     }
 
 
-    private void createContextMenu() {
-        tblSongsPlaylist.setRowFactory(tableView -> {
-            final TableRow row = new TableRow();
+    private void createContextMenu(TableRow row) {
             final ContextMenu contextMenu = new ContextMenu();
 
             SVGMenu svgMenu = new SVGMenu();
@@ -224,18 +224,12 @@ public class PlaylistController implements Initializable {
 
             contextMenu.getItems().addAll(deleteFromPlaylist, playlistSubMenu, separator, deleteSong);
 
-            // Update if you are in view and playlist gets deleted
-            //contextMenu.setOnShowing(event -> contextAddToPlaylist(row, playlistSubMenu));
-
             // Set context menu on row, but use a binding to make it only show for non-empty rows:
             row.contextMenuProperty().bind(
                     Bindings.when(row.emptyProperty())
                             .then((ContextMenu) null)
                             .otherwise(contextMenu)
             );
-
-            return row;
-        });
     }
 
     public void tablePlaylistSongsClick(Playlist p) throws Exception {

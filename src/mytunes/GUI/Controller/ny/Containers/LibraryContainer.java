@@ -225,7 +225,6 @@ public class LibraryContainer implements Initializable {
         catch (Exception e){
             System.out.println("Cant load import song window");
         }
-
     }
 
     @FXML

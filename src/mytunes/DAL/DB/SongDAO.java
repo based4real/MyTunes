@@ -142,6 +142,7 @@ public class SongDAO {
         }
     }
 
+    // Should maybe be in PlaylistDAO and not SongDAO
     public boolean updateOrderID(Playlist playlist, Song draggedSong, Song droppedSong) throws Exception {
         String sql = "UPDATE dbo.Playlists_songs SET order_id = ? WHERE song_id = ? AND playlist_id = ?;";
 
@@ -186,6 +187,7 @@ public class SongDAO {
                     ex.printStackTrace();  // Handle rollback exception
                 }
             }
+
             e.printStackTrace();
             throw new Exception("Could not update playlist order in the database", e);
         } finally {

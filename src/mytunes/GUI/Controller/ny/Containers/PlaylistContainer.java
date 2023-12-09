@@ -3,25 +3,33 @@ package mytunes.GUI.Controller.ny.Containers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 import mytunes.BE.Playlist;
+import mytunes.BE.Song;
 import mytunes.GUI.Controller.ny.Custom.SVGMenu;
 import mytunes.GUI.Controller.ny.PopUp.EditPlaylistController;
 import mytunes.GUI.Model.PlaylistModel;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class PlaylistContainer implements Initializable {
 
+    @FXML
+    private GridPane imagePane;
 
     @FXML
     private Label playlistName, lblSongs;
@@ -140,13 +148,69 @@ public class PlaylistContainer implements Initializable {
         return playlist;
     }
 
-    private void setPicture(Playlist playlist) {
+    private ImageView createImageView(String imageURL) {
+        ImageView imageView = new ImageView(new Image(imageURL));
+        imageView.setFitWidth(100); // Adjust width as needed
+        imageView.setFitHeight(100); // Adjust height as needed
+        imageView.setPreserveRatio(true);
+        return imageView;
+    }
+
+    private boolean setCustomPicture(Playlist playlist) throws Exception {
+        List<Song> playlistSongs = playlistModel.getSongs(playlist);
+        boolean customPic = playlistSongs.size() >= 3;
+
+        if (customPic) {
+            List<String> pictures = new ArrayList<>();
+
+            pictures.add(playlistSongs.get(0).getPictureURL());
+            pictures.add(playlistSongs.get(1).getPictureURL());
+            pictures.add(playlistSongs.get(2).getPictureURL());
+            pictures.add(playlistSongs.get(3).getPictureURL());
+
+            int columns = 2;
+            int rowIndex = 0;
+            int colIndex = 0;
+
+            for (String picture : pictures) {
+                Image image = new Image(new File(picture).toURI().toString());
+
+                // Create ImageView
+                ImageView imageView = new ImageView(image);
+
+                // Set the size of ImageView (optional)
+                imageView.setFitWidth(25);
+                imageView.setFitHeight(25);
+
+                // Add ImageView to the GridPane
+                imagePane.add(imageView, colIndex, rowIndex);
+
+                // Update column and row indices
+                colIndex++;
+                if (colIndex >= columns) {
+                    colIndex = 0;
+                    rowIndex++;
+                }
+            }
+            return true;
+
+        }
+        return false;
+    }
+
+    private void setPicture(Playlist playlist) throws Exception {
+        if (setCustomPicture(playlist))
+            return;
+
         String picture = playlist.getPictureURL();
+
         if (picture == null)
             return;
 
         Image image = new Image(new File(picture).toURI().toString());
-        cover.setImage(image);
+        ImageView imageView = new ImageView(image);
+
+        imagePane.getChildren().add(imageView);
     }
 
 }
