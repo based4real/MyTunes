@@ -48,7 +48,7 @@ public class NewPlaylistController implements Initializable {
         this.libraryController = controller;
     }
 
-    private void addNewButton(Playlist playlist) throws IOException {
+    private void addNewButton(Playlist playlist) throws Exception {
         this.libraryController.addNewPlaylist(playlist);
     }
 

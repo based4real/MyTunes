@@ -151,8 +151,7 @@ public class LibraryController implements Initializable {
         }
     }
 
-
-        public void addNewPlaylist(Playlist playlist) throws IOException {
+    public void addNewPlaylist(Playlist playlist) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/new/Playlists.fxml"));
 

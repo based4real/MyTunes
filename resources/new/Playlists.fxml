@@ -12,7 +12,7 @@
    <graphic>
       <HBox prefHeight="49.0" prefWidth="181.0">
          <children>
-            <ImageView fx:id="cover" fitHeight="49.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="cover" fitHeight="49.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true" />
             <VBox prefHeight="49.0" prefWidth="281.0">
                <children>
                   <Label fx:id="playlistName" prefHeight="18.0" prefWidth="249.0" text="Navn" textFill="WHITESMOKE">
@@ -23,7 +23,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="playlistType" text="Playliste">
+                  <Label fx:id="lblSongs">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>

@@ -18,6 +18,14 @@ public class Playlist {
 
     private static final String STOCK_PICTURE = "https://i.imgur.com/LnNRAzz.png";
 
+    public Playlist(int id, String name, int orderID, String pictureURL, List<Song> songs) {
+        this.id = id;
+        this.name = name;
+        this.orderID = orderID;
+        this.pictureURL = pictureURL;
+        this.playlistSongs = songs;
+    }
+
     public Playlist(int id, String name, int orderID, String pictureURL) {
         this.id = id;
         this.name = name;

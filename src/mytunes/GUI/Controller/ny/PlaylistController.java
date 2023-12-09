@@ -13,6 +13,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 import mytunes.BE.Playlist;
+import mytunes.BE.Song;
 import mytunes.BLL.util.CacheSystem;
 import mytunes.GUI.Controller.ny.PopUp.EditPlaylistController;
 import mytunes.GUI.Model.PlaylistModel;
@@ -23,8 +24,9 @@ import java.util.ResourceBundle;
 
 public class PlaylistController implements Initializable {
 
+
     @FXML
-    private Label playlistName;
+    private Label playlistName, lblSongs;
 
     @FXML
     private ImageView cover;
@@ -60,10 +62,11 @@ public class PlaylistController implements Initializable {
         this.libraryController = controller;
     }
 
-    public void setPlaylist(Playlist playlist) {
+    public void setPlaylist(Playlist playlist) throws Exception {
         playlistName.setText(playlist.getName());
         setPicture(playlist);
         this.playlist = playlist;
+        songCountLabel();
     }
 
     private ContextMenu createContextMenu() {
@@ -131,6 +134,11 @@ public class PlaylistController implements Initializable {
             System.out.println(e);
             System.out.println("Cant load edit playlist window");
         }
+    }
+
+    private void songCountLabel() throws Exception {
+        int size = playlistModel.getSongs(playlist).size();
+        lblSongs.setText(size > 0 ? "Antal sange: " + Integer.toString(size) : "Tom");
     }
 
     private void deletePlaylist() throws Exception {
