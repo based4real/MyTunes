@@ -18,6 +18,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import mytunes.BE.Playlist;
+import mytunes.BE.Song;
 import mytunes.GUI.Controller.ny.MainWindowController;
 import mytunes.GUI.Controller.ny.Pages.PlaylistController;
 import mytunes.GUI.Controller.ny.PopUp.NewPlaylistController;
