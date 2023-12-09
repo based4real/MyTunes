@@ -45,7 +45,6 @@ public class NewPlaylistController implements Initializable {
     }
 
     public void setParentController(LibraryController controller) {
-        System.out.println("hey");
         this.libraryController = controller;
     }
 
@@ -55,8 +54,8 @@ public class NewPlaylistController implements Initializable {
 
     public void btnNewPlaylist(ActionEvent actionEvent) throws Exception {
         String playlistName = txtPlaylistName.getText();
-        playlistModel.createPlaylist(playlistName);
-        addNewButton(new Playlist(playlistName));
+        Playlist newPlaylist = playlistModel.createPlaylist(playlistName);
+        addNewButton(newPlaylist);
     }
 
 }

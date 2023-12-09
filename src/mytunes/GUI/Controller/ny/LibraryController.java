@@ -138,13 +138,29 @@ public class LibraryController implements Initializable {
         });
     }
 
-    public void addNewPlaylist(Playlist playlist) throws IOException {
+    public void removePlaylistButton(Playlist playlist) {
+        for (Node node : boxPlaylists.getChildren()) {
+            if (node instanceof Button) {
+                Button button = (Button) node;
+                PlaylistController playlistController = (PlaylistController) button.getUserData();
+                if (playlistController.getPlaylist() == playlist) {
+                    boxPlaylists.getChildren().remove(button);
+                    break;
+                }
+            }
+        }
+    }
+
+
+        public void addNewPlaylist(Playlist playlist) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/new/Playlists.fxml"));
 
         Button button = fxmlLoader.load();
         PlaylistController playlistController = fxmlLoader.getController();
+
         playlistController.setPlaylist(playlist);
+        playlistController.setParentController(this);
 
         // Set userdata so can be used later to determine which
         // id was dragged to update in database.
@@ -189,7 +205,7 @@ public class LibraryController implements Initializable {
         for (Node node : boxPlaylists.getChildren()) {
             if (node instanceof Button existingButton) {
                 PlaylistController playlistController = (PlaylistController) existingButton.getUserData();
-                boolean visible = playlistController.getplaylistLabel().contains(txtPlaylistFilter.getText());
+                boolean visible = playlistController.getPlaylistLabel().contains(txtPlaylistFilter.getText());
 
                 existingButton.setVisible(visible);
                 existingButton.setManaged(visible);
@@ -197,8 +213,7 @@ public class LibraryController implements Initializable {
         }
     }
 
-    @FXML
-    private void menuCreatePlaylist(ActionEvent actionEvent) {
+    public void openPlaylistWindow() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/new/popup/NewPlaylist.fxml"));
             Parent root = loader.load();
@@ -214,6 +229,12 @@ public class LibraryController implements Initializable {
         catch (Exception e){
             System.out.println("Cant load import song window");
         }
+
+    }
+
+    @FXML
+    private void menuCreatePlaylist(ActionEvent actionEvent) {
+        openPlaylistWindow();
     }
 
     @FXML

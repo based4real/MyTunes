@@ -65,4 +65,13 @@ public class PlaylistManager {
     public boolean updateOrder(Playlist playlistNew, Playlist playlistOld) throws Exception {
         return playlistDAO.updateOrder(playlistNew, playlistOld);
     }
+
+    public Playlist editPlaylist(Playlist playlist, String newName) throws Exception {
+        return playlistDAO.editPlaylist(playlist, newName);
+    }
+
+    public void deletePlaylist(Playlist playlist) throws Exception {
+        playlistDAO.deletePlaylist(playlist);
+    }
+
 }

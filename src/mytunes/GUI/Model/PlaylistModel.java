@@ -52,11 +52,20 @@ public class PlaylistModel {
         return playlistManager.addSongToPlaylist(playlist, song);
     }
 
-    public void createPlaylist(String name) throws Exception {
-        playlistManager.createPlaylist(new Playlist(name));
+    public Playlist createPlaylist(String name) throws Exception {
+        return playlistManager.createPlaylist(new Playlist(name));
+    }
+
+    public Playlist editPlaylist(Playlist playlist, String newName) throws Exception {
+        return playlistManager.editPlaylist(playlist, newName);
     }
 
     public boolean isSongInPlaylist(Song s, Playlist playlist) throws Exception {
         return playlistManager.isSongInPlaylist(s, playlist);
     }
+
+    public void deletePlaylist(Playlist playlist) throws Exception {
+        playlistManager.deletePlaylist(playlist);
+    }
+
 }

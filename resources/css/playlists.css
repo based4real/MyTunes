@@ -119,3 +119,8 @@
 .playlist-column-title {
     -fx-fill: rgb(255, 255, 255);
 }
+
+.context-menu .seperator {
+    -fx-background-color: red;
+    -fx-padding: 0.5 0.0 0.5 0.0;
+}

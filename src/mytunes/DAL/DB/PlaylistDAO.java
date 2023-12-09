@@ -31,8 +31,9 @@ public class PlaylistDAO {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 int order_id = rs.getInt("order_id");
+                String pictureURL = rs.getString("PictureURL");
 
-                Playlist playlist = new Playlist(id, name, order_id);
+                Playlist playlist = new Playlist(id, name, order_id, pictureURL);
                 allPlaylists.add(playlist);
             }
 
@@ -121,14 +122,15 @@ public class PlaylistDAO {
     }
 
     public Playlist createPlaylist(Playlist playlist) throws Exception {
-        String sql = "INSERT INTO dbo.Playlists (name,order_id) VALUES (?,?);";
+        String sql = "INSERT INTO dbo.Playlists (name,order_id,PictureURL) VALUES (?,?,?);";
 
         //
         try (Connection conn = databaseConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             // Bind parameters
             stmt.setString(1, playlist.getName());
-            stmt.setString(2, Integer.toString(playlist.getOrderID()));
+            stmt.setInt(2, playlist.getOrderID());
+            stmt.setString(3, playlist.getPictureURL());
 
             // Run the specified SQL statement
             stmt.executeUpdate();
@@ -142,7 +144,7 @@ public class PlaylistDAO {
             }
 
             // Create song object and send up the layers
-            Playlist createdPlaylist = new Playlist(id, playlist.getName(), playlist.getOrderID());
+            Playlist createdPlaylist = new Playlist(id, playlist.getName(), playlist.getOrderID(), playlist.getPictureURL());
 
             return createdPlaylist;
         } catch (SQLException ex) {
@@ -218,4 +220,68 @@ public class PlaylistDAO {
         }
     }
 
+    public Playlist editPlaylist(Playlist playlist, String newName) throws Exception {
+        // SQL command
+        String sql = "UPDATE dbo.Playlists SET name = ? WHERE [id] = ?";
+
+        try (Connection conn = databaseConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql))
+        {
+            // Bind parameters
+            stmt.setString(1, newName);
+            stmt.setInt(2, playlist.getId());
+
+            playlist.setName(newName);
+
+            // Run the specified SQL statement
+            stmt.executeUpdate();
+
+            return playlist;
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+            throw new Exception("Could not update song", ex);
+        }
+    }
+
+    private void updateOrderIDDelete(Connection conn, int deletedOrderId) throws SQLException {
+        System.out.println(deletedOrderId);
+        String updateSql = "UPDATE dbo.Playlists SET order_id = order_id - 1 WHERE order_id >= ?";
+        try (PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
+            updateStmt.setInt(1, deletedOrderId);
+            updateStmt.executeUpdate();
+        }
+    }
+
+    private void deleteplaylistByID(Connection conn, int playlistID) throws SQLException {
+        System.out.println(playlistID);
+        String deleteSql = "DELETE FROM dbo.Playlists WHERE [id] = ?";
+        try (PreparedStatement deleteStmt = conn.prepareStatement(deleteSql)) {
+            deleteStmt.setInt(1, playlistID);
+            deleteStmt.executeUpdate();
+        }
+    }
+
+    public void deletePlaylist(Playlist playlist) throws Exception {
+        try (Connection conn = databaseConnector.getConnection()) {
+            // Begin a transaction
+            conn.setAutoCommit(false);
+
+            try {
+                // Delete playlist
+                deleteplaylistByID(conn, playlist.getId());
+
+                // Update the orderIDs
+                updateOrderIDDelete(conn, playlist.getOrderID());
+
+                // Commit the transaction
+                conn.commit();
+            } catch (Exception ex) {
+                // Rollback the transaction in case of an exception
+                conn.rollback();
+                throw ex;
+            }
+        }
+    }
 }
