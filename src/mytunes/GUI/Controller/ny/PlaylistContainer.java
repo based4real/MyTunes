@@ -1,10 +1,10 @@
 package mytunes.GUI.Controller.ny;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import mytunes.BE.Playlist;
 import mytunes.BE.Song;
 import mytunes.GUI.Controller.ny.Custom.TitleArtistCell;
@@ -54,7 +54,6 @@ public class PlaylistContainer implements Initializable {
         playlistSongs = playlistModel.getObservableSongs(p);
         tblSongsPlaylist.setItems(playlistSongs);
     }
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
