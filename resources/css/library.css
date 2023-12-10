@@ -410,3 +410,22 @@
 .media_slider .thumb:hover {
     -fx-background-color: rgb(225, 225, 225); /* Set your desired thumb color here */
 }
+
+/* BOX CONTAINERS ARTIST, ETC */
+.box-container {
+    -fx-background-color: rgb(24, 24, 24);
+    -fx-background-radius: 10px;
+}
+
+.box-container:hover {
+    -fx-background-color: rgb(40, 40, 40);
+    -fx-cursor: hand;
+}
+
+.box-container:pressed {
+    -fx-background-color: rgb(0, 0, 0);
+}
+
+.box-container:focused {
+    -fx-background-color: rgb(35, 35, 35);
+}

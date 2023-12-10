@@ -7,7 +7,9 @@ import java.io.File;
 
 public class Song {
     private int id, artistID, orderID;
-    private String title, songID, album, filePath, artistName, pictureURL;
+    private String title, songID, filePath, artistName, pictureURL;
+    private String album;
+
     private MediaPlayer mediaPlayer;
 
     public Song(String songID, int id, String title, String artistName, String album, String filePath, String pictureURL){
@@ -88,13 +90,6 @@ public class Song {
         this.artistID = id;
     }
 
-    public String getAlbum() {
-        return album;
-    }
-
-    public void setAlbum(String album) {
-        this.album = album;
-    }
 
     public String getFilePath() {
         return filePath;
@@ -127,5 +122,9 @@ public class Song {
 
     public void setOrderID(int orderID) {
         this.orderID = orderID;
+    }
+
+    public String getAlbum() {
+        return album;
     }
 }

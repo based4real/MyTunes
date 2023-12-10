@@ -41,9 +41,10 @@ public class SongModel {
         return songsToBeViewed;
     }
 
-    public void createNewSong(Song newSong) throws Exception {
+    public Song createNewSong(Song newSong) throws Exception {
         Song song = songManager.createNewSong(newSong);
         songsToBeViewed.add(song);
+        return song;
     }
 
     public void updateSong(Song selectedSong) throws Exception {

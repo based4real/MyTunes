@@ -1,10 +1,8 @@
-package mytunes.DAL.DB;
+package mytunes.DAL.DB.Objects;
 
-import com.microsoft.sqlserver.jdbc.SQLServerException;
-import javafx.application.Application;
 import mytunes.BE.Playlist;
 import mytunes.BE.Song;
-import mytunes.DAL.DB.DatabaseConnector;
+import mytunes.DAL.DB.Connect.DatabaseConnector;
 
 import java.io.IOException;
 import java.sql.*;

@@ -1,6 +1,7 @@
 package mytunes.GUI.Model;
 
 import mytunes.BLL.SongImportManager;
+import mytunes.BE.REST.Release;
 import org.json.JSONException;
 
 import java.util.List;
@@ -55,5 +56,9 @@ public class SongImportModel {
 
     public String getSongID() throws JSONException {
         return songImportManager.getSongID();
+    }
+
+    public List<Release> getAlbums() throws JSONException {
+        return songImportManager.getAlbums();
     }
 }

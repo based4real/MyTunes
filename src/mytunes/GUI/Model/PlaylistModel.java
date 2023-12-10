@@ -17,7 +17,6 @@ public class PlaylistModel {
     private PlaylistManager playlistManager;
     private static PlaylistModel single_instance = null;
 
-
     private PlaylistModel() throws Exception {
         playlistManager = new PlaylistManager();
         playlistToBeViewed = FXCollections.observableArrayList();

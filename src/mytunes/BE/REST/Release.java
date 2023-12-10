@@ -1,4 +1,4 @@
-package mytunes.DAL.REST.ENTITY;
+package mytunes.BE.REST;
 
 import java.util.Objects;
 

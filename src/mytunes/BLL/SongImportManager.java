@@ -1,6 +1,7 @@
 package mytunes.BLL;
 
 import mytunes.DAL.REST.CoverArt;
+import mytunes.BE.REST.Release;
 import mytunes.DAL.REST.MusicBrainzConnector;
 import org.json.JSONException;
 
@@ -74,5 +75,9 @@ public class SongImportManager {
 
     public String getSongID() throws JSONException {
         return musicBrainzConnector.getSongID();
+    }
+
+    public List<Release> getAlbums() throws JSONException {
+        return musicBrainzConnector.getAlbums();
     }
 }

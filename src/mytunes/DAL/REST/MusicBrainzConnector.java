@@ -1,7 +1,7 @@
 package mytunes.DAL.REST;
 
 import mytunes.BLL.util.CacheSystem;
-import mytunes.DAL.REST.ENTITY.Release;
+import mytunes.BE.REST.Release;
 import mytunes.DAL.REST.types.MBRelease;
 import mytunes.DAL.REST.utils.JsonUtil;
 import org.json.JSONArray;
@@ -122,7 +122,7 @@ public class MusicBrainzConnector {
 
     public static void main(String[] args) throws Exception {
         MusicBrainzConnector musicBrainzConnector = new MusicBrainzConnector();
-        boolean found = musicBrainzConnector.searchSong("michael jackson", "beat it");
+        boolean found = musicBrainzConnector.searchSong("Eminem", "love the way you lie");
 
         if (!found)
             return;
@@ -134,10 +134,11 @@ public class MusicBrainzConnector {
         String features = musicBrainzConnector.getFeatures();
         String title = musicBrainzConnector.getTitle();
 
-        String alias = musicBrainzConnector.getArtistAlias();
         String id = musicBrainzConnector.getPictureID();
 
         musicBrainzConnector.getAlbums();
+
+        System.out.println(musicBrainzConnector.getArtistID());
 
         System.out.println(sid + " " + artist + " - " + title + " ft. " + features);
         CoverArt coverArt = new CoverArt(id);

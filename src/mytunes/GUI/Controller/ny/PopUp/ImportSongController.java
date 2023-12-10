@@ -13,10 +13,7 @@ import javafx.stage.FileChooser;
 import javafx.util.Duration;
 import mytunes.BE.Artist;
 import mytunes.BE.Song;
-import mytunes.GUI.Model.ArtistModel;
-import mytunes.GUI.Model.MediaPlayerModel;
-import mytunes.GUI.Model.SongImportModel;
-import mytunes.GUI.Model.SongModel;
+import mytunes.GUI.Model.*;
 
 import java.io.File;
 
@@ -38,17 +35,20 @@ public class ImportSongController {
     private MediaPlayerModel mediaPlayerModel;
     private ArtistModel artistModel;
     private SongModel songModel;
+    private AlbumModel albumModel;
 
     private String artistID, artistName, artistAlias;
-    private String songID, songTitle, songArtist, songAlbum, songfilePath;
+    private String songID, songTitle, songArtist, songfilePath;
+    private String songAlbum;
 
     private File selectedFile;
 
     public ImportSongController() throws Exception {
         songImportModel = new SongImportModel();
         mediaPlayerModel = new MediaPlayerModel();
-        artistModel = new ArtistModel();
+        artistModel = ArtistModel.getInstance();
         songModel = SongModel.getInstance();
+        albumModel = AlbumModel.getInstance();
     }
 
     private void setDisabled(boolean disabled) {
@@ -76,7 +76,7 @@ public class ImportSongController {
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Audio Files (*.mp3, *.wav)", "*.mp3", "*.wav");
         fileChooser.getExtensionFilters().add(extFilter);
 
-        fileChooser.setTitle("Select Music File");
+        fileChooser.setTitle("Vælg musik fil");
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 
         selectedFile = fileChooser.showOpenDialog(null);
@@ -142,11 +142,13 @@ public class ImportSongController {
         songID = songImportModel.getSongID();
         songTitle = songImportModel.getTitle();
         songArtist = songImportModel.getArtist();
-        songAlbum = "none";
+        songAlbum = "";
         songfilePath = selectedFile.getPath();
 
+
         Artist artist = artistModel.createArtist(new Artist(artistID, artistName, artistAlias));
-        System.out.println(artist.getPrimaryID());
-        songModel.createNewSong(new Song(songID, songTitle, artist.getPrimaryID(), songAlbum, songfilePath, txtPicture.getText()));
+        Song song = songModel.createNewSong(new Song(songID, songTitle, artist.getPrimaryID(), songAlbum, songfilePath, txtPicture.getText()));
+
+        albumModel.createAlbum(songImportModel.getAlbums(), song, artist);
     }
 }

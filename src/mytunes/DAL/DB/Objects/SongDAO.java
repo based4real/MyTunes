@@ -1,10 +1,9 @@
-package mytunes.DAL.DB;
+package mytunes.DAL.DB.Objects;
 
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import mytunes.BE.Playlist;
 import mytunes.BE.Song;
 import mytunes.BLL.util.CacheSystem;
-import mytunes.DAL.DB.DatabaseConnector;
+import mytunes.DAL.DB.Connect.DatabaseConnector;
 
 import java.io.IOException;
 import java.sql.*;
@@ -73,7 +72,7 @@ public class SongDAO {
             // Bind parameters
             stmt.setString(1, song.getTitle());
             stmt.setInt(2, song.getArtistID());
-            stmt.setString(3, song.getAlbum());
+            stmt.setString(3, "");
             stmt.setString(4, song.getFilePath());
             stmt.setString(5, song.getMusicBrainzID());
             stmt.setString(6, storedPath);
@@ -90,7 +89,7 @@ public class SongDAO {
             }
 
             // Create song object and send up the layers
-            Song createdSong = new Song(song.getMusicBrainzID(), id, song.getTitle(), song.getArtistName(), song.getAlbum(), song.getFilePath(), storedPath);
+            Song createdSong = new Song(song.getMusicBrainzID(), id, song.getTitle(), song.getArtistName(), "", song.getFilePath(), storedPath);
             return createdSong;
         }
         catch (SQLException ex)

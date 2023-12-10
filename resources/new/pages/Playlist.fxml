@@ -79,7 +79,7 @@
             <Insets />
          </opaqueInsets>
       </VBox>
-      <GridPane alignment="CENTER" layoutY="186.0" prefHeight="106.0" prefWidth="527.0" AnchorPane.bottomAnchor="-4.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="186.0">
+      <GridPane alignment="CENTER" layoutY="186.0" prefHeight="193.0" prefWidth="665.0" AnchorPane.bottomAnchor="-4.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="186.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
          </columnConstraints>

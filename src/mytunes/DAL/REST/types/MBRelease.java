@@ -1,7 +1,6 @@
 package mytunes.DAL.REST.types;
 
-import mytunes.DAL.REST.ENTITY.Release;
-import mytunes.DAL.REST.utils.JsonUtil;
+import mytunes.BE.REST.Release;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -143,7 +142,7 @@ public class MBRelease {
 
             // Check if "joinphrase" exists in the current artist credit
             if (!artistCredit.has("joinphrase")) {
-                String name = artistCredit.getJSONObject("id").optString("name", "");
+                String name = artistCredit.getJSONObject("artist").optString("id", "");
                 artistStr.append(name);
             }
         }
@@ -171,8 +170,9 @@ public class MBRelease {
 
 
     public String getPictureID() throws JSONException {
-        JSONObject releaseGroup = getReleaseGroupArray();
-        return releaseGroup.getString("id");
+        List<Release> covers = getAlbums();
+
+        return covers.isEmpty() ? "null" : covers.get(0).getReleaseId();
     }
 
     public String getTitle() throws JSONException {
