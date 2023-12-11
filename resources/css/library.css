@@ -104,7 +104,14 @@
     -fx-fit-to-width: true;
 }
 
+.scroll-pane_search {
+    -fx-background-color: transparent;
+}
+
 .scroll-pane_playlists > .viewport{
+    -fx-background-color: transparent;
+}
+.scroll-pane_search > .viewport{
     -fx-background-color: transparent;
 }
 

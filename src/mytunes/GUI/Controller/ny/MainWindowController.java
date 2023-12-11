@@ -72,9 +72,9 @@ public class MainWindowController implements Initializable {
     public void btnSearch(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/new/pages/Search.fxml"));
-        //AnchorPane anchorPane = fxmlLoader.load();
-        ScrollPane scrollPane = fxmlLoader.load();
+        AnchorPane anchorPane = fxmlLoader.load();
+        //ScrollPane scrollPane = fxmlLoader.load();
 
-        switchView(scrollPane);
+        switchView(anchorPane);
     }
 }
