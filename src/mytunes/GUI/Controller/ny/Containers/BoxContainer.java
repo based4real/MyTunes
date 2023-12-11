@@ -7,8 +7,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import mytunes.BE.Artist;
 import mytunes.GUI.Controller.ny.Pages.HomeController;
+import mytunes.GUI.Controller.ny.Pages.SearchController;
 import mytunes.GUI.Model.ArtistModel;
 
 import java.net.URL;
@@ -28,6 +28,8 @@ public class BoxContainer implements Initializable {
     @FXML
     private Label lblDescription;
 
+    private SearchController searchController;
+
     private HomeController homeController;
     private ArtistModel artistModel;
 
@@ -43,6 +45,9 @@ public class BoxContainer implements Initializable {
         lblHeader.setText(txt);
     }
 
+    public String getHeader(){
+        return lblHeader.getText().toLowerCase();
+    }
     public void setImage(String URL) {
         Image newImage = new Image(URL);
         coverImg.setImage(newImage);
@@ -56,7 +61,11 @@ public class BoxContainer implements Initializable {
     public void btnBoxAction(ActionEvent actionEvent) {
     }
 
-    public void setParentController(HomeController controller) {
+    public void setHomeController(HomeController controller) {
         this.homeController = controller;
+    }
+
+    public  void setSearchController(SearchController controller){
+        this.searchController = controller;
     }
 }

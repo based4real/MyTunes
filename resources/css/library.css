@@ -73,6 +73,11 @@
     -fx-prompt-text-fill: transparent;;
 }
 
+.search_song {
+    -fx-background-color: rgb(83,83,83);
+    -fx-prompt-text-fill: rgb(179,179,179);
+}
+
 .search_playlist:hover {
     -fx-prompt-text-fill: rgba(179, 179, 179, 255);
     -fx-background-color: rgba(42, 41, 42, 0.2);

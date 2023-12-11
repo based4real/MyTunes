@@ -2,7 +2,7 @@ package mytunes.BLL;
 
 import mytunes.BE.Playlist;
 import mytunes.BE.Song;
-import mytunes.BLL.util.SongFilter;
+import mytunes.BLL.util.SongSearcher;
 import mytunes.DAL.DB.Objects.SongDAO;
 
 import java.io.IOException;
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class SongManager {
 
-    private SongFilter songFilter = new SongFilter();
+    private SongSearcher songSearcher = new SongSearcher();
     private SongDAO songDAO;
     private List<Song> allSongs = new ArrayList<>();
 
@@ -40,5 +40,11 @@ public class SongManager {
 
     public void updateOrderID(Playlist playlist, Song draggedSong, Song droppedSong) throws Exception {
         songDAO.updateOrderID(playlist, draggedSong, droppedSong);
+    }
+
+    public List<Song> searchSong(String searchWord) throws Exception {
+        List<Song> allSongs = getAllSongs();
+        List<Song> searchResult = songSearcher.searchSong(allSongs,searchWord);
+        return searchResult;
     }
 }

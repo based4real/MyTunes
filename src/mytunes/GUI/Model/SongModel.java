@@ -6,7 +6,6 @@ import mytunes.BE.Playlist;
 import mytunes.BE.Song;
 import mytunes.BLL.SongManager;
 
-import java.io.IOException;
 import java.util.List;
 
 public class SongModel {
@@ -58,6 +57,12 @@ public class SongModel {
 
     public void updateOrderID(Playlist playlist, Song draggedSong, Song droppedSong) throws Exception {
         songManager.updateOrderID(playlist, draggedSong, droppedSong);
+    }
+
+    public void searchSong(String searchWord) throws Exception {
+        List<Song> searchResults = songManager.searchSong(searchWord);
+        songsToBeViewed.clear();
+        songsToBeViewed.addAll(searchResults);
     }
 
 }

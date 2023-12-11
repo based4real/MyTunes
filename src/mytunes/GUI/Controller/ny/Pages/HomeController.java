@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import mytunes.BE.Artist;
 import mytunes.GUI.Controller.ny.Containers.BoxContainer;
-import mytunes.GUI.Controller.ny.Containers.PlaylistContainer;
 import mytunes.GUI.Model.ArtistModel;
 
 import java.net.URL;
@@ -45,7 +44,7 @@ public class HomeController implements Initializable {
             boxContainer.setHeader(a.getName());
             boxContainer.setDescription(a.getAlias());
 
-            boxContainer.setParentController(this);
+            boxContainer.setHomeController(this);
 
             // Set userdata so can be used later to determine which
             // id was dragged to update in database.

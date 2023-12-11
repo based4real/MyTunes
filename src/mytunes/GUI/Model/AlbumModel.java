@@ -1,5 +1,6 @@
 package mytunes.GUI.Model;
 
+import mytunes.BE.Album;
 import mytunes.BE.Artist;
 import mytunes.BE.Song;
 import mytunes.BLL.AlbumManager;
@@ -25,6 +26,10 @@ public class AlbumModel {
 
     public boolean createAlbum(List<Release> albums, Song song, Artist artist) throws SQLException {
         return albumManager.createAlbum(albums, song, artist);
+    }
+
+    public List<Album> getAllAlbums() throws Exception {
+       return albumManager.getAllAlbums();
     }
 
 }

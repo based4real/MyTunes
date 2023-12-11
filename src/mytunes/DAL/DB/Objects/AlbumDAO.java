@@ -2,13 +2,14 @@ package mytunes.DAL.DB.Objects;
 
 import mytunes.BE.Album;
 import mytunes.BE.Artist;
-import mytunes.BE.Playlist;
 import mytunes.BE.Song;
 import mytunes.DAL.DB.Connect.DatabaseConnector;
 import mytunes.BE.REST.Release;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AlbumDAO {
 
@@ -114,5 +115,35 @@ public class AlbumDAO {
             }
         }
         return false;
+    }
+
+    public List<Album> getAllAlbums() throws Exception {
+        ArrayList<Album> allAlbums = new ArrayList<>();
+
+        try (Connection conn = databaseConnector.getConnection();
+             Statement stmt = conn.createStatement())
+        {
+            String sql = "SELECT * FROM dbo.Albums";
+
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String released = rs.getString("released");
+                String type = rs.getString("type");
+                int artistId = rs.getInt("artist_id");
+
+
+                Album album = new Album(id,name,released,type,artistId);
+                allAlbums.add(album);
+            }
+            return allAlbums;
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+            throw new Exception("Could not get albums from database", ex);
+        }
     }
 }
