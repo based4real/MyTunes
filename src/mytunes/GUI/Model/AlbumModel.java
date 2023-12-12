@@ -24,7 +24,7 @@ public class AlbumModel {
         return single_instance;
     }
 
-    public boolean createAlbum(List<Release> albums, Song song, Artist artist) throws SQLException {
+    public boolean createAlbum(List<Release> albums, Song song, Artist artist) throws Exception {
         return albumManager.createAlbum(albums, song, artist);
     }
 
