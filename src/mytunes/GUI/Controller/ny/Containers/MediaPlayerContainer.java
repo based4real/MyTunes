@@ -75,7 +75,6 @@ public class MediaPlayerContainer implements Initializable {
         });
     }
 
-
     private void updateImage(Song song) {
         Image newImage = new Image(new File(song.getPictureURL()).toURI().toString());
         imgCover.setImage(newImage);
@@ -186,6 +185,11 @@ public class MediaPlayerContainer implements Initializable {
         mediaPlayer.currentTimeProperty().addListener((observable, oldTime, newTime) -> {
             if (wasDragged && wasClicked)
                 return;
+
+            boolean playNextSong = sliderTime.getMax() / 100 - 5 < newTime.toMillis() / 100;
+
+            if (playNextSong)
+                System.out.println("song finished");
 
             lblCurrentDuration.setText(song.getCurrentDuration());
             sliderTime.setValue(newTime.toMillis());
