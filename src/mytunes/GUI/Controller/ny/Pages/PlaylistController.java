@@ -4,29 +4,33 @@ import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.TransferMode;
+import javafx.scene.input.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 import mytunes.BE.Playlist;
 import mytunes.BE.Song;
+import mytunes.GUI.Controller.ny.Containers.MediaPlayerContainer;
 import mytunes.GUI.Controller.ny.Containers.PlaylistContainer;
 import mytunes.GUI.Controller.ny.Custom.SVGMenu;
 import mytunes.GUI.Controller.ny.Custom.TitleArtistCell;
+import mytunes.GUI.Model.MediaPlayerModel;
 import mytunes.GUI.Model.PlaylistModel;
 import mytunes.GUI.Model.SongModel;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class PlaylistController implements Initializable {
     @FXML
-    private TableView tblSongsPlaylist;
+    private TableView<Song> tblSongsPlaylist;
 
     @FXML
     private TableColumn<Playlist, String> colPlaylistNavn;
@@ -52,6 +56,7 @@ public class PlaylistController implements Initializable {
     private ContextMenu contextMenu;
 
     private SongModel songModel;
+    private MediaPlayerModel mediaPlayerModel;
 
     private static final String ICON_PLAYLIST = "M12 13c0 1.105-1.12 2-2.5 2S7 14.105 7 13s1.12-2 2.5-2 2.5.895 2.5 2 M12 3v10h-1V3z M11 2.82a1 1 0 0 1 .804-.98l3-.6A1 1 0 0 1 16 2.22V4l-5 1z M0 11.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5m0-4A.5.5 0 0 1 .5 7H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5m0-4A.5.5 0 0 1 .5 3H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5";
     private static final String ICON_DELETE_SONG = "M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5";
@@ -60,12 +65,15 @@ public class PlaylistController implements Initializable {
     public PlaylistController() throws Exception {
         playlistModel = PlaylistModel.getInstance();
         songModel = SongModel.getInstance();
+        mediaPlayerModel = MediaPlayerModel.getInstance();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupPlistSongsTableView();
         enableDragAndDrop(tblSongsPlaylist);
+
+        mediaPlayerModel.setPlaylistSongs(tblSongsPlaylist);
     }
 
     public void setPlaylist(Playlist playlist) {
@@ -74,6 +82,19 @@ public class PlaylistController implements Initializable {
 
     private void setupPlistSongsTableView() {
         columnTitle.setCellFactory(col -> new TitleArtistCell());
+    }
+
+    private void setActiveSong() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/new/containers/MediaPlayer.fxml"));
+
+        // Have to load else mediaplayerContainer will be null
+        Parent root = fxmlLoader.load();
+        MediaPlayerContainer mediaPlayerContainer = fxmlLoader.getController();
+
+        mediaPlayerModel.setPlaylistSongs(tblSongsPlaylist);
+        // Check for double clik in table
+        // We do a bit bad code, as we have to contact the other controller to update UI elements...
     }
 
     private void updatePlaylistSongs(Playlist playlist) throws Exception {
@@ -110,7 +131,7 @@ public class PlaylistController implements Initializable {
                                 return;
                         }
 
-                        if (playlistModel.addSongToPlaylist(p, song) && tblSongsPlaylist.getSelectionModel().getSelectedItem() == p)
+                        if (playlistModel.addSongToPlaylist(p, song))
                             updatePlaylistSongs(p);
 
                     } catch (Exception e) {
@@ -239,6 +260,7 @@ public class PlaylistController implements Initializable {
 
         tblSongsPlaylist.refresh();
         tblSongsPlaylist.setItems(playlistModel.getObservableSongs(p));
+        mediaPlayerModel.setPlaylistSongs(tblSongsPlaylist);
     }
 
 }

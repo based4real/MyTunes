@@ -21,9 +21,9 @@
       <URL value="@../../css/playlists.css" />
    </stylesheets>
    <children>
-      <HBox prefHeight="77.0" prefWidth="167.0">
+      <HBox prefHeight="77.0" prefWidth="285.0">
          <children>
-            <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgCover" fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
                <HBox.margin>
                   <Insets left="20.0" top="10.0" />
                </HBox.margin>
@@ -31,9 +31,9 @@
                   <Image url="@../../test.png" />
                </image>
             </ImageView>
-            <VBox prefHeight="76.0" prefWidth="92.0">
+            <VBox prefHeight="77.0" prefWidth="209.0">
                <children>
-                  <Label text="Titel" textFill="WHITE">
+                  <Label fx:id="lblTitle" prefHeight="17.0" prefWidth="159.0" text="Titel" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -41,7 +41,7 @@
                         <Insets left="15.0" top="20.0" />
                      </VBox.margin>
                   </Label>
-                  <Label text="Artist" textFill="#4d4d4d">
+                  <Label fx:id="lblArtist" prefHeight="17.0" prefWidth="157.0" text="Artist" textFill="#4d4d4d">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -66,7 +66,7 @@
                         <String fx:value="media_shuffle" />
                      </styleClass>
                   </Button>
-                  <Button mnemonicParsing="false" scaleX="0.85" scaleY="0.85" text="back">
+                  <Button mnemonicParsing="false" onAction="#btnPrevious" scaleX="0.85" scaleY="0.85" text="back">
                      <styleClass>
                         <String fx:value="media_left" />
                         <String fx:value="media_controls" />
@@ -75,16 +75,12 @@
                         <Insets />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" scaleX="1.75" scaleY="1.75" text="play">
-                     <styleClass>
-                        <String fx:value="media_play" />
-                        <String fx:value="media_controls" />
-                     </styleClass>
+                  <Button fx:id="fxBtnPlay" mnemonicParsing="false" onAction="#btnPlay" scaleX="1.75" scaleY="1.75" styleClass="media_play" text="play">
                      <HBox.margin>
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" scaleX="0.85" scaleY="0.85" text="forward">
+                  <Button mnemonicParsing="false" onAction="#btnNext" scaleX="0.85" scaleY="0.85" text="forward">
                      <styleClass>
                         <String fx:value="media_right" />
                         <String fx:value="media_controls" />
@@ -100,7 +96,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="27.0" prefWidth="485.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Label prefHeight="17.0" prefWidth="32.0" text="0:45" textFill="#afafaf" HBox.hgrow="ALWAYS">
+                  <Label fx:id="lblCurrentDuration" prefHeight="17.0" prefWidth="32.0" text="0:45" textFill="#afafaf" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets right="5.0" top="-20.0" />
                      </HBox.margin>
@@ -112,7 +108,7 @@
                      <HBox.margin>
                         <Insets top="-20.0" />
                      </HBox.margin></Slider>
-                  <Label prefHeight="17.0" prefWidth="69.0" text="3:20" textFill="#afafaf">
+                  <Label fx:id="lblMaxDuration" prefHeight="17.0" prefWidth="69.0" text="3:20" textFill="#afafaf">
                      <HBox.margin>
                         <Insets left="5.0" top="-20.0" />
                      </HBox.margin></Label>
@@ -133,7 +129,7 @@
                   <Insets right="15.0" top="22.0" />
                </HBox.margin>
             </SVGPath>
-            <Slider fx:id="sliderAudio" prefHeight="14.0" prefWidth="101.0">
+            <Slider fx:id="sliderVolume" prefHeight="14.0" prefWidth="101.0">
                <HBox.margin>
                   <Insets top="20.0" />
                </HBox.margin>

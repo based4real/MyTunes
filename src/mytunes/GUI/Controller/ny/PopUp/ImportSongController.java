@@ -45,7 +45,7 @@ public class ImportSongController {
 
     public ImportSongController() throws Exception {
         songImportModel = new SongImportModel();
-        mediaPlayerModel = new MediaPlayerModel();
+        mediaPlayerModel = MediaPlayerModel.getInstance();
         artistModel = ArtistModel.getInstance();
         songModel = SongModel.getInstance();
         albumModel = AlbumModel.getInstance();
