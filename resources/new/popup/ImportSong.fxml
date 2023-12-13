@@ -72,7 +72,7 @@
             </HBox>
             <HBox prefHeight="30.0" prefWidth="335.0">
                <children>
-                  <Label text="Category" textFill="#e1e1e1">
+                  <Label text="Genre" textFill="#e1e1e1">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -80,7 +80,7 @@
                         <Insets right="38.0" top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <ComboBox fx:id="dropCategory" disable="true" prefHeight="30.0" prefWidth="244.0" styleClass="import_category" />
+                  <ComboBox fx:id="dropGenre" disable="true" prefHeight="30.0" prefWidth="244.0" styleClass="import_category" />
                </children>
             </HBox>
             <HBox prefHeight="30.0" prefWidth="335.0">

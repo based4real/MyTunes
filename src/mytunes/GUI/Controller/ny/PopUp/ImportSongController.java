@@ -29,7 +29,7 @@ public class ImportSongController {
     private TextField txtTitel, txtArtist, txtTime, txtFile, txtPicture, txtFeature;
 
     @FXML
-    private ComboBox dropCategory;
+    private ComboBox<String> dropGenre;
 
     private GenreModel genreModel;
     private SongImportModel songImportModel;
@@ -59,7 +59,7 @@ public class ImportSongController {
         txtFeature.setDisable(disabled);
         txtFile.setDisable(disabled);
         txtTime.setDisable(disabled);
-        dropCategory.setDisable(disabled);
+        dropGenre.setDisable(disabled);
         txtPicture.setDisable(disabled);
         btnImportFX.setDisable(disabled);
     }
@@ -89,8 +89,8 @@ public class ImportSongController {
             txtTitel.setText(songImportModel.getTitle());
             txtFile.setText(selectedFile.getAbsolutePath());
 
-            dropCategory.getItems().addAll(genreModel.getAllGenreNames());
-            dropCategory.getSelectionModel().selectFirst();
+            dropGenre.getItems().addAll(genreModel.getAllGenreNames());
+            dropGenre.getSelectionModel().selectFirst();
 
             String imageURL = songImportModel.getPictureURL();
 
@@ -127,7 +127,7 @@ public class ImportSongController {
 
             txtFeature.setText(songImportModel.getFeatures());
             String pic = songImportModel.getPictureURL();
-            dropCategory.getItems().addAll(genreModel.getAllGenreNames());
+            dropGenre.getItems().addAll(genreModel.getAllGenreNames());
             txtPicture.setText(pic);
 
             setPreviewImg(pic);
@@ -145,13 +145,12 @@ public class ImportSongController {
         songTitle = songImportModel.getTitle();
         songArtist = songImportModel.getArtist();
         songAlbum = "";
-        songGenre = dropCategory.getSelectionModel().getSelectedItem().toString();
+        songGenre = dropGenre.getSelectionModel().getSelectedItem().toString();
         songfilePath = selectedFile.getPath();
 
 
         Artist artist = artistModel.createArtist(new Artist(artistID, artistName, artistAlias));
         Song song = songModel.createNewSong(new Song(songID, songTitle, artist.getPrimaryID(), songAlbum, songGenre ,songfilePath, txtPicture.getText()));
-
         albumModel.createAlbum(songImportModel.getAlbums(), song, artist);
     }
 }

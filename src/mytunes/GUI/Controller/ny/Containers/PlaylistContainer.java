@@ -150,7 +150,7 @@ public class PlaylistContainer implements Initializable {
 
     private boolean setCustomPicture(Playlist playlist) throws Exception {
         List<Song> playlistSongs = playlistModel.getSongs(playlist);
-        boolean customPic = playlistSongs.size() >= 3;
+        boolean customPic = playlistSongs.size() > 3;
 
         if (customPic) {
             List<String> pictures = new ArrayList<>();
