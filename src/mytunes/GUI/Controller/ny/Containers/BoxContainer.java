@@ -58,6 +58,7 @@ public class BoxContainer {
     }
 
     public void btnBoxAction(ActionEvent actionEvent) {
+        
     }
 
     public void setHomeController(HomeController controller) {
