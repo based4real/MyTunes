@@ -35,12 +35,10 @@ public class PlaylistController implements Initializable {
     private TableColumn columnID;
 
     @FXML
-    private TableColumn<Song, String> columnTitle;
+    private TableColumn<Song, String> columnTitle,columnGenre,columnDuration;
 
-    public TableColumn columnGenre;
     public TableColumn columnAdded;
     public TableColumn columnAlbum;
-    public TableColumn columnDuration;
 
     private PlaylistModel playlistModel;
     private ObservableList<Song> playlistSongs = null;
@@ -74,6 +72,8 @@ public class PlaylistController implements Initializable {
 
     private void setupPlistSongsTableView() {
         columnTitle.setCellFactory(col -> new TitleArtistCell());
+        columnGenre.setCellValueFactory(new PropertyValueFactory<>("genre"));
+        columnDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
     }
 
     private void updatePlaylistSongs(Playlist playlist) throws Exception {

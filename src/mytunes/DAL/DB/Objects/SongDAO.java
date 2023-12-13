@@ -29,6 +29,7 @@ public class SongDAO {
                     "  Songs.Filepath as filePath,\n" +
                     "  Songs.songID as songID,\n" +
                     "  Songs.Album as songAlbum,\n" +
+                    "  Songs.Genre as songGenre,\n" +
                     "  artists.id as artistID,\n" +
                     "  artists.name as artistName,\n" +
                     "  artists.alias as artistAlias,\n" +
@@ -43,11 +44,12 @@ public class SongDAO {
                 String title = rs.getString("songTitle");
                 String artist = rs.getString("artistName");
                 String album = rs.getString("songAlbum");
+                String genre = rs.getString("songGenre");
                 String filePath = rs.getString("filePath");
                 String musicBrainzID = rs.getString("SongID");
                 String pictureURL = rs.getString("pictureURL");
 
-                Song song = new Song(musicBrainzID, id, title, artist ,album, filePath, pictureURL);
+                Song song = new Song(musicBrainzID, id, title, artist ,album, genre, filePath, pictureURL);
                 allSongs.add(song);
             }
             return allSongs;
@@ -61,7 +63,7 @@ public class SongDAO {
 
     public Song createSong(Song song) throws Exception {
         // SQL command
-        String sql = "INSERT INTO dbo.Songs (Title, Artist,Album,Filepath, SongID, PictureURL) VALUES (?,?,?,?,?,?);";
+        String sql = "INSERT INTO dbo.Songs (Title, Artist, Album, Genre, Filepath, SongID, PictureURL) VALUES (?,?,?,?,?,?,?);";
 
         CacheSystem cacheSystem = new CacheSystem();
         String storedPath = cacheSystem.storeImage(song.getPictureURL());
@@ -73,9 +75,10 @@ public class SongDAO {
             stmt.setString(1, song.getTitle());
             stmt.setInt(2, song.getArtistID());
             stmt.setString(3, "");
-            stmt.setString(4, song.getFilePath());
-            stmt.setString(5, song.getMusicBrainzID());
-            stmt.setString(6, storedPath);
+            stmt.setString(4, song.getGenre());
+            stmt.setString(5, song.getFilePath());
+            stmt.setString(6, song.getMusicBrainzID());
+            stmt.setString(7, storedPath);
 
             // Run the specified SQL statement
             stmt.executeUpdate();
@@ -89,7 +92,7 @@ public class SongDAO {
             }
 
             // Create song object and send up the layers
-            Song createdSong = new Song(song.getMusicBrainzID(), id, song.getTitle(), song.getArtistName(), "", song.getFilePath(), storedPath);
+            Song createdSong = new Song(song.getMusicBrainzID(), id, song.getTitle(), song.getArtistName(), "", song.getGenre(), song.getFilePath(), storedPath);
             return createdSong;
         }
         catch (SQLException ex)

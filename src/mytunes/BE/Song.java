@@ -7,37 +7,40 @@ import java.io.File;
 
 public class Song {
     private int id, artistID, orderID;
-    private String title, songID, filePath, artistName, pictureURL;
+    private String title, songID, filePath, artistName, genre, pictureURL;
     private String album;
 
     private MediaPlayer mediaPlayer;
 
-    public Song(String songID, int id, String title, String artistName, String album, String filePath, String pictureURL){
+    public Song(String songID, int id, String title, String artistName, String album, String genre, String filePath, String pictureURL){
         this.songID = songID;
         this.id = id;
         this.title = title;
         this.artistName = artistName;
         this.album = album;
+        this.genre = genre;
         this.filePath = filePath;
         this.mediaPlayer = new MediaPlayer(new Media(new File(filePath).toURI().toString()));
         this.pictureURL = pictureURL;
     }
-    public Song(String songID, String title, int artistID, String album, String filePath, String pictureURL){
+    public Song(String songID, String title, int artistID, String album, String genre, String filePath, String pictureURL){
         this.songID = songID;
         this.title = title;
         this.artistID = artistID;
         this.album = album;
+        this.genre = genre;
         this.filePath = filePath;
         this.mediaPlayer = new MediaPlayer(new Media(new File(filePath).toURI().toString()));
         this.pictureURL = pictureURL;
     }
 
-    public Song(String songID, int id, String title, String artistName, String album, String filePath, String pictureURL, int orderID){
+    public Song(String songID, int id, String title, String artistName, String album, String genre, String filePath, String pictureURL, int orderID){
         this.songID = songID;
         this.id = id;
         this.title = title;
         this.artistName = artistName;
         this.album = album;
+        this.genre = genre;
         this.filePath = filePath;
         this.mediaPlayer = new MediaPlayer(new Media(new File(filePath).toURI().toString()));
         this.pictureURL = pictureURL;
@@ -126,5 +129,9 @@ public class Song {
 
     public String getAlbum() {
         return album;
+    }
+
+    public String getGenre() {
+        return genre;
     }
 }

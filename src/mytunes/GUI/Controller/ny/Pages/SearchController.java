@@ -34,15 +34,11 @@ public class SearchController implements Initializable {
     @FXML
     private TableColumn<Song, Integer> columnID;
     @FXML
-    private TableColumn<Song, String> columnTitle;
-    @FXML
-    private TableColumn columnGenre;
+    private TableColumn<Song, String> columnTitle,columnGenre,columnDuration;
     @FXML
     private TableColumn columnAdded;
     @FXML
     private TableColumn<Album, String> columnAlbum;
-    @FXML
-    private TableColumn<Song, String> columnDuration;
     @FXML
     private TableView tblSongs;
 
@@ -73,6 +69,7 @@ public class SearchController implements Initializable {
         columnID.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnTitle.setCellFactory(col -> new TitleArtistCell());
         columnDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
+        columnGenre.setCellValueFactory(new PropertyValueFactory<>("genre"));
         tblSongs.setItems(songs);
     }
 

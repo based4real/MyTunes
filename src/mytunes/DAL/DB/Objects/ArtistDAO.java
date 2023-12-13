@@ -126,11 +126,12 @@ public class ArtistDAO {
 
                 String songTitle = rs.getString("Title");
                 String songAlbum = rs.getString("Album");
+                String songGenre = rs.getString("Genre");
                 String songFilepath = rs.getString("Filepath");
                 String MusicBrainzID = rs.getString("SongID");
                 String songPictureURL = rs.getString("PictureURL");
 
-                songsByArtist.add(new Song(MusicBrainzID, songID, songTitle, artistName, songAlbum, songFilepath, songPictureURL));
+                songsByArtist.add(new Song(MusicBrainzID, songID, songTitle, artistName, songAlbum, songGenre, songFilepath, songPictureURL));
             }
             return songsByArtist;
         }
