@@ -3,12 +3,16 @@ package mytunes.DAL.DB.Objects;
 import mytunes.BE.Playlist;
 import mytunes.BE.Song;
 import mytunes.BLL.util.CacheSystem;
+import mytunes.BLL.util.ConfigSystem;
 import mytunes.DAL.DB.Connect.DatabaseConnector;
+import mytunes.DAL.REST.CoverArt;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class SongDAO {
     private DatabaseConnector databaseConnector;
@@ -28,7 +32,6 @@ public class SongDAO {
                     "  Songs.Title as songTitle,\n" +
                     "  Songs.Filepath as filePath,\n" +
                     "  Songs.songID as songID,\n" +
-                    "  Songs.Album as songAlbum,\n" +
                     "  Songs.Genre as songGenre,\n" +
                     "  artists.id as artistID,\n" +
                     "  artists.name as artistName,\n" +
@@ -43,13 +46,12 @@ public class SongDAO {
                 int id = rs.getInt("songID");
                 String title = rs.getString("songTitle");
                 String artist = rs.getString("artistName");
-                String album = rs.getString("songAlbum");
                 String genre = rs.getString("songGenre");
                 String filePath = rs.getString("filePath");
                 String musicBrainzID = rs.getString("SongID");
                 String pictureURL = rs.getString("pictureURL");
 
-                Song song = new Song(musicBrainzID, id, title, artist ,album, genre, filePath, pictureURL);
+                Song song = new Song(musicBrainzID, id, title, artist, genre, filePath, pictureURL);
                 allSongs.add(song);
             }
             return allSongs;
@@ -61,9 +63,12 @@ public class SongDAO {
         }
     }
 
+
     public Song createSong(Song song) throws Exception {
         // SQL command
-        String sql = "INSERT INTO dbo.Songs (Title, Artist, Album, Genre, Filepath, SongID, PictureURL) VALUES (?,?,?,?,?,?,?);";
+        String sql = "INSERT INTO dbo.Songs (Title, Artist, Genre, Filepath, SongID, PictureURL) VALUES (?,?,?,?,?,?);";
+
+        String songPicture = song.getPictureURL() == null ? ConfigSystem.getSongDefault() : song.getPictureURL();
 
         CacheSystem cacheSystem = new CacheSystem();
         String storedPath = cacheSystem.storeImage(song.getPictureURL());
@@ -74,11 +79,10 @@ public class SongDAO {
             // Bind parameters
             stmt.setString(1, song.getTitle());
             stmt.setInt(2, song.getArtistID());
-            stmt.setString(3, "");
-            stmt.setString(4, song.getGenre());
-            stmt.setString(5, song.getFilePath());
-            stmt.setString(6, song.getMusicBrainzID());
-            stmt.setString(7, storedPath);
+            stmt.setString(3, song.getGenre());
+            stmt.setString(4, song.getFilePath());
+            stmt.setString(5, song.getMusicBrainzID());
+            stmt.setString(6, storedPath);
 
             // Run the specified SQL statement
             stmt.executeUpdate();
@@ -92,7 +96,7 @@ public class SongDAO {
             }
 
             // Create song object and send up the layers
-            Song createdSong = new Song(song.getMusicBrainzID(), id, song.getTitle(), song.getArtistName(), "", song.getGenre(), song.getFilePath(), storedPath);
+            Song createdSong = new Song(song.getMusicBrainzID(), id, song.getTitle(), song.getArtistName(), song.getGenre(), song.getFilePath(), storedPath);
             return createdSong;
         }
         catch (SQLException ex)
@@ -104,7 +108,7 @@ public class SongDAO {
 
     public void updateSong(Song song) throws Exception {
         // SQL command
-        String sql = "UPDATE dbo.Songs SET Title = ?, Artist = ?, Album = ?, Filepath = ? WHERE Id = ?";
+        String sql = "UPDATE dbo.Songs SET Title = ?, Artist = ?, Filepath = ? WHERE Id = ?";
 
         try (Connection conn = databaseConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql))
@@ -112,9 +116,8 @@ public class SongDAO {
             // Bind parameters
             stmt.setString(1, song.getTitle());
             stmt.setInt(2, song.getArtistID());
-            stmt.setString(3, song.getAlbum());
-            stmt.setString(4, song.getFilePath());
-            stmt.setInt(5, song.getId());
+            stmt.setString(3, song.getFilePath());
+            stmt.setInt(4, song.getId());
 
             // Run the specified SQL statement
             stmt.executeUpdate();

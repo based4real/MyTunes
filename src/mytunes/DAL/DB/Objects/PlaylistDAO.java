@@ -173,14 +173,13 @@ public class PlaylistDAO {
                 int songId = rs.getInt("Id");
                 String title = rs.getString("Title");
                 String artist = rs.getString("artistName");
-                String album = rs.getString("Album");
                 String genre = rs.getString("Genre");
                 String filePath = rs.getString("Filepath");
                 String musicBrainzID = rs.getString("SongID");
                 String pictureURL = rs.getString("PictureURL");
                 int orderID = rs.getInt("order_id");
 
-                Song song = new Song(musicBrainzID, songId, title, artist, album, genre, filePath, pictureURL, orderID);
+                Song song = new Song(musicBrainzID, songId, title, artist, genre, filePath, pictureURL, orderID);
                 allSongsInPlaylist.add(song);
             }
         } catch (SQLException ex) {

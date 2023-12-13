@@ -2,10 +2,14 @@ package mytunes.BE;
 
 import mytunes.BLL.PlaylistManager;
 import mytunes.BLL.util.CacheSystem;
+import mytunes.BLL.util.ConfigSystem;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class Playlist {
 
@@ -15,8 +19,6 @@ public class Playlist {
 
     private PlaylistManager playlistManager;
     private List<Song> playlistSongs = new ArrayList<>();
-
-    private static final String STOCK_PICTURE = "https://i.imgur.com/LnNRAzz.png";
 
     public Playlist(int id, String name, int orderID, String pictureURL, List<Song> songs) {
         this.id = id;
@@ -37,7 +39,7 @@ public class Playlist {
         this.name = name;
 
         CacheSystem cacheSystem = new CacheSystem();
-        this.pictureURL = cacheSystem.storeImage(STOCK_PICTURE);
+        this.pictureURL = cacheSystem.storeImage(ConfigSystem.getPlaylistDefault());
         setOrderID();
     }
 

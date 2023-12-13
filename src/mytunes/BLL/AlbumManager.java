@@ -27,6 +27,11 @@ public class AlbumManager {
 
         return false;
     }
+
+    public List<Song> getAlbumSongs(Album album) throws Exception {
+        return albumDAO.getAlbumSongs(album);
+    }
+
     public List<Album> getAllAlbums() throws Exception{
         if (allAlbums.isEmpty())
             allAlbums = albumDAO.getAllAlbums();

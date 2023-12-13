@@ -43,6 +43,7 @@ public class HomeController implements Initializable {
 
             boxContainer.setHeader(a.getName());
             boxContainer.setDescription(a.getAlias());
+            boxContainer.setImage(a.getPictureURL());
 
             boxContainer.setHomeController(this);
 

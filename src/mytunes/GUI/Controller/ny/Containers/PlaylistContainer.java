@@ -165,6 +165,9 @@ public class PlaylistContainer implements Initializable {
             int colIndex = 0;
 
             for (String picture : pictures) {
+                if (picture == null)
+                    break;
+
                 Image image = new Image(new File(picture).toURI().toString());
 
                 // Create ImageView

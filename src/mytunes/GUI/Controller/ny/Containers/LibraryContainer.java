@@ -72,7 +72,6 @@ public class LibraryContainer implements Initializable {
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
-
         });
     }
 

@@ -2,12 +2,16 @@ package mytunes.DAL.DB.Objects;
 
 import mytunes.BE.Artist;
 import mytunes.BE.Song;
+import mytunes.BLL.util.CacheSystem;
+import mytunes.BLL.util.ConfigSystem;
 import mytunes.DAL.DB.Connect.DatabaseConnector;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class ArtistDAO {
 
@@ -33,7 +37,9 @@ public class ArtistDAO {
                     String artistID = rs.getString("artist_id");
                     String name = rs.getString("name");
                     String alias = rs.getString("alias");
-                    return new Artist(id, artistID, name, alias);
+                    String pictureURL = rs.getString("pictureURL");
+
+                    return new Artist(id, artistID, name, alias, pictureURL);
                 }
             }
         }
@@ -42,7 +48,7 @@ public class ArtistDAO {
 
     public Artist createArtist(Artist artist) throws Exception {
         // SQL command
-        String sql = "INSERT INTO dbo.artists (artist_id, name, alias) VALUES (?,?,?);";
+        String sql = "INSERT INTO dbo.artists (artist_id, name, alias,pictureURL) VALUES (?,?,?,?);";
 
         //
         try (Connection conn = databaseConnector.getConnection();
@@ -52,6 +58,11 @@ public class ArtistDAO {
             stmt.setString(1, artist.getArtistID());
             stmt.setString(2, artist.getName());
             stmt.setString(3, artist.getAlias());
+
+            CacheSystem cacheSystem = new CacheSystem();
+            String storedPath = cacheSystem.storeImage(ConfigSystem.getArtistDefault());
+
+            stmt.setString(4, storedPath);
 
             // Run the specified SQL statement
             stmt.executeUpdate();
@@ -65,7 +76,7 @@ public class ArtistDAO {
             }
 
             // Create song object and send up the layers
-            Artist createdArtist = new Artist(id, artist.getArtistID(), artist.getName(), artist.getAlias());
+            Artist createdArtist = new Artist(id, artist.getArtistID(), artist.getName(), artist.getAlias(), storedPath);
 
             return createdArtist;
         }
@@ -91,8 +102,9 @@ public class ArtistDAO {
                 String musicBrainzID = rs.getString("artist_id");
                 String name = rs.getString("name");
                 String alias = rs.getString("alias");
+                String pictureURL = rs.getString("pictureURL");
 
-                Artist artist = new Artist(id, musicBrainzID, name, alias);
+                Artist artist = new Artist(id, musicBrainzID, name, alias, pictureURL);
                 allArtists.add(artist);
             }
             return allArtists;
@@ -125,13 +137,12 @@ public class ArtistDAO {
                 String artistName = rs.getString("artistName");
 
                 String songTitle = rs.getString("Title");
-                String songAlbum = rs.getString("Album");
                 String songGenre = rs.getString("Genre");
                 String songFilepath = rs.getString("Filepath");
                 String MusicBrainzID = rs.getString("SongID");
                 String songPictureURL = rs.getString("PictureURL");
 
-                songsByArtist.add(new Song(MusicBrainzID, songID, songTitle, artistName, songAlbum, songGenre, songFilepath, songPictureURL));
+                songsByArtist.add(new Song(MusicBrainzID, songID, songTitle, artistName, songGenre, songFilepath, songPictureURL));
             }
             return songsByArtist;
         }

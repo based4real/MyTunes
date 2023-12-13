@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import mytunes.GUI.Controller.ny.Containers.LibraryContainer;
+import mytunes.GUI.Controller.ny.Pages.SearchController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -38,6 +39,7 @@ public class MainWindowController implements Initializable {
     }
 
     public void switchView(Parent view) {
+        System.out.println("Switching View");
         mainWindow.setCenter(view);
     }
 
@@ -73,7 +75,10 @@ public class MainWindowController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/new/pages/Search.fxml"));
         AnchorPane anchorPane = fxmlLoader.load();
-        //ScrollPane scrollPane = fxmlLoader.load();
+
+        SearchController searchController = fxmlLoader.getController();
+        searchController.loadAlbumView(mainWindow);
+        searchController.setMainWindowController(this);
 
         switchView(anchorPane);
     }

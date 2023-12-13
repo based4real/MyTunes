@@ -10,16 +10,22 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import mytunes.BE.Album;
 import mytunes.BE.Artist;
+import mytunes.BE.Playlist;
 import mytunes.BE.Song;
 import mytunes.GUI.Controller.ny.Containers.BoxContainer;
 import mytunes.GUI.Controller.ny.Custom.TitleArtistCell;
+import mytunes.GUI.Controller.ny.MainWindowController;
+import mytunes.GUI.Main;
 import mytunes.GUI.Model.AlbumModel;
 import mytunes.GUI.Model.ArtistModel;
 import mytunes.GUI.Model.SongModel;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -45,6 +51,10 @@ public class SearchController implements Initializable {
     private SongModel songModel;
     private ArtistModel artistModel;
     private AlbumModel albumModel;
+
+    private MainWindowController mainWindowController;
+    private AnchorPane albumAnchorPane;
+    private AlbumController albumController;
 
     public SearchController() throws Exception {
         songModel = SongModel.getInstance();
@@ -73,6 +83,28 @@ public class SearchController implements Initializable {
         tblSongs.setItems(songs);
     }
 
+    private void checkAlbumClick(Button btn, Album album) throws IOException {
+        btn.setOnAction(e -> {
+            mainWindowController.switchView(albumAnchorPane);
+            try {
+                albumController.tableAlbumSongs(album);
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+    }
+
+    public void loadAlbumView(BorderPane mainWindow) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/new/pages/Album.fxml"));
+        AnchorPane anchorPane = fxmlLoader.load();
+
+        albumAnchorPane = anchorPane;
+        albumController = fxmlLoader.getController();
+
+        mainWindow.setCenter(anchorPane);
+    }
+
     private void addArtists() throws Exception {
         List<Artist> allArtists = artistModel.getAllArtists();
         for (Artist a : allArtists) {
@@ -84,6 +116,8 @@ public class SearchController implements Initializable {
 
             boxContainer.setHeader(a.getName());
             boxContainer.setDescription(a.getAlias());
+            boxContainer.setImage(a.getPictureURL());
+            boxContainer.setType("Artist");
 
             boxContainer.setSearchController(this);
 
@@ -108,6 +142,7 @@ public class SearchController implements Initializable {
             boxContainer.setHeader(a.getTitle());
             boxContainer.setDescription(a.getType());
             boxContainer.setImage(a.getPictureURL());
+            boxContainer.setType("Album");
 
             boxContainer.setSearchController(this);
 
@@ -117,6 +152,8 @@ public class SearchController implements Initializable {
 
             // With 0 on, adds on top instead of bottom
             hboxAlbums.getChildren().add(0, button);
+
+            checkAlbumClick(button, a);
         }
     }
 
@@ -144,6 +181,7 @@ public class SearchController implements Initializable {
             }
         }
     }
+
     private void searchForAlbums(){
         for (Node node : hboxAlbums.getChildren()){
             if (node instanceof  Button existingButton){
@@ -154,5 +192,9 @@ public class SearchController implements Initializable {
                 existingButton.setManaged(visible);
             }
         }
+    }
+
+    public void setMainWindowController(MainWindowController controller) {
+        this.mainWindowController = controller;
     }
 }

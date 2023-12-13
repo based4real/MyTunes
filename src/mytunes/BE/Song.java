@@ -9,38 +9,34 @@ import java.util.Date;
 public class Song {
     private int id, artistID, orderID;
     private String title, songID, filePath, artistName, genre, pictureURL;
-    private String album;
 
     private MediaPlayer mediaPlayer;
 
-    public Song(String songID, int id, String title, String artistName, String album, String genre, String filePath, String pictureURL){
+    public Song(String songID, int id, String title, String artistName, String genre, String filePath, String pictureURL){
         this.songID = songID;
         this.id = id;
         this.title = title;
         this.artistName = artistName;
-        this.album = album;
         this.genre = genre;
         this.filePath = filePath;
         this.mediaPlayer = new MediaPlayer(new Media(new File(filePath).toURI().toString()));
         this.pictureURL = pictureURL;
     }
-    public Song(String songID, String title, int artistID, String album, String genre, String filePath, String pictureURL){
+    public Song(String songID, String title, int artistID, String genre, String filePath, String pictureURL){
         this.songID = songID;
         this.title = title;
         this.artistID = artistID;
-        this.album = album;
         this.genre = genre;
         this.filePath = filePath;
         this.mediaPlayer = new MediaPlayer(new Media(new File(filePath).toURI().toString()));
         this.pictureURL = pictureURL;
     }
 
-    public Song(String songID, int id, String title, String artistName, String album, String genre, String filePath, String pictureURL, int orderID){
+    public Song(String songID, int id, String title, String artistName, String genre, String filePath, String pictureURL, int orderID){
         this.songID = songID;
         this.id = id;
         this.title = title;
         this.artistName = artistName;
-        this.album = album;
         this.genre = genre;
         this.filePath = filePath;
         this.mediaPlayer = new MediaPlayer(new Media(new File(filePath).toURI().toString()));
@@ -113,7 +109,7 @@ public class Song {
 
     @Override
     public String toString(){
-        return title + album;
+        return title;
     }
 
     public String getPictureURL() {
@@ -126,10 +122,6 @@ public class Song {
 
     public void setOrderID(int orderID) {
         this.orderID = orderID;
-    }
-
-    public String getAlbum() {
-        return album;
     }
 
     public String getGenre() {

@@ -13,6 +13,7 @@ import javafx.stage.FileChooser;
 import javafx.util.Duration;
 import mytunes.BE.Artist;
 import mytunes.BE.Song;
+import mytunes.BLL.util.ConfigSystem;
 import mytunes.GUI.Model.*;
 
 import java.io.File;
@@ -85,6 +86,7 @@ public class ImportSongController {
         if (selectedFile != null) {
             songImportModel.searchSong(selectedFile.getName());
 
+            txtFeature.setText(songImportModel.getFeatures());
             txtArtist.setText(songImportModel.getArtist());
             txtTitel.setText(songImportModel.getTitle());
             txtFile.setText(selectedFile.getAbsolutePath());
@@ -92,7 +94,7 @@ public class ImportSongController {
             dropGenre.getItems().addAll(genreModel.getAllGenreNames());
             dropGenre.getSelectionModel().selectFirst();
 
-            String imageURL = songImportModel.getPictureURL();
+            String imageURL = songImportModel.getPictureURL() == null ? ConfigSystem.getSongDefault() : songImportModel.getPictureURL();
 
             setPreviewImg(imageURL);
             txtPicture.setText(imageURL);
@@ -108,7 +110,6 @@ public class ImportSongController {
             });
 
             setDisabled(false);
-
         } else {
             System.out.println("file is not valid");
         }
@@ -144,13 +145,13 @@ public class ImportSongController {
         songID = songImportModel.getSongID();
         songTitle = songImportModel.getTitle();
         songArtist = songImportModel.getArtist();
-        songAlbum = "";
+
         songGenre = dropGenre.getSelectionModel().getSelectedItem().toString();
         songfilePath = selectedFile.getPath();
 
 
         Artist artist = artistModel.createArtist(new Artist(artistID, artistName, artistAlias));
-        Song song = songModel.createNewSong(new Song(songID, songTitle, artist.getPrimaryID(), songAlbum, songGenre ,songfilePath, txtPicture.getText()));
+        Song song = songModel.createNewSong(new Song(songID, songTitle, artist.getPrimaryID(), songGenre ,songfilePath, txtPicture.getText()));
         albumModel.createAlbum(songImportModel.getAlbums(), song, artist);
     }
 }

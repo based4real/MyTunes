@@ -1,13 +1,17 @@
 package mytunes.GUI.Model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import mytunes.BE.Album;
 import mytunes.BE.Artist;
+import mytunes.BE.Playlist;
 import mytunes.BE.Song;
 import mytunes.BLL.AlbumManager;
 import mytunes.BE.REST.Release;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Comparator;
 import java.util.List;
 
 public class AlbumModel {
@@ -26,6 +30,23 @@ public class AlbumModel {
 
     public boolean createAlbum(List<Release> albums, Song song, Artist artist) throws Exception {
         return albumManager.createAlbum(albums, song, artist);
+    }
+
+    public List<Song> getAlbumSongs(Album album) throws Exception {
+        return albumManager.getAlbumSongs(album);
+    }
+
+    public ObservableList<Song> getObservableSongs(Album album) throws Exception {
+        ObservableList<Song> SongsToBeViewed = FXCollections.observableArrayList();
+
+        if (album == null || getAlbumSongs(album) == null)
+            return SongsToBeViewed;
+
+
+        SongsToBeViewed.addAll(getAlbumSongs(album));
+        SongsToBeViewed.sort(Comparator.comparing(Song::getOrderID));
+
+        return SongsToBeViewed;
     }
 
     public List<Album> getAllAlbums() throws Exception {

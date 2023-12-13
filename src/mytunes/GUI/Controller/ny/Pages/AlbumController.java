@@ -1,0 +1,85 @@
+package mytunes.GUI.Controller.ny.Pages;
+
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import mytunes.BE.Album;
+import mytunes.BE.Playlist;
+import mytunes.GUI.Controller.ny.Custom.TitleArtistCell;
+import mytunes.GUI.Model.AlbumModel;
+
+import java.io.File;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class AlbumController implements Initializable {
+
+    @FXML
+    private ImageView imgCover;
+    @FXML
+    private Label lblType, lblName, lblArtistName, lblRelease, lblSongsAmount, lblPlayTime;
+
+    @FXML
+    private TableView tblSongsAlbum;
+    @FXML
+    private TableColumn columnPos;
+    @FXML
+    private TableColumn columnTitle;
+    @FXML
+    private TableColumn columnGenre;
+    @FXML
+    private TableColumn columnDuration;
+
+    private AlbumModel albumModel;
+
+    public AlbumController() throws Exception {
+        this.albumModel = AlbumModel.getInstance();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        setupAlbumSongsTableView();
+    }
+
+    private void setupAlbumSongsTableView() {
+        columnTitle.setCellFactory(col -> new TitleArtistCell());
+        columnGenre.setCellValueFactory(new PropertyValueFactory<>("genre"));
+        columnDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
+        columnPos.setCellValueFactory(new PropertyValueFactory<>("orderID"));
+    }
+
+    private void updatePicture(Album album) {
+        Image newImage = new Image(new File(album.getPictureURL()).toURI().toString());
+        imgCover.setFitWidth(160);
+        imgCover.setFitHeight(160);
+
+        imgCover.setImage(newImage);
+    }
+
+    private void updateLabels(Album album) {
+        lblName.setText(album.getTitle());
+        lblArtistName.setText(album.getArtist());
+        lblType.setText(album.getType());
+        lblRelease.setText(album.getReleaseDate());
+    }
+
+    private void updateUI(Album album) {
+        updateLabels(album);
+        updatePicture(album);
+    }
+
+    public void tableAlbumSongs(Album album) throws Exception {
+        if (album == null)
+            return;
+
+        tblSongsAlbum.refresh();
+        tblSongsAlbum.setItems(albumModel.getObservableSongs(album));
+
+        updateUI(album);
+    }
+}
