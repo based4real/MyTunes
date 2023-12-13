@@ -148,14 +148,6 @@ public class PlaylistContainer implements Initializable {
         return playlist;
     }
 
-    private ImageView createImageView(String imageURL) {
-        ImageView imageView = new ImageView(new Image(imageURL));
-        imageView.setFitWidth(100); // Adjust width as needed
-        imageView.setFitHeight(100); // Adjust height as needed
-        imageView.setPreserveRatio(true);
-        return imageView;
-    }
-
     private boolean setCustomPicture(Playlist playlist) throws Exception {
         List<Song> playlistSongs = playlistModel.getSongs(playlist);
         boolean customPic = playlistSongs.size() >= 3;

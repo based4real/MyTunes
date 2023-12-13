@@ -3,8 +3,10 @@ package mytunes.DAL.DB.Objects;
 import mytunes.BE.Album;
 import mytunes.BE.Artist;
 import mytunes.BE.Song;
+import mytunes.BLL.util.CacheSystem;
 import mytunes.DAL.DB.Connect.DatabaseConnector;
 import mytunes.BE.REST.Release;
+import mytunes.DAL.REST.CoverArt;
 
 import java.io.IOException;
 import java.sql.*;
@@ -34,8 +36,9 @@ public class AlbumDAO {
                 String type = rs.getString("type");
                 int artist_id = rs.getInt("artist_id");
                 String musicBrainzID = rs.getString("MusicBrainzID");
+                String pictureURL = rs.getString("pictureURL");
 
-                return new Album(id, album.getTitle(), album.getDate(), type, artist_id);
+                return new Album(id, album.getTitle(), album.getDate(), type, artist_id, pictureURL);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -57,8 +60,17 @@ public class AlbumDAO {
         }
     }
 
-    private Album createAlbum(Connection conn, Release album, Artist artist) throws SQLException {
-        String sql = "INSERT INTO dbo.Albums (name,released,type,artist_id,MusicBrainzID) VALUES (?,?,?,?,?);";
+    private Album createAlbum(Connection conn, Release album, Artist artist) throws Exception {
+        String sql = "INSERT INTO dbo.Albums (name,released,type,artist_id,MusicBrainzID,pictureURL) VALUES (?,?,?,?,?,?);";
+
+
+        CoverArt coverArt = new CoverArt(album.getReleaseId());
+        String albumLink = coverArt.getFrontThumbnail();
+
+        String albumPicture = albumLink == null ? "https://i.imgur.com/LnNRAzz.png" : albumLink;
+
+        CacheSystem cacheSystem = new CacheSystem();
+        String storedPath = cacheSystem.storeImage(albumPicture);
 
         try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             String type = album.getIsSingle() ? "Single" : "Album";
@@ -68,6 +80,7 @@ public class AlbumDAO {
             stmt.setString(3, type);
             stmt.setInt(4, artist.getPrimaryID());
             stmt.setString(5, album.getReleaseId());
+            stmt.setString(6, storedPath);
 
             stmt.executeUpdate();
 
@@ -78,7 +91,7 @@ public class AlbumDAO {
             if (rs.next())
                 id = rs.getInt(1);
 
-            return new Album(id, album.getTitle(), album.getDate(), type, artist.getPrimaryID());
+            return new Album(id, album.getTitle(), album.getDate(), type, artist.getPrimaryID(), storedPath);
         }
     }
 
@@ -93,7 +106,7 @@ public class AlbumDAO {
         }
     }
 
-    public boolean createAlbum(Release album, Song song, Artist artist) throws SQLException {
+    public boolean createAlbum(Release album, Song song, Artist artist) throws Exception {
         try (Connection conn = databaseConnector.getConnection()) {
             // Begin a transaction
             conn.setAutoCommit(false);
@@ -133,9 +146,10 @@ public class AlbumDAO {
                 String released = rs.getString("released");
                 String type = rs.getString("type");
                 int artistId = rs.getInt("artist_id");
+                String pictureURL = rs.getString("pictureURL");
 
 
-                Album album = new Album(id,name,released,type,artistId);
+                Album album = new Album(id,name,released,type,artistId, pictureURL);
                 allAlbums.add(album);
             }
             return allAlbums;

@@ -107,6 +107,7 @@ public class SearchController implements Initializable {
 
             boxContainer.setHeader(a.getTitle());
             boxContainer.setDescription(a.getType());
+            boxContainer.setImage(a.getPictureURL());
 
             boxContainer.setSearchController(this);
 

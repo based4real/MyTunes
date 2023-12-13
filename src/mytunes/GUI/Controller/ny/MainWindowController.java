@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import mytunes.GUI.Controller.ny.Containers.LibraryContainer;
 
@@ -31,7 +32,6 @@ public class MainWindowController implements Initializable {
         try {
             loadLibrarySection();
             loadMediaPlayerSection();
-           // loadPlaylistSection();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -39,7 +39,6 @@ public class MainWindowController implements Initializable {
 
     public void switchView(Parent view) {
         mainWindow.setCenter(view);
-       // mainShit.getChildren().add(view);
     }
 
     private void loadLibrarySection() throws IOException {
@@ -74,6 +73,7 @@ public class MainWindowController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/new/pages/Search.fxml"));
         AnchorPane anchorPane = fxmlLoader.load();
+        //ScrollPane scrollPane = fxmlLoader.load();
 
         switchView(anchorPane);
     }

@@ -4,16 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Album {
-    private String releaseID, releaseGroupID, title, type, releaseDate;
+    private String releaseID, releaseGroupID, title, type, releaseDate, pictureURL;
     private int id, artistID;
     private List<Song> albumSongs = new ArrayList<>();
 
-    public Album(int id, String title, String releaseDate, String type, int artistID) {
+    public Album(int id, String title, String releaseDate, String type, int artistID, String pictureURL) {
         this.id = id;
         this.title = title;
         this.releaseDate = releaseDate;
         this.type = type;
         this.artistID = artistID;
+        this.pictureURL = pictureURL;
     }
 
     public int getID() {
@@ -30,6 +31,10 @@ public class Album {
 
     public String getType() {
         return type;
+    }
+
+    public String getPictureURL() {
+        return pictureURL;
     }
 
     public List<Song> getAlbumSongs() {

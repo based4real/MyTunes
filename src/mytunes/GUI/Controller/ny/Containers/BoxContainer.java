@@ -11,10 +11,11 @@ import mytunes.GUI.Controller.ny.Pages.HomeController;
 import mytunes.GUI.Controller.ny.Pages.SearchController;
 import mytunes.GUI.Model.ArtistModel;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class BoxContainer implements Initializable {
+public class BoxContainer {
 
     @FXML
     private ImageView coverImg;
@@ -49,16 +50,15 @@ public class BoxContainer implements Initializable {
         return lblHeader.getText().toLowerCase();
     }
     public void setImage(String URL) {
-        Image newImage = new Image(URL);
+        Image newImage = new Image(new File(URL).toURI().toString());
+        coverImg.setFitWidth(125);
+        coverImg.setFitHeight(125);
+
         coverImg.setImage(newImage);
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-    }
-
     public void btnBoxAction(ActionEvent actionEvent) {
+        
     }
 
     public void setHomeController(HomeController controller) {
