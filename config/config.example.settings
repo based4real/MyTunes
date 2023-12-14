@@ -1,4 +1,13 @@
-Server=
-Database=
-User=
-Password=
+db.server=localhost
+db.database=
+db.user=
+db.password=
+db.port=1433
+db.trusted_cert=true
+
+
+#-------- UI --------#
+artist.default_img=https://i.imgur.com/W4lLgNF.png
+playlist.default_img=https://i.imgur.com/LnNRAzz.png
+album.default_img=https://i.imgur.com/LnNRAzz.png
+song.default_img=https://i.imgur.com/LnNRAzz.png
