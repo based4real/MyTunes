@@ -74,12 +74,12 @@ public class MainWindowController implements Initializable {
     public void btnSearch(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/new/pages/Search.fxml"));
-        AnchorPane anchorPane = fxmlLoader.load();
+        GridPane gridPane = fxmlLoader.load();
 
         SearchController searchController = fxmlLoader.getController();
         searchController.loadAlbumView(mainWindow);
         searchController.setMainWindowController(this);
 
-        switchView(anchorPane);
+        switchView(gridPane);
     }
 }

@@ -7,7 +7,6 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -15,11 +14,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="580.0" prefWidth="707.0" styleClass="tabs_background" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.GUI.Controller.ny.Pages.SearchController">
+
+<GridPane styleClass="tabs_background" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.GUI.Controller.ny.Pages.SearchController">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+   </rowConstraints>
    <children>
-      <ScrollPane hbarPolicy="NEVER" styleClass="scroll-pane_search" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="scroll-pane_search" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
          <content>
-              <VBox spacing="20.0">
+              <VBox fillWidth="true" spacing="20.0">
                   <opaqueInsets>
                       <Insets />
                   </opaqueInsets>
@@ -33,12 +39,12 @@
                               <Insets />
                           </VBox.margin>
                       </Label>
-                      <GridPane minHeight="200.0" VBox.vgrow="ALWAYS">
+                      <GridPane minHeight="200.0">
                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
                           </rowConstraints>
                           <children>
-                              <TableView fx:id="tblSongs" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                              <TableView fx:id="tblSongs" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS">
                                   <columns>
                                       <TableColumn fx:id="columnID" prefWidth="29.5" text="#" />
                                       <TableColumn fx:id="columnTitle" prefWidth="130.5" text="Title" />
@@ -61,9 +67,9 @@
                               <Font name="System Bold" size="18.0" />
                           </font>
                       </Label>
-                  <ScrollPane prefWidth="1020.0" styleClass="scroll-pane_playlists" vbarPolicy="NEVER" VBox.vgrow="NEVER">
+                  <ScrollPane minHeight="225.0" styleClass="scroll-pane_playlists" vbarPolicy="NEVER" vmax="0.0" VBox.vgrow="NEVER">
                      <content>
-                        <HBox fx:id="hboxArtists" spacing="20.0" />
+                        <HBox fx:id="hboxArtists" minHeight="225.0" spacing="20.0" />
                      </content>
                   </ScrollPane>
                   <Label text="Album" textFill="WHITE">
@@ -71,9 +77,9 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <ScrollPane prefWidth="1020.0" styleClass="scroll-pane_playlists" vbarPolicy="NEVER" VBox.vgrow="NEVER">
+                  <ScrollPane minHeight="225.0" styleClass="scroll-pane_playlists" vbarPolicy="NEVER" vmax="0.0" VBox.vgrow="NEVER">
                      <content>
-                        <HBox fx:id="hboxAlbums" spacing="20.0" />
+                        <HBox fx:id="hboxAlbums" minHeight="225.0" spacing="20.0" />
                      </content>
                   </ScrollPane>
                   </children>
@@ -88,4 +94,4 @@
       <URL value="@../../css/library.css" />
       <URL value="@../../css/playlists.css" />
    </stylesheets>
-</AnchorPane>
+</GridPane>
