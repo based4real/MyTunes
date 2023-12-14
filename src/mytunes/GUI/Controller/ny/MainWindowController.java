@@ -39,7 +39,6 @@ public class MainWindowController implements Initializable {
     }
 
     public void switchView(Parent view) {
-        System.out.println("Switching View");
         mainWindow.setCenter(view);
     }
 

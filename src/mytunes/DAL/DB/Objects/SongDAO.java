@@ -1,5 +1,6 @@
 package mytunes.DAL.DB.Objects;
 
+import mytunes.BE.Album;
 import mytunes.BE.Playlist;
 import mytunes.BE.Song;
 import mytunes.BLL.util.CacheSystem;
@@ -28,8 +29,8 @@ public class SongDAO {
             Statement stmt = conn.createStatement())
         {
             // This query removes duplicates, so if two with the same
-            // MusicBrainz ID is present in the DB, dont include them.
-            
+            // MusicBrainz ID is present in the DB, don't include them.
+
             String sql = "SELECT\n" +
                     "    songID,\n" +
                     "    songTitle,\n" +
@@ -80,12 +81,45 @@ public class SongDAO {
         }
     }
 
+    private Song doesSongExist(Connection conn, Song song) {
+        String sql = "SELECT\n" +
+                "    Songs.Id as songID,\n" +
+                "    Songs.Title as songTitle,\n" +
+                "    Songs.Filepath as filePath,\n" +
+                "    Songs.songID as songMBID,\n" +
+                "    Songs.Genre as songGenre,\n" +
+                "    artists.id as artistID,\n" +
+                "    artists.name as artistName,\n" +
+                "    artists.alias as artistAlias,\n" +
+                "    Songs.PictureURL as pictureURL\n" +
+                "FROM Songs\n" +
+                "JOIN artists ON artists.id = Songs.Artist\n" +
+                "WHERE SongID = ?;";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            stmt.setString(1, song.getMusicBrainzID());
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("songID");
+                String title = rs.getString("songTitle");
+                String artist = rs.getString("artistName");
+                String genre = rs.getString("songGenre");
+                String filePath = rs.getString("filePath");
+                String musicBrainzID = rs.getString("songMBID");
+                String pictureURL = rs.getString("pictureURL");
+
+                return new Song(musicBrainzID, id, title, artist, genre, filePath, pictureURL);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
 
     public Song createSong(Song song) throws Exception {
         // SQL command
         String sql = "INSERT INTO dbo.Songs (Title, Artist, Genre, Filepath, SongID, PictureURL) VALUES (?,?,?,?,?,?);";
-
-        String songPicture = song.getPictureURL() == null ? ConfigSystem.getSongDefault() : song.getPictureURL();
 
         CacheSystem cacheSystem = new CacheSystem();
         String storedPath = cacheSystem.storeImage(song.getPictureURL());
@@ -93,6 +127,11 @@ public class SongDAO {
         try (Connection conn = databaseConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
         {
+            Song songExists = doesSongExist(conn, song);
+
+            if (songExists != null)
+                return songExists;
+
             // Bind parameters
             stmt.setString(1, song.getTitle());
             stmt.setInt(2, song.getArtistID());

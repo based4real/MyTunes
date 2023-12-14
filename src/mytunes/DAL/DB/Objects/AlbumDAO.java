@@ -55,15 +55,14 @@ public class AlbumDAO {
         return null;
     }
 
-    private boolean doesAlbumExist(Connection conn, Release album) {
-        String sql = "SELECT * FROM Albums_songs WHERE position = ?";
+    private boolean doesAlbumExist(Connection conn, Album album, Song song) {
+        String sql = "SELECT * FROM Albums_songs WHERE album_id = ? AND song_id = ?";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            stmt.setInt(1, album.getSongPos());
+            stmt.setInt(1, album.getID());
+            stmt.setInt(2, song.getId());
 
             ResultSet rs = stmt.executeQuery();
-
-            System.out.println(album.getSongPos() + " " + rs.next());
 
             return rs.next();
         } catch (SQLException e) {
@@ -143,8 +142,6 @@ public class AlbumDAO {
                 String pictureURL = rs.getString("albumsPicture");
                 int orderID = rs.getInt("order_id");
 
-                System.out.println(title);
-
                 Song song = new Song(musicBrainzID, songId, title, artist, genre, filePath, pictureURL, orderID);
                 allSongsInPlaylist.add(song);
             }
@@ -167,7 +164,7 @@ public class AlbumDAO {
                 if (createdAlbum == null)
                     createdAlbum = createAlbum(conn, album, artist);
 
-                if (!doesAlbumExist(conn, album))
+                if (!doesAlbumExist(conn, createdAlbum, song))
                     addSongToAlbum(conn, album, createdAlbum, song);
 
                 conn.commit();
