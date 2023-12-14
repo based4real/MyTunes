@@ -29,10 +29,9 @@ public class GenreDAO {
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                int id = rs.getInt("id");
                 String name = rs.getString("name");
 
-                Genre genre = new Genre(id, name);
+                Genre genre = new Genre(name);
                 allGenres.add(genre);
             }
             return allGenres;

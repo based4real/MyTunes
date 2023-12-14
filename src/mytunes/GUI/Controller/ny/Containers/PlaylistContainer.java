@@ -141,7 +141,7 @@ public class PlaylistContainer implements Initializable {
     }
 
     public String getPlaylistLabel() {
-        return playlistName.getText();
+        return playlistName.getText().toLowerCase();
     }
 
     public Playlist getPlaylist() {

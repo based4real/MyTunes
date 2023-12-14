@@ -2,6 +2,7 @@ package mytunes.GUI.Controller.ny.PopUp;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -17,8 +18,10 @@ import mytunes.BLL.util.ConfigSystem;
 import mytunes.GUI.Model.*;
 
 import java.io.File;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class ImportSongController {
+public class ImportSongController implements Initializable {
 
     @FXML
     private ImageView imgPreview;
@@ -91,8 +94,6 @@ public class ImportSongController {
             txtTitel.setText(songImportModel.getTitle());
             txtFile.setText(selectedFile.getAbsolutePath());
 
-            dropGenre.getItems().addAll(genreModel.getAllGenreNames());
-            dropGenre.getSelectionModel().selectFirst();
 
             String imageURL = songImportModel.getPictureURL() == null ? ConfigSystem.getSongDefault() : songImportModel.getPictureURL();
 
@@ -128,7 +129,6 @@ public class ImportSongController {
 
             txtFeature.setText(songImportModel.getFeatures());
             String pic = songImportModel.getPictureURL();
-            dropGenre.getItems().addAll(genreModel.getAllGenreNames());
             txtPicture.setText(pic);
 
             setPreviewImg(pic);
@@ -153,5 +153,15 @@ public class ImportSongController {
         Artist artist = artistModel.createArtist(new Artist(artistID, artistName, artistAlias));
         Song song = songModel.createNewSong(new Song(songID, songTitle, artist.getPrimaryID(), songGenre ,songfilePath, txtPicture.getText()));
         albumModel.createAlbum(songImportModel.getAlbums(), song, artist);
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        try {
+            dropGenre.getItems().addAll(genreModel.getAllGenreNames());
+            dropGenre.getSelectionModel().selectFirst();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

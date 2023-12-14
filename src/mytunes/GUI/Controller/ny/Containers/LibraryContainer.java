@@ -198,7 +198,7 @@ public class LibraryContainer implements Initializable {
         for (Node node : boxPlaylists.getChildren()) {
             if (node instanceof Button existingButton) {
                 PlaylistContainer playlistContainer = (PlaylistContainer) existingButton.getUserData();
-                boolean visible = playlistContainer.getPlaylistLabel().contains(txtPlaylistFilter.getText());
+                boolean visible = playlistContainer.getPlaylistLabel().contains(txtPlaylistFilter.getText().toLowerCase());
 
                 existingButton.setVisible(visible);
                 existingButton.setManaged(visible);
