@@ -49,8 +49,6 @@ public class PlaylistController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         setupPlistSongsTableView();
         enableDragAndDrop(tblSongsPlaylist);
-
-        mediaPlayerModel.setPlaylistSongs(tblSongsPlaylist);
     }
 
     public void setPlaylist(Playlist playlist) {
@@ -62,17 +60,6 @@ public class PlaylistController implements Initializable {
         columnGenre.setCellValueFactory(new PropertyValueFactory<>("genre"));
         columnDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
         columnID.setCellValueFactory(new PropertyValueFactory<>("orderID"));
-    }
-
-    private Optional<ButtonType> alertPlaylist() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Allerede tilføjet");
-        ((Button) alert.getDialogPane().lookupButton(ButtonType.OK)).setText("Tilføj alligevel");
-        ((Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL)).setText("Tilføj ikke");
-
-        alert.setHeaderText("Denne sang er allerede i playlisten");
-        Optional<ButtonType> result = alert.showAndWait();
-        return result;
     }
 
     private void enableDragAndDrop(TableView<Song> tableView) {
@@ -159,7 +146,7 @@ public class PlaylistController implements Initializable {
 
         tblSongsPlaylist.refresh();
         tblSongsPlaylist.setItems(playlistModel.getObservableSongs(p));
-        mediaPlayerModel.setPlaylistSongs(tblSongsPlaylist);
+        mediaPlayerModel.wasClickedTable(tblSongsPlaylist);
     }
 
 }

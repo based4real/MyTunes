@@ -9,12 +9,15 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import mytunes.BE.Album;
 import mytunes.BE.Playlist;
 import mytunes.BE.Song;
 import mytunes.GUI.Controller.ny.Custom.TableContextMenu;
 import mytunes.GUI.Controller.ny.Custom.TitleArtistCell;
 import mytunes.GUI.Model.AlbumModel;
+import mytunes.GUI.Model.MediaPlayerModel;
 
 import java.io.File;
 import java.net.URL;
@@ -39,9 +42,14 @@ public class AlbumController implements Initializable {
     private TableColumn columnDuration;
 
     private AlbumModel albumModel;
+    private MediaPlayerModel mediaPlayerModel;
+
 
     public AlbumController() throws Exception {
         this.albumModel = AlbumModel.getInstance();
+        this.mediaPlayerModel = MediaPlayerModel.getInstance();
+
+        mediaPlayerModel.setPlaylistSongs(tblSongsAlbum);
     }
 
     @Override
@@ -97,6 +105,7 @@ public class AlbumController implements Initializable {
 
         tblSongsAlbum.refresh();
         tblSongsAlbum.setItems(albumModel.getObservableSongs(album));
+        mediaPlayerModel.wasClickedTable(tblSongsAlbum);
 
         updateUI(album);
     }

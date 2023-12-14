@@ -1,9 +1,12 @@
 package mytunes.GUI.Model;
 
 import javafx.scene.control.TableView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.media.MediaPlayer;
 import mytunes.BE.Song;
 import mytunes.BLL.MediaPlayerHandler;
+import mytunes.GUI.Controller.ny.Containers.MediaPlayerContainer;
 
 import java.io.IOException;
 
@@ -15,6 +18,8 @@ public class MediaPlayerModel {
     private static MediaPlayerModel single_instance = null;
 
     private TableView<Song> playlistSongs;
+    private boolean wasSelectedFromTbl;
+    private MediaPlayerContainer mediaPlayerContainer;
 
     private MediaPlayerModel() throws IOException {
         mediaPlayerHandler = new MediaPlayerHandler();
@@ -41,6 +46,34 @@ public class MediaPlayerModel {
 
     public void setPlaylistSongs(TableView<Song> tbl) {
         this.playlistSongs = tbl;
+    }
+
+    public void wasClickedTable(TableView<Song> tbl) {
+        tbl.setOnMouseClicked((MouseEvent event) -> {
+            if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2 ) {
+                wasSelectedFromTbl = true;
+
+                Song selectedSong = tbl.getSelectionModel().getSelectedItem();
+                mediaPlayerContainer.playSelectedSong(selectedSong);
+                this.setSelectedSong(selectedSong);
+            }
+        });
+    }
+
+    public boolean getSelectedFromTbl() {
+        return wasSelectedFromTbl;
+    }
+
+    public void setSelectedFromTbl(boolean b) {
+        wasSelectedFromTbl = b;
+    }
+
+    public void setMediaPlayerContainer(MediaPlayerContainer container) {
+        this.mediaPlayerContainer = container;
+    }
+
+    private void updateUI(Song song) {
+        mediaPlayerContainer.playSelectedSong(song);
     }
 
     public TableView<Song> getPlaylistSongs() {

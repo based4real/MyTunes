@@ -56,23 +56,7 @@ public class MediaPlayerContainer implements Initializable {
         sliderDesign();
 
         initalizeVolumeControl();
-
-        checkTable();
-    }
-
-    // This table actually comes from PlaylistController
-    private void checkTable() {
-        TableView<Song> tbl = mediaPlayerModel.getPlaylistSongs();
-
-        tbl.setOnMouseClicked((MouseEvent event) -> {
-            if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2 ) {
-                wasSelectedFromTbl = true;
-
-                Song selectedSong = tbl.getSelectionModel().getSelectedItem();
-                playSelectedSong(selectedSong);
-                mediaPlayerModel.setSelectedSong(selectedSong);
-            }
-        });
+        mediaPlayerModel.setMediaPlayerContainer(this);
     }
 
     private void updateImage(Song song) {
@@ -86,7 +70,7 @@ public class MediaPlayerContainer implements Initializable {
     }
 
     private void updateBtnPlayBtn() {
-        if (wasSelectedFromTbl) {
+        if (mediaPlayerModel.getSelectedFromTbl()) {
             fxBtnPlay.getStyleClass().clear();
             fxBtnPlay.getStyleClass().add("media_pause");
             btnPlay = false;
@@ -102,8 +86,8 @@ public class MediaPlayerContainer implements Initializable {
             fxBtnPlay.getStyleClass().clear();
             fxBtnPlay.getStyleClass().add("media_pause");
         }
-
     }
+
     public void playSelectedSong(Song song) {
         MediaPlayer mediaPlayer = song.getMediaPlayer();
 
@@ -115,7 +99,7 @@ public class MediaPlayerContainer implements Initializable {
         updateImage(song);
         updateBtnPlayBtn();
 
-        wasSelectedFromTbl = false;
+        mediaPlayerModel.setSelectedFromTbl(false);
     }
 
     public void sliderDesign() {

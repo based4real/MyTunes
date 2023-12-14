@@ -2,29 +2,17 @@ package mytunes.GUI.Controller.ny.Containers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import mytunes.BE.Album;
-import mytunes.BE.Artist;
-import mytunes.GUI.Controller.ny.MainWindowController;
 import mytunes.GUI.Controller.ny.Pages.HomeController;
 import mytunes.GUI.Controller.ny.Pages.SearchController;
 import mytunes.GUI.Model.AlbumModel;
 import mytunes.GUI.Model.ArtistModel;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URL;
-import java.util.Properties;
-import java.util.ResourceBundle;
 
 public class BoxContainer {
 
