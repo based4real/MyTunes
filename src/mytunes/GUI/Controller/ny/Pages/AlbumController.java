@@ -4,12 +4,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import mytunes.BE.Album;
 import mytunes.BE.Playlist;
+import mytunes.BE.Song;
+import mytunes.GUI.Controller.ny.Custom.TableContextMenu;
 import mytunes.GUI.Controller.ny.Custom.TitleArtistCell;
 import mytunes.GUI.Model.AlbumModel;
 
@@ -25,7 +28,7 @@ public class AlbumController implements Initializable {
     private Label lblType, lblName, lblArtistName, lblRelease, lblSongsAmount, lblPlayTime;
 
     @FXML
-    private TableView tblSongsAlbum;
+    private TableView<Song> tblSongsAlbum;
     @FXML
     private TableColumn columnPos;
     @FXML
@@ -44,6 +47,21 @@ public class AlbumController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupAlbumSongsTableView();
+        enableRightClick();
+    }
+
+    private void enableRightClick() {
+        tblSongsAlbum.setRowFactory(tv -> {
+            TableRow<Song> row = new TableRow<>();
+            try {
+                TableContextMenu tableContextMenu = new TableContextMenu(tblSongsAlbum, null);
+                tableContextMenu.createContextMenu(row);
+            } catch (Exception e) {
+                System.out.println("Cannot create ContextMenu for Playlists");
+                throw new RuntimeException(e);
+            }
+            return row;
+        });
     }
 
     private void setupAlbumSongsTableView() {
