@@ -37,8 +37,7 @@ public class SearchController implements Initializable {
     private HBox hboxArtists;
     @FXML
     private TextField txfSearchBar;
-    @FXML
-    private TableColumn<Song, Integer> columnID;
+
     @FXML
     private TableColumn<Song, String> columnTitle,columnGenre,columnDuration;
     @FXML
@@ -76,7 +75,7 @@ public class SearchController implements Initializable {
 
     private void setupSongTableView() {
         ObservableList<Song> songs = songModel.getObservableSongs();
-        columnID.setCellValueFactory(new PropertyValueFactory<>("id"));
+
         columnTitle.setCellFactory(col -> new TitleArtistCell());
         columnDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
         columnGenre.setCellValueFactory(new PropertyValueFactory<>("genre"));

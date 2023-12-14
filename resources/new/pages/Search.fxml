@@ -46,11 +46,9 @@
                           <children>
                               <TableView fx:id="tblSongs" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS">
                                   <columns>
-                                      <TableColumn fx:id="columnID" prefWidth="29.5" text="#" />
                                       <TableColumn fx:id="columnTitle" prefWidth="130.5" text="Title" />
                                       <TableColumn fx:id="columnAlbum" prefWidth="116.0" text="Album" />
                                       <TableColumn fx:id="columnGenre" prefWidth="53.0" text="Genre" />
-                                      <TableColumn fx:id="columnAdded" prefWidth="75.0" text="Tilføjet" />
                                       <TableColumn fx:id="columnDuration" prefWidth="75.0" text="Længde" />
                                   </columns>
                            <columnResizePolicy>
