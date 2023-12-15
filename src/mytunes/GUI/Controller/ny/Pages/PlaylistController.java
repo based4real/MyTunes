@@ -1,23 +1,36 @@
 package mytunes.GUI.Controller.ny.Pages;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
+import javafx.scene.layout.GridPane;
+import mytunes.BE.Album;
 import mytunes.BE.Playlist;
 import mytunes.BE.Song;
+import mytunes.GUI.Controller.ny.Custom.CustomPlaylistPicture;
 import mytunes.GUI.Controller.ny.Custom.TableContextMenu;
 import mytunes.GUI.Controller.ny.Custom.TitleArtistCell;
 import mytunes.GUI.Model.MediaPlayerModel;
 import mytunes.GUI.Model.PlaylistModel;
 import mytunes.GUI.Model.SongModel;
 
+import java.io.File;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class PlaylistController implements Initializable {
+    public Label lblPlaylistName;
+    public Label lblType;
+    public ImageView imgCover;
+    public Label lblUsername;
+    public Label lblTotalSongs;
+    public GridPane imagePane;
     @FXML
     private TableView<Song> tblSongsPlaylist;
 
@@ -48,7 +61,38 @@ public class PlaylistController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupPlistSongsTableView();
-        enableDragAndDrop(tblSongsPlaylist);
+
+        // No time to finish this... prioritize
+        //enableDragAndDrop(tblSongsPlaylist);
+    }
+
+    private void updatePicture(Playlist playlist) throws Exception {
+        CustomPlaylistPicture customPlaylistPicture = new CustomPlaylistPicture(playlistModel);
+
+        if (customPlaylistPicture.setCustomPicture(imagePane, playlist, 110))
+            return;
+
+      //  Image newImage = new Image(new File(playlist.getPictureURL()).toURI().toString());
+       // imgCover.setFitWidth(160);
+      //  imgCover.setFitHeight(160);
+
+     //   imgCover.setImage(newImage);
+    }
+
+    private void updateLabels(Playlist playlist) {
+        lblUsername.setText("Bruger");
+        lblPlaylistName.setText(playlist.getName());
+        lblType.setText("Playliste");
+
+        String songs = Integer.toString(playlist.getPlaylistSongs().size());
+
+        lblTotalSongs.setText(songs);
+    }
+
+
+    private void updateUI(Playlist playlist) throws Exception {
+        updateLabels(playlist);
+        updatePicture(playlist);
     }
 
     public void setPlaylist(Playlist playlist) {
@@ -59,7 +103,6 @@ public class PlaylistController implements Initializable {
         columnTitle.setCellFactory(col -> new TitleArtistCell());
         columnGenre.setCellValueFactory(new PropertyValueFactory<>("genre"));
         columnDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
-        columnID.setCellValueFactory(new PropertyValueFactory<>("orderID"));
     }
 
     private void enableDragAndDrop(TableView<Song> tableView) {
@@ -147,6 +190,22 @@ public class PlaylistController implements Initializable {
         tblSongsPlaylist.refresh();
         tblSongsPlaylist.setItems(playlistModel.getObservableSongs(p));
         mediaPlayerModel.wasClickedTable(tblSongsPlaylist);
+
+        updateUI(p);
     }
 
+    public void btnPageBack(ActionEvent actionEvent) {
+    }
+
+    public void btnNextPage(ActionEvent actionEvent) {
+    }
+
+    public void btnPlayPlaylist(ActionEvent actionEvent) {
+    }
+
+    public void btnShuffle(ActionEvent actionEvent) {
+    }
+
+    public void btnSettings(ActionEvent actionEvent) {
+    }
 }

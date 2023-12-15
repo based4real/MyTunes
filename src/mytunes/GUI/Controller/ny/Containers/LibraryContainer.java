@@ -15,6 +15,7 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import mytunes.BE.Playlist;
@@ -41,7 +42,7 @@ public class LibraryContainer implements Initializable {
     private PlaylistController playlistController;
 
     @FXML
-    private AnchorPane playlistContainerPane;
+    private GridPane playlistContainerPane;
 
     private MainWindowController mainWindowController;
 
@@ -175,13 +176,13 @@ public class LibraryContainer implements Initializable {
 
     public void LoadPlaylistSongsView(BorderPane mainWindow) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("/new/pages/Playlist.fxml"));
-        AnchorPane anchorPane = fxmlLoader.load();
+        fxmlLoader.setLocation(getClass().getResource("/new/pages/newPlaylist.fxml"));
+        GridPane gridPane = fxmlLoader.load();
 
-        playlistContainerPane = anchorPane;
+        playlistContainerPane = gridPane;
         playlistController = fxmlLoader.getController();
 
-        mainWindow.setCenter(anchorPane);
+        mainWindow.setCenter(gridPane);
     }
 
     private void txtPlaylistFilterListener() {

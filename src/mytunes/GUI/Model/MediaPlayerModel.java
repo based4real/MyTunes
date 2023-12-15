@@ -60,7 +60,7 @@ public class MediaPlayerModel {
     public void setMediaPlayerContainer(MediaPlayerContainer container) {
         this.mediaPlayerContainer = container;
     }
-    
+
     public MediaPlayer getPlayingSong() {
         return mediaPlayerHandler.getCurrentSong();
     }
