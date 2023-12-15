@@ -17,24 +17,27 @@ public class AlbumManager {
     private AlbumDAO albumDAO;
 
     private List<Album> allAlbums = new ArrayList<>();
+
     public AlbumManager() throws IOException {
         this.albumDAO = new AlbumDAO();
     }
     public boolean createAlbum(List<Release> albums, Song song, Artist artist) throws Exception {
-        for (Release r : albums) {
+        for (Release r : albums)
             albumDAO.createAlbum(r, song, artist);
-        }
 
         return false;
     }
 
     public List<Song> getAlbumSongs(Album album) throws Exception {
-        return albumDAO.getAlbumSongs(album);
+        if (album.getAlbumSongs().isEmpty())
+            album.setAlbumSongs(albumDAO.getAlbumSongs(album));
+
+        return album.getAlbumSongs();
     }
 
     public List<Album> getAllAlbums() throws Exception{
         if (allAlbums.isEmpty())
-            allAlbums = albumDAO.getAllAlbums();
+            allAlbums.addAll(albumDAO.getAllAlbums());
 
         return allAlbums;
     }

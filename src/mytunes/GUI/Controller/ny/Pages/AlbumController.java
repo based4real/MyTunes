@@ -33,17 +33,16 @@ public class AlbumController implements Initializable {
     @FXML
     private TableView<Song> tblSongsAlbum;
     @FXML
-    private TableColumn columnPos;
+    private TableColumn<Song, Integer> columnPos;
     @FXML
-    private TableColumn columnTitle;
+    private TableColumn<Song, String> columnTitle;
     @FXML
-    private TableColumn columnGenre;
+    private TableColumn<Song, String> columnGenre;
     @FXML
-    private TableColumn columnDuration;
+    private TableColumn<Song, String> columnDuration;
 
     private AlbumModel albumModel;
     private MediaPlayerModel mediaPlayerModel;
-
 
     public AlbumController() throws Exception {
         this.albumModel = AlbumModel.getInstance();

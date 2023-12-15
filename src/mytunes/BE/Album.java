@@ -38,6 +38,15 @@ public class Album {
         return pictureURL;
     }
 
+    public void setAlbumSongs(List<Song> list) {
+        albumSongs.addAll(list);
+    }
+
+    public void addToAlbumSongs(Song song) {
+        albumSongs.add(song);
+    }
+
+
     public List<Song> getAlbumSongs() {
         return albumSongs;
     }

@@ -90,7 +90,6 @@ public class Song {
         this.artistID = id;
     }
 
-
     public String getFilePath() {
         return filePath;
     }

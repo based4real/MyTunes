@@ -18,7 +18,6 @@ public class MediaPlayerModel {
     private static MediaPlayerModel single_instance = null;
 
     private TableView<Song> playlistSongs;
-    private boolean wasSelectedFromTbl;
     private MediaPlayerContainer mediaPlayerContainer;
 
     private MediaPlayerModel() throws IOException {
@@ -51,8 +50,6 @@ public class MediaPlayerModel {
     public void wasClickedTable(TableView<Song> tbl) {
         tbl.setOnMouseClicked((MouseEvent event) -> {
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2 ) {
-                wasSelectedFromTbl = true;
-
                 Song selectedSong = tbl.getSelectionModel().getSelectedItem();
                 mediaPlayerContainer.playSelectedSong(selectedSong);
                 this.setSelectedSong(selectedSong);
@@ -60,26 +57,10 @@ public class MediaPlayerModel {
         });
     }
 
-    public boolean getSelectedFromTbl() {
-        return wasSelectedFromTbl;
-    }
-
-    public void setSelectedFromTbl(boolean b) {
-        wasSelectedFromTbl = b;
-    }
-
     public void setMediaPlayerContainer(MediaPlayerContainer container) {
         this.mediaPlayerContainer = container;
     }
-
-    private void updateUI(Song song) {
-        mediaPlayerContainer.playSelectedSong(song);
-    }
-
-    public TableView<Song> getPlaylistSongs() {
-        return playlistSongs;
-    }
-
+    
     public MediaPlayer getPlayingSong() {
         return mediaPlayerHandler.getCurrentSong();
     }

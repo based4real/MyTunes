@@ -42,9 +42,6 @@ public class MediaPlayerContainer implements Initializable {
     private boolean wasDragged;
     private boolean wasClicked;
 
-    private boolean btnPlay;
-    private boolean wasSelectedFromTbl;
-
     private MediaPlayerModel mediaPlayerModel;
 
     public MediaPlayerContainer() throws Exception {
@@ -69,22 +66,17 @@ public class MediaPlayerContainer implements Initializable {
         lblArtist.setText(song.getArtistName());
     }
 
-    private void updateBtnPlayBtn() {
-        if (mediaPlayerModel.getSelectedFromTbl()) {
+    private void updateBtnPlayBtn(MediaPlayer mediaPlayer) {
+        boolean STATUS_STOPPED = mediaPlayer.getStatus() == MediaPlayer.Status.STOPPED;
+        boolean STATUS_READY = mediaPlayer.getStatus() == MediaPlayer.Status.READY;
+        boolean STATUS_PAUSED = mediaPlayer.getStatus() == MediaPlayer.Status.PAUSED;
+
+        if (STATUS_READY || STATUS_PAUSED || STATUS_STOPPED) {
             fxBtnPlay.getStyleClass().clear();
             fxBtnPlay.getStyleClass().add("media_pause");
-            btnPlay = false;
-            return;
-        }
-
-        btnPlay = !btnPlay;
-
-        if (btnPlay) {
-            fxBtnPlay.getStyleClass().clear();
-            fxBtnPlay.getStyleClass().add("media_play");
         } else {
             fxBtnPlay.getStyleClass().clear();
-            fxBtnPlay.getStyleClass().add("media_pause");
+            fxBtnPlay.getStyleClass().add("media_play");
         }
     }
 
@@ -97,9 +89,7 @@ public class MediaPlayerContainer implements Initializable {
         // UI update
         updateArtistTitleLabel(song);
         updateImage(song);
-        updateBtnPlayBtn();
-
-        mediaPlayerModel.setSelectedFromTbl(false);
+        updateBtnPlayBtn(mediaPlayer);
     }
 
     public void sliderDesign() {

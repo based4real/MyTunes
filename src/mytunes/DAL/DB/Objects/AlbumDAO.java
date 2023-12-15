@@ -111,12 +111,14 @@ public class AlbumDAO {
             stmt.setInt(1, album.getID());
             stmt.setInt(2, song.getId());
             stmt.setInt(3, release.getSongPos());
+
             stmt.executeUpdate();
+            album.addToAlbumSongs(song);
         }
     }
 
     public List<Song> getAlbumSongs(Album album) throws Exception {
-        ArrayList<Song> allSongsInPlaylist = new ArrayList<>();
+        ArrayList<Song> allSongsInAlbum = new ArrayList<>();
 
         String sql = "SELECT songs.*, artists.name as artistName, Albums_songs.position as order_id, Albums.pictureURL as albumsPicture\n" +
                 "FROM songs\n" +
@@ -142,15 +144,13 @@ public class AlbumDAO {
                 String pictureURL = rs.getString("albumsPicture");
                 int orderID = rs.getInt("order_id");
 
-                Song song = new Song(musicBrainzID, songId, title, artist, genre, filePath, pictureURL, orderID);
-                allSongsInPlaylist.add(song);
+                allSongsInAlbum.add(new Song(musicBrainzID, songId, title, artist, genre, filePath, pictureURL, orderID));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new Exception("Could not get playlists from database", ex);
         }
-        return allSongsInPlaylist;
-
+        return allSongsInAlbum;
     }
 
     public boolean createAlbum(Release album, Song song, Artist artist) throws Exception {

@@ -42,9 +42,6 @@ public class AlbumModel {
         if (album == null || getAlbumSongs(album) == null)
             return SongsToBeViewed;
 
-        for (Song s : SongsToBeViewed)
-            System.out.println(s.getTitle());
-
         SongsToBeViewed.addAll(getAlbumSongs(album));
         SongsToBeViewed.sort(Comparator.comparing(Song::getOrderID));
 
