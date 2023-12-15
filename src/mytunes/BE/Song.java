@@ -44,6 +44,10 @@ public class Song {
         this.orderID = orderID;
     }
 
+    public double getDoubleTime() {
+        return mediaPlayer.getTotalDuration().toSeconds();
+    }
+
     public String getDuration(){
         double seconds = mediaPlayer.getTotalDuration().toSeconds();
 

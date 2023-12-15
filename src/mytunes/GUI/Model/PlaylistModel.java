@@ -82,4 +82,7 @@ public class PlaylistModel {
         return playlistManager.removeSongFromPlaylist(playlist, song);
     }
 
+    public String getAllPlayTime(Playlist playlist) throws Exception {
+        return playlistManager.getAllplayTime(playlist);
+    }
 }

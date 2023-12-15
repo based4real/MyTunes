@@ -62,16 +62,6 @@ public class MediaPlayerHandler {
         return currentSong;
     }
 
-    //refactor
-    public String getCurrentTime() {
-        double seconds = currentSong.getCurrentTime().toSeconds();
-
-        double secs = seconds % 60;
-        double minutes = (seconds / 60) % 60;
-
-        return String.format("%d:%02d", (int)minutes, (int)secs);
-    }
-
     public String getTimeFromDouble(double val) {
         //input millisekunder
         double seconds = val;
@@ -80,5 +70,28 @@ public class MediaPlayerHandler {
         double minutes = (seconds / 60) % 60;
 
         return String.format("%d:%02d", (int)minutes, (int)secs);
+    }
+
+    public String getRewrittenTimeFromDouble(double val) {
+        long seconds = (long) val;
+
+        long hours = seconds / 3600;
+        long minutes = (seconds % 3600) / 60;
+        long remainingSeconds = seconds % 60;
+
+        StringBuilder result = new StringBuilder();
+
+        if (hours > 0) {
+            result.append(hours).append(" t.");
+            result.append(" ");
+        }
+
+        if (minutes > 0) {
+            result.append(minutes).append(" min.");
+            result.append(" ");
+        }
+
+        result.append(remainingSeconds).append(" sek.");
+        return result.toString();
     }
 }

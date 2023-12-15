@@ -16,8 +16,11 @@ public class PlaylistManager {
     private PlaylistDAO playlistDAO;
     private List<Playlist> allPlaylists = new ArrayList<>();
 
+    private MediaPlayerHandler mediaPlayerHandler;
+
     public PlaylistManager() throws IOException {
         playlistDAO = new PlaylistDAO();
+        mediaPlayerHandler = new MediaPlayerHandler();
     }
 
     public Playlist createPlaylist(Playlist playlist) throws Exception {
@@ -88,5 +91,15 @@ public class PlaylistManager {
             playlist.removeSongFromPlaylist(song);
 
         return removed;
+    }
+
+    public String getAllplayTime(Playlist playlist) throws Exception {
+        List<Song> playlistSongs = getPlaylistSongs(playlist);
+        double totalTime = 0;
+
+        for (Song s : playlistSongs)
+            totalTime = totalTime + s.getDoubleTime();
+
+        return mediaPlayerHandler.getRewrittenTimeFromDouble(totalTime);
     }
 }

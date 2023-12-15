@@ -51,10 +51,14 @@ public class MediaPlayerModel {
         tbl.setOnMouseClicked((MouseEvent event) -> {
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2 ) {
                 Song selectedSong = tbl.getSelectionModel().getSelectedItem();
-                mediaPlayerContainer.playSelectedSong(selectedSong);
-                this.setSelectedSong(selectedSong);
+                playSelectedSong(selectedSong);
             }
         });
+    }
+
+    public void playSelectedSong(Song song) {
+        mediaPlayerContainer.playSelectedSong(song);
+        this.setSelectedSong(song);
     }
 
     public void setMediaPlayerContainer(MediaPlayerContainer container) {
@@ -65,9 +69,6 @@ public class MediaPlayerModel {
         return mediaPlayerHandler.getCurrentSong();
     }
 
-    public String getCurrentTime() {
-        return mediaPlayerHandler.getCurrentTime();
-    }
 
     public String getTimeFromDouble(double time) {
         return mediaPlayerHandler.getTimeFromDouble(time);

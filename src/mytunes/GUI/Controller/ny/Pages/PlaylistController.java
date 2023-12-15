@@ -9,7 +9,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.GridPane;
-import mytunes.BE.Album;
 import mytunes.BE.Playlist;
 import mytunes.BE.Song;
 import mytunes.GUI.Controller.ny.Custom.CustomPlaylistPicture;
@@ -21,7 +20,7 @@ import mytunes.GUI.Model.SongModel;
 
 import java.io.File;
 import java.net.URL;
-import java.util.Optional;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class PlaylistController implements Initializable {
@@ -31,6 +30,7 @@ public class PlaylistController implements Initializable {
     public Label lblUsername;
     public Label lblTotalSongs;
     public GridPane imagePane;
+    public Label lblTotalTime;
     @FXML
     private TableView<Song> tblSongsPlaylist;
 
@@ -81,14 +81,16 @@ public class PlaylistController implements Initializable {
         imagePane.add(imgCover,0 ,0);
     }
 
-    private void updateLabels(Playlist playlist) {
+    private void updateLabels(Playlist playlist) throws Exception {
         lblUsername.setText("Bruger");
         lblPlaylistName.setText(playlist.getName());
         lblType.setText("Playliste");
 
         String songs = Integer.toString(playlist.getPlaylistSongs().size());
 
-        lblTotalSongs.setText(songs);
+        lblTotalSongs.setText(songs + " sange ialt.");
+        lblTotalTime.setText(playlistModel.getAllPlayTime(playlist));
+        playlistModel.getAllPlayTime(playlist);
     }
 
 
@@ -196,18 +198,16 @@ public class PlaylistController implements Initializable {
         updateUI(p);
     }
 
+    public void btnPlayPlaylist(ActionEvent actionEvent) {
+        List<Song> allSongs = playlist.getPlaylistSongs();
+
+        if (allSongs.size() > 0)
+            mediaPlayerModel.playSelectedSong(allSongs.get(0));
+    }
+
     public void btnPageBack(ActionEvent actionEvent) {
     }
 
     public void btnNextPage(ActionEvent actionEvent) {
-    }
-
-    public void btnPlayPlaylist(ActionEvent actionEvent) {
-    }
-
-    public void btnShuffle(ActionEvent actionEvent) {
-    }
-
-    public void btnSettings(ActionEvent actionEvent) {
     }
 }

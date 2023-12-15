@@ -66,7 +66,7 @@
                               <Insets left="15.0" />
                            </HBox.margin>
                            <children>
-                              <Label fx:id="lblType" text="Playlist" textFill="WHITE">
+                              <Label fx:id="lblType" text="Playliste" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -78,6 +78,9 @@
                                  <font>
                                     <Font name="System Bold" size="43.0" />
                                  </font>
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
                               </Label>
                               <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                  <children>
@@ -91,7 +94,15 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
+                                    <Label fx:id="lblTotalTime" text="20 min" textFill="WHITE">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
                                  </children>
+                                 <VBox.margin>
+                                    <Insets top="75.0" />
+                                 </VBox.margin>
                               </HBox>
                            </children>
                         </VBox>
@@ -113,25 +124,9 @@
                               <Insets right="15.0" />
                            </HBox.margin>
                         </Button>
-                        <Button contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#btnShuffle" prefHeight="50.0" prefWidth="50.0" styleClass="playlist_misc" textFill="#969696">
-                           <graphic>
-                              <SVGPath content="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798 3 13 3v1c-1.798 0-3.173 1.01-4.126 2.082A9.624 9.624 0 0 0 7.556 8a9.624 9.624 0 0 0 1.317 1.918C9.828 10.99 11.204 12 13 12v1c-2.202 0-3.827-1.24-4.874-2.418A10.595 10.595 0 0 1 7 9.05c-.26.43-.636.98-1.126 1.532C4.827 11.76 3.202 13 1 13H.5a.5.5 0 0 1 0-1H1c1.798 0 3.173-1.01 4.126-2.082A9.624 9.624 0 0 0 6.444 8a9.624 9.624 0 0 0-1.317-1.918C4.172 5.01 2.796 4 1 4H.5a.5.5 0 0 1-.5-.5 M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192zm0 9v-3.932a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192z" scaleX="2.0" scaleY="2.0" stroke="#969696" styleClass="playlist_misc_icon" />
-                           </graphic>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                        </Button>
-                        <Button contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#btnSettings" prefHeight="50.0" prefWidth="50.0" styleClass="playlist_misc" textFill="#969696">
-                           <graphic>
-                              <SVGPath content="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3" scaleX="2.0" scaleY="2.0" stroke="#969696" styleClass="playlist_misc_icon" />
-                           </graphic>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                        </Button>
                      </children>
                   </HBox>
-                        <TableView fx:id="tblSongsPlaylist" prefHeight="0.0" prefWidth="665.0" VBox.vgrow="ALWAYS">
+                        <TableView fx:id="tblSongsPlaylist" minHeight="-Infinity">
                             <columns>
                                 <TableColumn fx:id="columnTitle" prefWidth="130.5" text="Title" />
                                 <TableColumn fx:id="columnAlbum" prefWidth="116.0" text="Album" />
