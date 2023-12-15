@@ -62,8 +62,9 @@ public class TableContextMenu {
                         }
 
                         // Add song, but dont update table, else it messes up
-                        if (playlistModel.addSongToPlaylist(p, song) && playlist != null )
-                            updatePlaylistSongs(tblSongs, p);
+                        playlistModel.addSongToPlaylist(p, song);
+                      //  if (playlistModel.addSongToPlaylist(p, song) && playlist != null )
+                            //updatePlaylistSongs(tblSongs, p);
 
                     } catch (Exception e) {
                         throw new RuntimeException(e);

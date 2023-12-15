@@ -16,7 +16,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<GridPane styleClass="tabs_background" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.GUI.Controller.ny.Pages.AlbumController">
+<GridPane styleClass="tabs_background" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.GUI.Controller.ny.Pages.PlaylistController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
    </columnConstraints>
@@ -26,11 +26,11 @@
    <children>
       <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="scroll-pane_search" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
          <content>
-            <VBox fillWidth="true" spacing="20.0">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <children>
+              <VBox fillWidth="true" spacing="20.0">
+                  <opaqueInsets>
+                      <Insets />
+                  </opaqueInsets>
+                  <children>
                   <HBox minHeight="35.0" spacing="25.0" VBox.vgrow="NEVER">
                      <children>
                         <Button mnemonicParsing="false" onAction="#btnPageBack" prefHeight="30.0" prefWidth="30.0" styleClass="playlist_backnext">
@@ -131,25 +131,25 @@
                         </Button>
                      </children>
                   </HBox>
-                  <TableView fx:id="tblSongsAlbum" minHeight="-Infinity">
-                     <columns>
+                        <TableView fx:id="tblSongsPlaylist" minHeight="-Infinity">
+                            <columns>
                         <TableColumn fx:id="columnPos" prefWidth="50.0" text="#" />
-                        <TableColumn fx:id="columnTitle" prefWidth="596.0" text="Title" />
-                        <TableColumn fx:id="columnGenre" prefWidth="269.0" text="Genre" />
-                        <TableColumn fx:id="columnDuration" prefWidth="50.0">
+                                <TableColumn fx:id="columnTitle" prefWidth="596.0" text="Title" />
+                                <TableColumn fx:id="columnGenre" prefWidth="269.0" text="Genre" />
+                                <TableColumn fx:id="columnDuration" prefWidth="50.0">
                            <graphic>
                               <SVGPath content="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0 " fill="#969696" />
                            </graphic></TableColumn>
-                     </columns>
+                            </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
-                  </TableView>
-               </children>
+                        </TableView>
+                  </children>
                <padding>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
-            </VBox>
+              </VBox>
          </content>
       </ScrollPane>
    </children>

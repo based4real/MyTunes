@@ -5,24 +5,22 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import mytunes.BE.Album;
 import mytunes.BE.Artist;
-import mytunes.BE.Playlist;
 import mytunes.BE.Song;
 import mytunes.GUI.Controller.ny.Containers.BoxContainer;
+import mytunes.GUI.Controller.ny.Custom.TableContextMenu;
 import mytunes.GUI.Controller.ny.Custom.TitleArtistCell;
 import mytunes.GUI.Controller.ny.MainWindowController;
-import mytunes.GUI.Main;
 import mytunes.GUI.Model.AlbumModel;
 import mytunes.GUI.Model.ArtistModel;
+import mytunes.GUI.Model.MediaPlayerModel;
 import mytunes.GUI.Model.SongModel;
 
 import java.io.IOException;
@@ -52,13 +50,15 @@ public class SearchController implements Initializable {
     private AlbumModel albumModel;
 
     private MainWindowController mainWindowController;
-    private AnchorPane albumAnchorPane;
+    private GridPane albumGridPane;
     private AlbumController albumController;
+    private MediaPlayerModel mediaPlayerModel;
 
     public SearchController() throws Exception {
         songModel = SongModel.getInstance();
         artistModel = ArtistModel.getInstance();
         albumModel = AlbumModel.getInstance();
+        mediaPlayerModel = MediaPlayerModel.getInstance();
     }
 
     @Override
@@ -68,9 +68,24 @@ public class SearchController implements Initializable {
         try {
             addArtists();
             addAlbums();
+            enableRightClick();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void enableRightClick() {
+        tblSongs.setRowFactory(tv -> {
+            TableRow<Song> row = new TableRow<>();
+            try {
+                TableContextMenu tableContextMenu = new TableContextMenu(tblSongs, null);
+                tableContextMenu.createContextMenu(row);
+            } catch (Exception e) {
+                System.out.println("Cannot create ContextMenu for Search page");
+                throw new RuntimeException(e);
+            }
+            return row;
+        });
     }
 
     private void setupSongTableView() {
@@ -80,11 +95,13 @@ public class SearchController implements Initializable {
         columnDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
         columnGenre.setCellValueFactory(new PropertyValueFactory<>("genre"));
         tblSongs.setItems(songs);
+
+        mediaPlayerModel.wasClickedTable(tblSongs);
     }
 
     private void checkAlbumClick(Button btn, Album album) throws IOException {
         btn.setOnAction(e -> {
-            mainWindowController.switchView(albumAnchorPane);
+            mainWindowController.switchView(albumGridPane);
             try {
                 albumController.tableAlbumSongs(album);
             } catch (Exception ex) {
@@ -96,12 +113,12 @@ public class SearchController implements Initializable {
     public void loadAlbumView(BorderPane mainWindow) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/new/pages/Album.fxml"));
-        AnchorPane anchorPane = fxmlLoader.load();
+        GridPane gridPane = fxmlLoader.load();
 
-        albumAnchorPane = anchorPane;
+        albumGridPane = gridPane;
         albumController = fxmlLoader.getController();
 
-        mainWindow.setCenter(anchorPane);
+        mainWindow.setCenter(gridPane);
     }
 
     private void addArtists() throws Exception {

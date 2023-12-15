@@ -47,6 +47,7 @@ public class CustomPlaylistPicture {
                 // Set the size of ImageView (optional)
                 imageView.setFitWidth(size);
                 imageView.setFitHeight(size);
+                imageView.setPreserveRatio(false);
 
                 // Add ImageView to the GridPane
                 imagePane.add(imageView, colIndex, rowIndex);

@@ -1,10 +1,13 @@
 package mytunes.GUI.Controller.ny.Pages;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.control.skin.TableViewSkin;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
@@ -61,6 +64,7 @@ public class PlaylistController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupPlistSongsTableView();
+        enableRightlick();
 
         // No time to finish this... prioritize
         //enableDragAndDrop(tblSongsPlaylist);
@@ -88,7 +92,7 @@ public class PlaylistController implements Initializable {
 
         String songs = Integer.toString(playlist.getPlaylistSongs().size());
 
-        lblTotalSongs.setText(songs + " sange ialt.");
+        lblTotalSongs.setText(songs + " sange");
         lblTotalTime.setText(playlistModel.getAllPlayTime(playlist));
         playlistModel.getAllPlayTime(playlist);
     }
@@ -107,6 +111,22 @@ public class PlaylistController implements Initializable {
         columnTitle.setCellFactory(col -> new TitleArtistCell());
         columnGenre.setCellValueFactory(new PropertyValueFactory<>("genre"));
         columnDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
+    }
+
+    private void enableRightlick() {
+        tblSongsPlaylist.setRowFactory(tv -> {
+            TableRow<Song> row = new TableRow<>();
+
+            // Right click on song element
+            try {
+                TableContextMenu tableContextMenu = new TableContextMenu(tblSongsPlaylist, playlist);
+                tableContextMenu.createContextMenu(row);
+            } catch (Exception e) {
+                System.out.println("Cannot create ContextMenu for Playlists");
+                throw new RuntimeException(e);
+            }
+            return row;
+        });
     }
 
     private void enableDragAndDrop(TableView<Song> tableView) {
@@ -187,12 +207,20 @@ public class PlaylistController implements Initializable {
         });
     }
 
+    private void setTableHeight(Playlist p) {
+        int size = p.getPlaylistSongs().size();
+        double height = 85;
+
+        tblSongsPlaylist.setPrefHeight(size * height);
+    }
+
     public void tablePlaylistSongsClick(Playlist p) throws Exception {
         if (p == null)
             return;
 
         tblSongsPlaylist.refresh();
         tblSongsPlaylist.setItems(playlistModel.getObservableSongs(p));
+      //  setTableHeight(p);
         mediaPlayerModel.wasClickedTable(tblSongsPlaylist);
 
         updateUI(p);

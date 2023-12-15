@@ -1,5 +1,6 @@
 package mytunes.GUI.Controller.ny.Pages;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -9,15 +10,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import mytunes.BE.Album;
-import mytunes.BE.Playlist;
 import mytunes.BE.Song;
 import mytunes.GUI.Controller.ny.Custom.TableContextMenu;
 import mytunes.GUI.Controller.ny.Custom.TitleArtistCell;
 import mytunes.GUI.Model.AlbumModel;
 import mytunes.GUI.Model.MediaPlayerModel;
+import mytunes.GUI.Model.PlaylistModel;
 
 import java.io.File;
 import java.net.URL;
@@ -43,6 +42,7 @@ public class AlbumController implements Initializable {
 
     private AlbumModel albumModel;
     private MediaPlayerModel mediaPlayerModel;
+    private PlaylistModel playlistModel;
 
     public AlbumController() throws Exception {
         this.albumModel = AlbumModel.getInstance();
@@ -80,20 +80,26 @@ public class AlbumController implements Initializable {
 
     private void updatePicture(Album album) {
         Image newImage = new Image(new File(album.getPictureURL()).toURI().toString());
-        imgCover.setFitWidth(160);
-        imgCover.setFitHeight(160);
+        imgCover.setFitWidth(220);
+        imgCover.setFitHeight(220);
+        imgCover.setPreserveRatio(false);
 
         imgCover.setImage(newImage);
     }
 
-    private void updateLabels(Album album) {
+    private void updateLabels(Album album) throws Exception {
         lblName.setText(album.getTitle());
         lblArtistName.setText(album.getArtist());
         lblType.setText(album.getType());
         lblRelease.setText(album.getReleaseDate());
+        lblPlayTime.setText(albumModel.getAllPlayTime(album));
+
+        String albumSongs = Integer.toString(album.getAlbumSongs().size());
+
+        lblSongsAmount.setText(albumSongs + " sange");
     }
 
-    private void updateUI(Album album) {
+    private void updateUI(Album album) throws Exception {
         updateLabels(album);
         updatePicture(album);
     }
@@ -107,5 +113,14 @@ public class AlbumController implements Initializable {
         mediaPlayerModel.wasClickedTable(tblSongsAlbum);
 
         updateUI(album);
+    }
+
+    public void btnPageBack(ActionEvent actionEvent) {
+    }
+
+    public void btnNextPage(ActionEvent actionEvent) {
+    }
+
+    public void btnPlayPlaylist(ActionEvent actionEvent) {
     }
 }

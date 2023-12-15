@@ -54,6 +54,11 @@ public class MediaPlayerContainer implements Initializable {
 
     private void updateImage(Song song) {
         Image newImage = new Image(new File(song.getPictureURL()).toURI().toString());
+        imgCover.setFitHeight(55);
+        imgCover.setFitWidth(55);
+
+        imgCover.setPreserveRatio(false);
+
         imgCover.setImage(newImage);
     }
 

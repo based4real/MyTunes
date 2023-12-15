@@ -17,9 +17,11 @@ public class AlbumManager {
     private AlbumDAO albumDAO;
 
     private List<Album> allAlbums = new ArrayList<>();
+    private MediaPlayerHandler mediaPlayerHandler;
 
     public AlbumManager() throws IOException {
         this.albumDAO = new AlbumDAO();
+        this.mediaPlayerHandler = new MediaPlayerHandler();
     }
     public boolean createAlbum(List<Release> albums, Song song, Artist artist) throws Exception {
         for (Release r : albums)
@@ -40,5 +42,16 @@ public class AlbumManager {
             allAlbums.addAll(albumDAO.getAllAlbums());
 
         return allAlbums;
+    }
+
+    public String getAllplayTime(Album album) throws Exception {
+        List<Song> playlistSongs = getAlbumSongs(album);
+        double totalTime = 0;
+
+        for (Song s : playlistSongs)
+            totalTime = totalTime + s.getDoubleTime();
+
+        return mediaPlayerHandler.getRewrittenTimeFromDouble(totalTime);
+
     }
 }

@@ -52,4 +52,8 @@ public class AlbumModel {
        return albumManager.getAllAlbums();
     }
 
+    public String getAllPlayTime(Album album) throws Exception {
+        return albumManager.getAllplayTime(album);
+    }
+
 }

@@ -12,8 +12,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
-
 
 <GridPane styleClass="tabs_background" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.GUI.Controller.ny.Pages.SearchController">
    <columnConstraints>
@@ -46,10 +46,14 @@
                           <children>
                               <TableView fx:id="tblSongs" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS">
                                   <columns>
-                                      <TableColumn fx:id="columnTitle" prefWidth="130.5" text="Title" />
-                                      <TableColumn fx:id="columnAlbum" prefWidth="116.0" text="Album" />
-                                      <TableColumn fx:id="columnGenre" prefWidth="53.0" text="Genre" />
-                                      <TableColumn fx:id="columnDuration" prefWidth="75.0" text="Længde" />
+                                      <TableColumn fx:id="columnTitle" prefWidth="282.0" text="Title" />
+                                      <TableColumn fx:id="columnAlbum" prefWidth="177.0" text="Album" />
+                                      <TableColumn fx:id="columnGenre" prefWidth="140.0" text="Genre" />
+                              <TableColumn fx:id="columnDuration" prefWidth="38.0">
+                                 <graphic>
+                                    <SVGPath content="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0 " fill="#969696" />
+                                 </graphic>
+                              </TableColumn>
                                   </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
