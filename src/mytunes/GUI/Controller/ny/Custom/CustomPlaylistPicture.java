@@ -58,9 +58,7 @@ public class CustomPlaylistPicture {
                     rowIndex++;
                 }
             }
-            return true;
-
         }
-        return false;
+        return customPic;
     }
 }

@@ -13,13 +13,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import mytunes.BE.Playlist;
-import mytunes.BE.Song;
 import mytunes.GUI.Controller.ny.MainWindowController;
 import mytunes.GUI.Controller.ny.Pages.PlaylistController;
 import mytunes.GUI.Controller.ny.PopUp.NewPlaylistController;
@@ -176,7 +174,7 @@ public class LibraryContainer implements Initializable {
 
     public void LoadPlaylistSongsView(BorderPane mainWindow) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("/new/pages/newPlaylist.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("/new/pages/Playlist.fxml"));
         GridPane gridPane = fxmlLoader.load();
 
         playlistContainerPane = gridPane;

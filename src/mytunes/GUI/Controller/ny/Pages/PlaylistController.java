@@ -67,16 +67,18 @@ public class PlaylistController implements Initializable {
     }
 
     private void updatePicture(Playlist playlist) throws Exception {
-        CustomPlaylistPicture customPlaylistPicture = new CustomPlaylistPicture(playlistModel);
+        imagePane.getChildren().clear();
 
+        CustomPlaylistPicture customPlaylistPicture = new CustomPlaylistPicture(playlistModel);
         if (customPlaylistPicture.setCustomPicture(imagePane, playlist, 110))
             return;
 
-      //  Image newImage = new Image(new File(playlist.getPictureURL()).toURI().toString());
-       // imgCover.setFitWidth(160);
-      //  imgCover.setFitHeight(160);
+        Image newImage = new Image(new File(playlist.getPictureURL()).toURI().toString());
+        imgCover.setFitWidth(220);
+        imgCover.setFitHeight(220);
 
-     //   imgCover.setImage(newImage);
+        imgCover.setImage(newImage);
+        imagePane.add(imgCover,0 ,0);
     }
 
     private void updateLabels(Playlist playlist) {
