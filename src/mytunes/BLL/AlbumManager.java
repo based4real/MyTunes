@@ -5,10 +5,8 @@ import mytunes.BE.Artist;
 import mytunes.BE.Song;
 import mytunes.BE.REST.Release;
 import mytunes.DAL.DB.Objects.AlbumDAO;
-import mytunes.DAL.REST.CoverArt;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +50,9 @@ public class AlbumManager {
             totalTime = totalTime + s.getDoubleTime();
 
         return mediaPlayerHandler.getRewrittenTimeFromDouble(totalTime);
+    }
 
+    public Album getAlbumFromSong(Song song) {
+        return albumDAO.getAlbumFromSong(song);
     }
 }

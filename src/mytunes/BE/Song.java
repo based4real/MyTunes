@@ -8,11 +8,23 @@ import java.util.Date;
 
 public class Song {
     private int id, artistID, orderID;
-    private String title, songID, filePath, artistName, genre, pictureURL;
+    private String title, songID, filePath, artistName, genre, pictureURL, albumName;
 
     private MediaPlayer mediaPlayer;
 
-    public Song(String songID, int id, String title, String artistName, String genre, String filePath, String pictureURL){
+    public Song(String songID, int id, String title, String artistName, String genre, String filePath, String pictureURL, String albumName) {
+        this.songID = songID;
+        this.id = id;
+        this.title = title;
+        this.artistName = artistName;
+        this.genre = genre;
+        this.filePath = filePath;
+        this.mediaPlayer = new MediaPlayer(new Media(new File(filePath).toURI().toString()));
+        this.pictureURL = pictureURL;
+        this.albumName = albumName;
+    }
+
+    public Song(String songID, int id, String title, String artistName, String genre, String filePath, String pictureURL) {
         this.songID = songID;
         this.id = id;
         this.title = title;
@@ -22,6 +34,7 @@ public class Song {
         this.mediaPlayer = new MediaPlayer(new Media(new File(filePath).toURI().toString()));
         this.pictureURL = pictureURL;
     }
+
     public Song(String songID, String title, int artistID, String genre, String filePath, String pictureURL){
         this.songID = songID;
         this.title = title;
@@ -32,7 +45,7 @@ public class Song {
         this.pictureURL = pictureURL;
     }
 
-    public Song(String songID, int id, String title, String artistName, String genre, String filePath, String pictureURL, int orderID){
+    public Song(String songID, int id, String title, String artistName, String genre, String filePath, String pictureURL, int orderID, String albumName) {
         this.songID = songID;
         this.id = id;
         this.title = title;
@@ -42,6 +55,7 @@ public class Song {
         this.mediaPlayer = new MediaPlayer(new Media(new File(filePath).toURI().toString()));
         this.pictureURL = pictureURL;
         this.orderID = orderID;
+        this.albumName = albumName;
     }
 
     public double getDoubleTime() {
@@ -56,6 +70,7 @@ public class Song {
 
         return String.format("%d:%02d", (int)minutes, (int)secs);
     }
+
 
     public String getCurrentDuration() {
         double seconds = mediaPlayer.getCurrentTime().toSeconds();
@@ -129,6 +144,10 @@ public class Song {
 
     public String getGenre() {
         return genre;
+    }
+
+    public String getAlbum() {
+        return albumName;
     }
 
 }

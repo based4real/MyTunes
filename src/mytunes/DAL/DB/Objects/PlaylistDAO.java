@@ -155,12 +155,35 @@ public class PlaylistDAO {
     public List<Song> getSongs(Playlist playlist) throws Exception {
         ArrayList<Song> allSongsInPlaylist = new ArrayList<>();
 
-        String sql = "SELECT songs.*, artists.name as artistName, playlists_songs.order_id as order_id\n" +
-                "FROM songs\n" +
+        String sql = "SELECT\n" +
+                "    songs.id,\n" +
+                "    MAX(songs.title) as title,\n" +
+                "    MAX(songs.Filepath) as Filepath,\n" +
+                "    MAX(songs.SongID) as SongID,\n" +
+                "    MAX(songs.PictureURL) as PictureURL,\n" +
+                "    MAX(songs.Genre) as Genre,\n" +
+                "    MAX(artists.name) as artistName,\n" +
+                "    MAX(playlists_songs.order_id) as order_id,\n" +
+                "    MAX(AlbumsRanked.albumName) as albumName\n" +
+                "FROM\n" +
+                "    songs\n" +
                 "JOIN playlists_songs ON songs.id = playlists_songs.song_id\n" +
                 "JOIN playlists ON playlists_songs.playlist_id = playlists.id\n" +
                 "JOIN artists ON songs.Artist = artists.id\n" +
-                "WHERE playlists.id = ?;";
+                "JOIN (\n" +
+                "    SELECT\n" +
+                "        Albums_songs.song_id,\n" +
+                "        Albums_songs.album_id,\n" +
+                "        Albums.name as albumName,  -- Adjust the alias for the column\n" +
+                "        ROW_NUMBER() OVER (PARTITION BY Albums_songs.song_id ORDER BY Albums_songs.album_id) as row_num\n" +
+                "    FROM\n" +
+                "        Albums_songs\n" +
+                "    JOIN Albums ON Albums_songs.album_id = Albums.id\n" +
+                ") AS AlbumsRanked ON songs.Id = AlbumsRanked.song_id AND AlbumsRanked.row_num = 1\n" +
+                "WHERE\n" +
+                "    playlists.id = ?\n" +
+                "GROUP BY\n" +
+                "    songs.id;";
 
         try (Connection conn = databaseConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
@@ -178,8 +201,9 @@ public class PlaylistDAO {
                 String musicBrainzID = rs.getString("SongID");
                 String pictureURL = rs.getString("PictureURL");
                 int orderID = rs.getInt("order_id");
+                String albumName = rs.getString("albumName");
 
-                Song song = new Song(musicBrainzID, songId, title, artist, genre, filePath, pictureURL, orderID);
+                Song song = new Song(musicBrainzID, songId, title, artist, genre, filePath, pictureURL, orderID, albumName);
                 allSongsInPlaylist.add(song);
             }
         } catch (SQLException ex) {

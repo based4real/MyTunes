@@ -32,31 +32,35 @@ public class SongDAO {
             // MusicBrainz ID is present in the DB, don't include them.
 
             String sql = "SELECT\n" +
-                    "    songID,\n" +
-                    "    songTitle,\n" +
-                    "    filePath,\n" +
-                    "    songMBID,\n" +
-                    "    songGenre,\n" +
-                    "    artistID,\n" +
-                    "    artistName,\n" +
-                    "    artistAlias,\n" +
-                    "    pictureURL\n" +
+                    "songID,\n" +
+                    "songTitle,\n" +
+                    "filePath,\n" +
+                    "songMBID,\n" +
+                    "songGenre,\n" +
+                    "artistID,\n" +
+                    "artistName,\n" +
+                    "artistAlias,\n" +
+                    "pictureURL,\n" +
+                    "albumName\n" +
                     "FROM (\n" +
-                    "    SELECT\n" +
-                    "        Songs.Id as songID,\n" +
-                    "        Songs.Title as songTitle,\n" +
-                    "        Songs.Filepath as filePath,\n" +
-                    "        Songs.Genre as songGenre,\n" +
-                    "        Songs.SongID as songMBID,\n" +
-                    "        artists.id as artistID,\n" +
-                    "        artists.name as artistName,\n" +
-                    "        artists.alias as artistAlias,\n" +
-                    "        Songs.PictureURL as pictureURL,\n" +
-                    "        ROW_NUMBER() OVER (PARTITION BY Songs.songID ORDER BY Songs.songID) as row_num\n" +
-                    "    FROM Songs\n" +
-                    "    JOIN artists ON artists.id = Songs.Artist\n" +
+                    "SELECT\n" +
+                    "    Songs.Id as songID,\n" +
+                    "    Songs.Title as songTitle,\n" +
+                    "    Songs.Filepath as filePath,\n" +
+                    "    Songs.Genre as songGenre,\n" +
+                    "    Songs.SongID as songMBID,\n" +
+                    "    artists.id as artistID,\n" +
+                    "    artists.name as artistName,\n" +
+                    "    artists.alias as artistAlias,\n" +
+                    "    Songs.PictureURL as pictureURL,\n" +
+                    "    Albums.name as albumName,\n" +
+                    "    ROW_NUMBER() OVER (PARTITION BY Songs.songID ORDER BY Songs.songID) as row_num\n" +
+                    "FROM Songs\n" +
+                    "JOIN artists ON artists.id = Songs.Artist\n" +
+                    "JOIN Albums_songs ON Albums_songs.song_id = Songs.Id\n" +
+                    "JOIN Albums ON Albums_songs.album_id = Albums.id\n" +
                     ") AS subquery\n" +
-                    "WHERE row_num = 1;";
+                    "WHERE row_num = 1";
 
             ResultSet rs = stmt.executeQuery(sql);
 
@@ -68,8 +72,9 @@ public class SongDAO {
                 String filePath = rs.getString("filePath");
                 String musicBrainzID = rs.getString("songMBID");
                 String pictureURL = rs.getString("pictureURL");
+                String album = rs.getString("albumName");
 
-                Song song = new Song(musicBrainzID, id, title, artist, genre, filePath, pictureURL);
+                Song song = new Song(musicBrainzID, id, title, artist, genre, filePath, pictureURL, album);
                 allSongs.add(song);
             }
             return allSongs;
@@ -91,9 +96,12 @@ public class SongDAO {
                 "    artists.id as artistID,\n" +
                 "    artists.name as artistName,\n" +
                 "    artists.alias as artistAlias,\n" +
-                "    Songs.PictureURL as pictureURL\n" +
+                "    Songs.PictureURL as pictureURL,\n" +
+                "    Albums.name as albumName\n" +
                 "FROM Songs\n" +
                 "JOIN artists ON artists.id = Songs.Artist\n" +
+                "JOIN Albums_songs ON Albums_songs.song_id = Songs.Id\n" +
+                "JOIN Albums ON Albums_songs.album_id = Albums.id\n" +
                 "WHERE SongID = ?;";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -108,8 +116,9 @@ public class SongDAO {
                 String filePath = rs.getString("filePath");
                 String musicBrainzID = rs.getString("songMBID");
                 String pictureURL = rs.getString("pictureURL");
+                String albumName = rs.getString("albumName");
 
-                return new Song(musicBrainzID, id, title, artist, genre, filePath, pictureURL);
+                return new Song(musicBrainzID, id, title, artist, genre, filePath, pictureURL, albumName);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

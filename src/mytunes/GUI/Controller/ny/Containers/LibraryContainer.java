@@ -18,6 +18,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import mytunes.BE.Playlist;
+import mytunes.GUI.Controller.ny.Custom.ControlView;
 import mytunes.GUI.Controller.ny.MainWindowController;
 import mytunes.GUI.Controller.ny.Pages.PlaylistController;
 import mytunes.GUI.Controller.ny.PopUp.NewPlaylistController;
@@ -64,7 +65,8 @@ public class LibraryContainer implements Initializable {
 
     private void checkPlaylistClick(Button btn, Playlist p) throws IOException {
         btn.setOnAction(e -> {
-            mainWindowController.switchView(playlistContainerPane);
+            //mainWindowController.switchView(playlistContainerPane);
+            ControlView.switchToPlaylist();
             try {
                 playlistController.tablePlaylistSongsClick(p);
                 playlistController.setPlaylist(p);
@@ -177,8 +179,8 @@ public class LibraryContainer implements Initializable {
         fxmlLoader.setLocation(getClass().getResource("/new/pages/Playlist.fxml"));
         GridPane gridPane = fxmlLoader.load();
 
-        playlistContainerPane = gridPane;
         playlistController = fxmlLoader.getController();
+        ControlView.setPlaylistController(playlistController);
 
         mainWindow.setCenter(gridPane);
     }

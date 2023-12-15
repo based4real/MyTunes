@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="335.0" prefWidth="522.0" styleClass="tabs_background" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.GUI.Controller.ny.Pages.HomeController">
+<AnchorPane fx:id="mainTab" prefHeight="335.0" prefWidth="522.0" styleClass="tabs_background" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.GUI.Controller.ny.Pages.HomeController">
    <children>
       <VBox minHeight="0.0" minWidth="0.0" prefHeight="168.0" prefWidth="522.0">
          <opaqueInsets>

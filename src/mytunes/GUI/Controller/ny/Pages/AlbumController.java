@@ -10,8 +10,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import mytunes.BE.Album;
 import mytunes.BE.Song;
+import mytunes.GUI.Controller.ny.Custom.ControlView;
 import mytunes.GUI.Controller.ny.Custom.TableContextMenu;
 import mytunes.GUI.Controller.ny.Custom.TitleArtistCell;
 import mytunes.GUI.Model.AlbumModel;
@@ -23,6 +25,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AlbumController implements Initializable {
+
+    @FXML
+    public GridPane mainTab;
+
 
     @FXML
     private ImageView imgCover;
@@ -55,6 +61,7 @@ public class AlbumController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         setupAlbumSongsTableView();
         enableRightClick();
+        ControlView.setAlbumController(this);
     }
 
     private void enableRightClick() {

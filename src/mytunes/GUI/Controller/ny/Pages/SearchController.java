@@ -15,6 +15,7 @@ import mytunes.BE.Album;
 import mytunes.BE.Artist;
 import mytunes.BE.Song;
 import mytunes.GUI.Controller.ny.Containers.BoxContainer;
+import mytunes.GUI.Controller.ny.Custom.ControlView;
 import mytunes.GUI.Controller.ny.Custom.TableContextMenu;
 import mytunes.GUI.Controller.ny.Custom.TitleArtistCell;
 import mytunes.GUI.Controller.ny.MainWindowController;
@@ -29,6 +30,10 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class SearchController implements Initializable {
+
+    @FXML
+    public GridPane mainTab;
+
     @FXML
     private HBox hboxAlbums;
     @FXML
@@ -65,6 +70,9 @@ public class SearchController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         setupSongTableView();
         txfSearchBarListener();
+
+        ControlView.setSearchController(this);
+
         try {
             addArtists();
             addAlbums();
@@ -101,7 +109,7 @@ public class SearchController implements Initializable {
 
     private void checkAlbumClick(Button btn, Album album) throws IOException {
         btn.setOnAction(e -> {
-            mainWindowController.switchView(albumGridPane);
+            ControlView.switchToAlbum();
             try {
                 albumController.tableAlbumSongs(album);
             } catch (Exception ex) {

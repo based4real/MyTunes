@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import mytunes.GUI.Controller.ny.Containers.LibraryContainer;
+import mytunes.GUI.Controller.ny.Custom.ControlView;
 import mytunes.GUI.Controller.ny.Pages.SearchController;
 
 import java.io.IOException;
@@ -20,7 +21,7 @@ public class MainWindowController implements Initializable {
     private VBox librarySection;
 
     @FXML
-    private BorderPane mainWindow;
+    public BorderPane mainWindow;
 
     @FXML
     private VBox mainSection;
@@ -33,13 +34,20 @@ public class MainWindowController implements Initializable {
         try {
             loadLibrarySection();
             loadMediaPlayerSection();
+            loadAlbumView();
+
+            ControlView.setMainWindowController(this);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void switchView(Parent view) {
-        mainWindow.setCenter(view);
+    public void loadAlbumView() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/new/pages/Album.fxml"));
+        GridPane gridPane = fxmlLoader.load();
+
+        mainWindow.setCenter(gridPane);
     }
 
     private void loadLibrarySection() throws IOException {
@@ -67,7 +75,7 @@ public class MainWindowController implements Initializable {
         fxmlLoader.setLocation(getClass().getResource("/new/pages/Home.fxml"));
         AnchorPane anchorPane = fxmlLoader.load();
 
-        switchView(anchorPane);
+        ControlView.switchToHome();
     }
 
     public void btnSearch(ActionEvent actionEvent) throws IOException {
@@ -79,6 +87,6 @@ public class MainWindowController implements Initializable {
         searchController.loadAlbumView(mainWindow);
         searchController.setMainWindowController(this);
 
-        switchView(gridPane);
+        ControlView.switchToSearch();
     }
 }

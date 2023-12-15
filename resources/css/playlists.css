@@ -122,3 +122,15 @@
     -fx-background-color: red;
     -fx-padding: 0.5 0.0 0.5 0.0;
 }
+
+/* LABEL ALBUM NAME */
+/* Example CSS for styling */
+.hyperlink_album {
+    -fx-cursor: default;
+    -fx-fill: rgb(179, 179, 179, 0.2);
+}
+
+.hovered-hyperlink_album{
+    -fx-cursor: hand;
+    -fx-fill: rgb(255, 255, 255)
+}

@@ -4,9 +4,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import mytunes.BE.Artist;
 import mytunes.GUI.Controller.ny.Containers.BoxContainer;
+import mytunes.GUI.Controller.ny.Custom.ControlView;
 import mytunes.GUI.Model.ArtistModel;
 
 import java.net.URL;
@@ -16,9 +18,13 @@ import java.util.ResourceBundle;
 public class HomeController implements Initializable {
 
     @FXML
+    public AnchorPane mainTab;
+
+    @FXML
     private HBox hboxArtists;
 
     private ArtistModel artistModel;
+
 
     public HomeController() throws Exception {
         artistModel = ArtistModel.getInstance();
@@ -27,6 +33,8 @@ public class HomeController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             addArtist();
+            ControlView.setHomeController(this);
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

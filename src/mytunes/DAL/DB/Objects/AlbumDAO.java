@@ -120,7 +120,7 @@ public class AlbumDAO {
     public List<Song> getAlbumSongs(Album album) throws Exception {
         ArrayList<Song> allSongsInAlbum = new ArrayList<>();
 
-        String sql = "SELECT songs.*, artists.name as artistName, Albums_songs.position as order_id, Albums.pictureURL as albumsPicture\n" +
+        String sql = "SELECT songs.*, artists.name as artistName, Albums_songs.position as order_id, Albums.pictureURL as albumsPicture, Albums.name as albumsName\n" +
                 "FROM songs\n" +
                 "JOIN Albums_songs ON songs.id = Albums_songs.song_id\n" +
                 "JOIN Albums ON Albums_songs.album_id = Albums.id\n" +
@@ -143,14 +143,44 @@ public class AlbumDAO {
                 String musicBrainzID = rs.getString("SongID");
                 String pictureURL = rs.getString("albumsPicture");
                 int orderID = rs.getInt("order_id");
+                String albumName = rs.getString("albumsName");
 
-                allSongsInAlbum.add(new Song(musicBrainzID, songId, title, artist, genre, filePath, pictureURL, orderID));
+                allSongsInAlbum.add(new Song(musicBrainzID, songId, title, artist, genre, filePath, pictureURL, orderID, albumName));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new Exception("Could not get playlists from database", ex);
         }
         return allSongsInAlbum;
+    }
+
+    public Album getAlbumFromSong(Song song) {
+        String sql = "SELECT Albums.*, artists.name as artistName FROM Albums\n" +
+                "JOIN Albums_songs ON Albums.id = Albums_songs.album_id\n" +
+                "JOIN artists on Albums.artist_id = Albums.artist_id\n" +
+                "WHERE Albums_songs.song_id = ?";
+
+        try (Connection conn = databaseConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
+        {
+            stmt.setInt(1, song.getId());
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String released = rs.getString("released");
+                String type = rs.getString("type");
+                int artistId = rs.getInt("artist_id");
+                String pictureURL = rs.getString("pictureURL");
+                String artistName = rs.getString("artistName");
+
+                return new Album(id,name,released,type,artistId, pictureURL, artistName);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 
     public boolean createAlbum(Release album, Song song, Artist artist) throws Exception {

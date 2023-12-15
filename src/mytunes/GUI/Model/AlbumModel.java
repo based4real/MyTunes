@@ -56,4 +56,9 @@ public class AlbumModel {
         return albumManager.getAllplayTime(album);
     }
 
-}
+    public Album getAlbumFromSong(Song song) {
+        return albumManager.getAlbumFromSong(song);
+    }
+
+
+    }
