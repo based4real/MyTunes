@@ -9,6 +9,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import mytunes.GUI.Controller.ny.Containers.LibraryContainer;
 import mytunes.GUI.Controller.ny.Custom.ControlView;
+import mytunes.GUI.Controller.ny.Pages.HomeController;
 import mytunes.GUI.Controller.ny.Pages.SearchController;
 
 import java.io.IOException;
@@ -35,8 +36,11 @@ public class MainWindowController implements Initializable {
             loadLibrarySection();
             loadMediaPlayerSection();
             loadAlbumView();
+            loadSearchSection();
+            loadHomeSection();
 
             ControlView.setMainWindowController(this);
+            ControlView.switchToHome();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -48,6 +52,16 @@ public class MainWindowController implements Initializable {
         GridPane gridPane = fxmlLoader.load();
 
         mainWindow.setCenter(gridPane);
+    }
+
+    private void loadHomeSection() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/new/pages/Home.fxml"));
+        AnchorPane anchorPane = fxmlLoader.load();
+
+        HomeController homeController = fxmlLoader.getController();
+
+        ControlView.setHomeController(homeController);
     }
 
     private void loadLibrarySection() throws IOException {
@@ -62,6 +76,12 @@ public class MainWindowController implements Initializable {
         libraryContainer.LoadPlaylistSongsView(mainWindow);
     }
 
+    private void loadArtistSection() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/new/pages/Artist.fxml"));
+        GridPane gridPane = fxmlLoader.load();
+    }
+
     private void loadMediaPlayerSection() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/new/containers/MediaPlayer.fxml"));
@@ -70,23 +90,23 @@ public class MainWindowController implements Initializable {
         mainWindow.setBottom(anchorPane);
     }
 
-    public void btnHome(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("/new/pages/Home.fxml"));
-        AnchorPane anchorPane = fxmlLoader.load();
-
-        ControlView.switchToHome();
-    }
-
-    public void btnSearch(ActionEvent actionEvent) throws IOException {
+    private void loadSearchSection() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/new/pages/Search.fxml"));
         GridPane gridPane = fxmlLoader.load();
 
         SearchController searchController = fxmlLoader.getController();
         searchController.loadAlbumView(mainWindow);
+        searchController.loadArtistView(mainWindow);
         searchController.setMainWindowController(this);
+    }
 
+    public void btnHome(ActionEvent actionEvent) throws IOException {
+        ControlView.switchToHome();
+    }
+
+
+    public void btnSearch(ActionEvent actionEvent) throws IOException {
         ControlView.switchToSearch();
     }
 }

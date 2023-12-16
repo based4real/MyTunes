@@ -3,10 +3,7 @@ package mytunes.GUI.Controller.ny.Custom;
 import javafx.scene.Parent;
 import mytunes.BE.Album;
 import mytunes.GUI.Controller.ny.MainWindowController;
-import mytunes.GUI.Controller.ny.Pages.AlbumController;
-import mytunes.GUI.Controller.ny.Pages.HomeController;
-import mytunes.GUI.Controller.ny.Pages.PlaylistController;
-import mytunes.GUI.Controller.ny.Pages.SearchController;
+import mytunes.GUI.Controller.ny.Pages.*;
 import mytunes.GUI.Main;
 
 public class ControlView {
@@ -16,6 +13,7 @@ public class ControlView {
     private static AlbumController albumController;
     private static SearchController searchController;
     private static HomeController homeController;
+    private static ArtistController artistController;
 
     public static void setMainWindowController(MainWindowController controller) {
         mainWindowController = controller;
@@ -35,6 +33,10 @@ public class ControlView {
 
     public static void setHomeController(HomeController controller) {
         homeController = controller;
+    }
+
+    public static void setArtistController(ArtistController controller) {
+        artistController = controller;
     }
 
     private static void setMain(Parent view) {
@@ -61,6 +63,10 @@ public class ControlView {
         return homeController;
     }
 
+    public static ArtistController getArtistController() {
+        return artistController;
+    }
+
     public static void switchToHome() {
         setMain(homeController.mainTab);
     }
@@ -75,5 +81,9 @@ public class ControlView {
 
     public static void switchToSearch() {
         setMain(searchController.mainTab);
+    }
+
+    public static void switchToArtist() {
+        setMain(artistController.mainTab);
     }
 }

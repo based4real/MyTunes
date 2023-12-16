@@ -56,6 +56,9 @@ public class MediaPlayerModel {
         });
     }
 
+    // This might have to be re-done but in order for our
+    // UI to update, we have to call the controller.
+    // Call right now ? > Model > Controller > Model
     public void playSelectedSong(Song song) {
         mediaPlayerContainer.playSelectedSong(song);
         this.setSelectedSong(song);

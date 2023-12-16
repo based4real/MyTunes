@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import mytunes.BE.Playlist;
 import mytunes.GUI.Controller.ny.Containers.PlaylistContainer;
+import mytunes.GUI.Controller.ny.Custom.Notification;
 import mytunes.GUI.Model.PlaylistModel;
 
 import java.net.URL;
@@ -44,6 +45,7 @@ public class EditPlaylistController implements Initializable {
     public void btnEditPlaylist(ActionEvent actionEvent) throws Exception {
         Playlist editedPlaylist = playlistModel.editPlaylist(playlistContainer.getPlaylist(), txtPlaylistName.getText());
         playlistContainer.setPlaylist(editedPlaylist);
+        Notification.playlistEdited(editedPlaylist);
     }
 
     @Override

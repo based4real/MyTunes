@@ -47,7 +47,7 @@ public class TitleArtistCell extends TextFieldTableCell<Song, String>  {
     // Used to check if we hover the artistLabel
     private void setHoverStyle(boolean isHovered) {
         artistLabel.setUnderline(isHovered);
-        artistLabel.setStyle(isHovered ? "-fx-cursor: hand; -fx-fill: rgb(255, 255, 255)" : "-fx-cursor: default; -fx-fill: rgb(179, 179, 179, 0.2)");
+        artistLabel.setStyle(isHovered ? "-fx-cursor: hand; -fx-fill: rgb(255, 255, 255)" : "-fx-cursor: default; -fx-fill: rgb(150, 150, 150)");
     }
 
     @Override

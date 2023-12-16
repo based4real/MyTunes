@@ -472,3 +472,7 @@
 .box-container:focused {
     -fx-background-color: rgb(35, 35, 35);
 }
+
+.artist_background {
+    -fx-background-color: rgb(25, 25, 25);
+}

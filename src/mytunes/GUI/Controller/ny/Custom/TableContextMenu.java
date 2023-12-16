@@ -63,6 +63,8 @@ public class TableContextMenu {
 
                         // Add song, but dont update table, else it messes up
                         playlistModel.addSongToPlaylist(p, song);
+                        Notification.playlistAdded(p);
+
                       //  if (playlistModel.addSongToPlaylist(p, song) && playlist != null )
                             //updatePlaylistSongs(tblSongs, p);
 
@@ -97,7 +99,10 @@ public class TableContextMenu {
             deleteFromPlaylist.setOnAction(event -> {
                 tblSongs.getItems().remove(row.getItem());
                 try {
-                    playlistModel.removeSongFromPlaylist(playlist, (Song) row.getItem());
+                    Song song = (Song) row.getItem();
+                    if (playlistModel.removeSongFromPlaylist(playlist, song))
+                        Notification.playlistDeleteSong(playlist, song);
+
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }

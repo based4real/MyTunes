@@ -29,6 +29,7 @@ import mytunes.GUI.Model.SongModel;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -37,13 +38,15 @@ public class PlaylistController implements Initializable {
     @FXML
     public GridPane mainTab;
 
-    public Label lblPlaylistName;
-    public Label lblType;
-    public ImageView imgCover;
-    public Label lblUsername;
-    public Label lblTotalSongs;
-    public GridPane imagePane;
-    public Label lblTotalTime;
+    @FXML
+    private Label lblPlaylistName, lblType, lblUsername, lblTotalSongs, lblTotalTime;
+
+    @FXML
+    private ImageView imgCover;
+
+    @FXML
+    private GridPane imagePane;
+
     @FXML
     private TableView<Song> tblSongsPlaylist;
 
@@ -56,7 +59,7 @@ public class PlaylistController implements Initializable {
     @FXML
     private TableColumn<Song, String> columnTitle,columnGenre,columnDuration, columnAlbum;
 
-    public TableColumn columnAdded;
+    private TableColumn<Song, Date> columnAdded;
 
     private PlaylistModel playlistModel;
     private Playlist playlist;
@@ -111,7 +114,7 @@ public class PlaylistController implements Initializable {
     }
 
 
-    private void updateUI(Playlist playlist) throws Exception {
+    public void updateUI(Playlist playlist) throws Exception {
         updateLabels(playlist);
         updatePicture(playlist);
     }
@@ -127,22 +130,9 @@ public class PlaylistController implements Initializable {
         ControlView.getAlbumController().tableAlbumSongs(getAlbum);
     }
 
-    /*
-    private void checkAlbumClick(Label lbl, Album album) throws IOException {
-        lbl.setOnMouseClicked(e -> {
-            mainWindowController.switchView(albumGridPane);
-            try {
-                albumController.tableAlbumSongs(album);
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
-            }
-        });
-    }*/
-
-
-    private static void setHoverStyle(boolean isHovered, Label hyperlink) {
-        hyperlink.setUnderline(isHovered);
-        hyperlink.setStyle(isHovered ? "-fx-cursor: hand; -fx-text-fill: rgb(255, 255, 255)" : "-fx-cursor: default; -fx-text-fill: rgb(179, 179, 179, 0.2)");
+    private static void setHoverStyle(boolean isHovered, Label label) {
+        label.setUnderline(isHovered);
+        label.setStyle(isHovered ? "-fx-cursor: hand; -fx-text-fill: rgb(255, 255, 255)" : "-fx-cursor: default; -fx-text-fill: rgb(150, 150, 150)");
     }
 
     public class ClickableLabelTableCell<T> extends TableCell<T, String> {
@@ -151,8 +141,10 @@ public class PlaylistController implements Initializable {
         public ClickableLabelTableCell() {
             this.label = new Label();
 
-            label.setOnMouseEntered(event -> setHoverStyle(true, label));
-            label.setOnMouseExited(event -> setHoverStyle(false, label));
+            setHoverStyle(false, this.label);
+
+            this.label.setOnMouseEntered(event -> setHoverStyle(true, this.label));
+            this.label.setOnMouseExited(event -> setHoverStyle(false, this.label));
 
             this.label.setOnMouseClicked(event -> {
                 T item = getTableRow().getItem();
@@ -281,13 +273,6 @@ public class PlaylistController implements Initializable {
 
             return row;
         });
-    }
-
-    private void setTableHeight(Playlist p) {
-        int size = p.getPlaylistSongs().size();
-        double height = 85;
-
-        tblSongsPlaylist.setPrefHeight(size * height);
     }
 
     public void tablePlaylistSongsClick(Playlist p) throws Exception {

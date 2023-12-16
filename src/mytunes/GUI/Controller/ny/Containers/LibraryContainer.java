@@ -65,7 +65,6 @@ public class LibraryContainer implements Initializable {
 
     private void checkPlaylistClick(Button btn, Playlist p) throws IOException {
         btn.setOnAction(e -> {
-            //mainWindowController.switchView(playlistContainerPane);
             ControlView.switchToPlaylist();
             try {
                 playlistController.tablePlaylistSongsClick(p);
@@ -77,6 +76,7 @@ public class LibraryContainer implements Initializable {
     }
 
     private void enableDragAndDrop(Button button) {
+
         button.setOnDragDetected(e -> {
             Dragboard dragboard = button.startDragAndDrop(TransferMode.MOVE);
             ClipboardContent content = new ClipboardContent();

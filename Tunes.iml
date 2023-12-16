@@ -13,5 +13,6 @@
     <orderEntry type="library" name="de.jensd.fontawesomefx.fontawesome" level="project" />
     <orderEntry type="library" name="de.jensd.fontawesomefx" level="project" />
     <orderEntry type="library" name="fasterxml.jackson.datatype.json" level="project" />
+    <orderEntry type="library" name="controlsfx" level="project" />
   </component>
 </module>

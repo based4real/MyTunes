@@ -20,6 +20,7 @@ import mytunes.GUI.Controller.ny.Custom.CustomPlaylistPicture;
 import mytunes.GUI.Controller.ny.Custom.SVGMenu;
 import mytunes.GUI.Controller.ny.PopUp.EditPlaylistController;
 import mytunes.GUI.Model.PlaylistModel;
+import org.controlsfx.control.spreadsheet.Grid;
 
 import java.io.File;
 import java.net.URL;
@@ -69,11 +70,16 @@ public class PlaylistContainer implements Initializable {
         this.libraryContainer = controller;
     }
 
-    public void setPlaylist(Playlist playlist) throws Exception {
+    public void updateUI(Playlist playlist) throws Exception {
         playlistName.setText(playlist.getName());
         setPicture(playlist);
-        this.playlist = playlist;
         songCountLabel();
+
+    }
+
+    public void setPlaylist(Playlist playlist) throws Exception {
+        this.playlist = playlist;
+        updateUI(playlist);
     }
 
     private ContextMenu createContextMenu() {
@@ -151,12 +157,10 @@ public class PlaylistContainer implements Initializable {
 
     private void setPicture(Playlist playlist) throws Exception {
         CustomPlaylistPicture customPlaylistPicture = new CustomPlaylistPicture(playlistModel);
-
         if (customPlaylistPicture.setCustomPicture(imagePane, playlist, 25))
             return;
 
         String picture = playlist.getPictureURL();
-
         if (picture == null)
             return;
 

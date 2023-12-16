@@ -226,15 +226,6 @@ public class PlaylistDAO {
 
             // Run the specified SQL statement
             stmt.executeUpdate();
-
-            // Get the generated ID from the DB
-            ResultSet rs = stmt.getGeneratedKeys();
-            int id = 0;
-
-            if (rs.next()) {
-                id = rs.getInt(1);
-            }
-
             return true;
         }
         catch (SQLException ex)

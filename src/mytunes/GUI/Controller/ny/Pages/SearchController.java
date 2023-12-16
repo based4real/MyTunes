@@ -56,6 +56,9 @@ public class SearchController implements Initializable {
 
     private MainWindowController mainWindowController;
     private GridPane albumGridPane;
+    private GridPane artistGridPane;
+
+    private ArtistController artistController;
     private AlbumController albumController;
     private MediaPlayerModel mediaPlayerModel;
 
@@ -129,6 +132,25 @@ public class SearchController implements Initializable {
         mainWindow.setCenter(gridPane);
     }
 
+    public void loadArtistView(BorderPane mainWindow) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/new/pages/Artist.fxml"));
+        GridPane gridPane = fxmlLoader.load();
+
+        artistGridPane = gridPane;
+        artistController = fxmlLoader.getController();
+
+        mainWindow.setCenter(gridPane);
+    }
+
+    private void checkArtistClick(Button btn, Artist artist) throws IOException {
+        btn.setOnAction(e -> {
+            ControlView.switchToArtist();
+            artistController.updateUI(artist);
+        });
+    }
+
+
     private void addArtists() throws Exception {
         List<Artist> allArtists = artistModel.getAllArtists();
         for (Artist a : allArtists) {
@@ -151,6 +173,8 @@ public class SearchController implements Initializable {
 
             // With 0 on, adds on top instead of bottom
             hboxArtists.getChildren().add(0, button);
+
+            checkArtistClick(button, a);
         }
     }
 

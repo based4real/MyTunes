@@ -16,7 +16,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<GridPane styleClass="tabs_background" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.GUI.Controller.ny.Pages.PlaylistController">
+<GridPane fx:id="mainTab" styleClass="tabs_background" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.GUI.Controller.ny.Pages.ArtistController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
    </columnConstraints>
@@ -26,12 +26,12 @@
    <children>
       <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="scroll-pane_search" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
          <content>
-              <VBox fillWidth="true" spacing="20.0">
-                  <opaqueInsets>
-                      <Insets />
-                  </opaqueInsets>
-                  <children>
-                  <HBox minHeight="35.0" spacing="25.0" VBox.vgrow="NEVER">
+            <VBox fillWidth="true" spacing="20.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <children>
+                  <HBox minHeight="35.0" spacing="25.0">
                      <children>
                         <Button mnemonicParsing="false" onAction="#btnPageBack" prefHeight="30.0" prefWidth="30.0" styleClass="playlist_backnext">
                            <graphic>
@@ -48,7 +48,7 @@
                         </Button>
                      </children>
                   </HBox>
-                  <HBox prefHeight="213.0" prefWidth="667.0" VBox.vgrow="NEVER">
+                  <HBox prefHeight="221.0" prefWidth="967.0" VBox.vgrow="NEVER">
                      <children>
                         <GridPane fx:id="imagePane" maxHeight="220.0" maxWidth="220.0" minHeight="220.0" minWidth="220.0" prefHeight="220.0" prefWidth="220.0" HBox.hgrow="NEVER">
                            <columnConstraints>
@@ -66,7 +66,7 @@
                               <Insets left="15.0" />
                            </HBox.margin>
                            <children>
-                              <Label fx:id="lblType" text="Album" textFill="WHITE">
+                              <Label fx:id="lblType" text="Artist" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -74,7 +74,7 @@
                                     <Insets top="35.0" />
                                  </VBox.margin>
                               </Label>
-                              <Label fx:id="lblName" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="457.0" text="albumName" textFill="WHITE">
+                              <Label fx:id="lblName" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="64.0" prefWidth="457.0" text="Name" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="43.0" />
                                  </font>
@@ -84,29 +84,14 @@
                               </Label>
                               <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                  <children>
-                                    <Label fx:id="lblArtistName" text="User" textFill="WHITE">
-                                       <font>
-                                          <Font name="System Bold" size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="lblRelease" text="2005" textFill="WHITE">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="lblSongsAmount" text="20 sange" textFill="WHITE">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="lblPlayTime" text="20 min" textFill="WHITE">
+                                    <Label fx:id="lblAlias" text="alias" textFill="WHITE">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
                                  </children>
                                  <VBox.margin>
-                                    <Insets top="75.0" />
+                                    <Insets />
                                  </VBox.margin>
                               </HBox>
                            </children>
@@ -131,25 +116,26 @@
                         </Button>
                      </children>
                   </HBox>
-                        <TableView fx:id="tblSongsPlaylist" minHeight="-Infinity">
-                            <columns>
+                  <TableView fx:id="tblSongs" minHeight="-Infinity" prefHeight="225.0" VBox.vgrow="NEVER">
+                     <columns>
                         <TableColumn fx:id="columnPos" prefWidth="50.0" text="#" />
-                                <TableColumn fx:id="columnTitle" prefWidth="596.0" text="Title" />
-                                <TableColumn fx:id="columnGenre" prefWidth="269.0" text="Genre" />
-                                <TableColumn fx:id="columnDuration" prefWidth="50.0">
+                        <TableColumn fx:id="columnTitle" prefWidth="596.0" text="Title" />
+                        <TableColumn fx:id="columnGenre" prefWidth="269.0" text="Genre" />
+                        <TableColumn fx:id="columnDuration" prefWidth="50.0">
                            <graphic>
                               <SVGPath content="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0 " fill="#969696" />
                            </graphic></TableColumn>
-                            </columns>
+                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
-                        </TableView>
-                  </children>
+                  </TableView>
+                  <HBox fx:id="boxAlbums" prefHeight="225.0" />
+               </children>
                <padding>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
-              </VBox>
+            </VBox>
          </content>
       </ScrollPane>
    </children>
