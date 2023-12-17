@@ -118,10 +118,36 @@ public class ArtistDAO {
     }
 
     public List<Song> getArtistSongs(Artist artist) throws Exception {
-        String sql = "SELECT songs.*, artists.name AS artistName\n" +
-                "FROM songs\n" +
-                "JOIN artists ON songs.Artist = artists.id\n" +
-                "WHERE artists.id = ?;";
+        String sql = "SELECT\n" +
+                "songID,\n" +
+                "songTitle,\n" +
+                "filePath,\n" +
+                "songMBID,\n" +
+                "songGenre,\n" +
+                "artistID,\n" +
+                "artistName,\n" +
+                "artistAlias,\n" +
+                "pictureURL,\n" +
+                "albumName\n" +
+                "FROM (\n" +
+                "    SELECT\n" +
+                "    Songs.Id as songID,\n" +
+                "    Songs.Title as songTitle,\n" +
+                "    Songs.Filepath as filePath,\n" +
+                "    Songs.Genre as songGenre,\n" +
+                "    Songs.SongID as songMBID,\n" +
+                "    artists.id as artistID,\n" +
+                "    artists.name as artistName,\n" +
+                "    artists.alias as artistAlias,\n" +
+                "    Songs.PictureURL as pictureURL,\n" +
+                "    Albums.name as albumName,\n" +
+                "    ROW_NUMBER() OVER (PARTITION BY Songs.songID ORDER BY Songs.songID) as row_num\n" +
+                "FROM Songs\n" +
+                "JOIN artists ON artists.id = Songs.Artist\n" +
+                "JOIN Albums_songs ON Albums_songs.song_id = Songs.Id\n" +
+                "JOIN Albums ON Albums_songs.album_id = Albums.id\n" +
+                ") AS subquery\n" +
+                "WHERE row_num = 1 AND artistID = ?";
 
         try (Connection conn = databaseConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
@@ -133,16 +159,17 @@ public class ArtistDAO {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                int songID = rs.getInt("Id");
+                int id = rs.getInt("songID");
+                String title = rs.getString("songTitle");
                 String artistName = rs.getString("artistName");
+                int artistID = rs.getInt("artistID");
+                String genre = rs.getString("songGenre");
+                String filePath = rs.getString("filePath");
+                String musicBrainzID = rs.getString("songMBID");
+                String pictureURL = rs.getString("pictureURL");
+                String album = rs.getString("albumName");
 
-                String songTitle = rs.getString("Title");
-                String songGenre = rs.getString("Genre");
-                String songFilepath = rs.getString("Filepath");
-                String MusicBrainzID = rs.getString("SongID");
-                String songPictureURL = rs.getString("PictureURL");
-
-                songsByArtist.add(new Song(MusicBrainzID, songID, songTitle, artistName, songGenre, songFilepath, songPictureURL));
+                songsByArtist.add(new Song(musicBrainzID, id, title, artistName, genre, filePath, pictureURL, album, artistID));
             }
             return songsByArtist;
         }
@@ -158,7 +185,7 @@ public class ArtistDAO {
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
         {
             List<Album> albumsByArtist = new ArrayList<>();
-            stmt.setString(1, artist.getArtistID());
+            stmt.setInt(1, artist.getPrimaryID());
 
             ResultSet rs = stmt.executeQuery();
 

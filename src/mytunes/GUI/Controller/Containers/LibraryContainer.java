@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 import mytunes.BE.Playlist;
 import mytunes.GUI.Controller.Pages.PlaylistController;
 import mytunes.GUI.Controller.PopUp.NewPlaylistController;
-import mytunes.GUI.Controller.Custom.ControlView;
+import mytunes.GUI.Controller.Elements.ControlView;
 import mytunes.GUI.Controller.MainWindowController;
 import mytunes.GUI.Model.PlaylistModel;
 
@@ -246,6 +246,7 @@ public class LibraryContainer implements Initializable {
             stage.show();
         }
         catch (Exception e){
+            System.out.println(e);
             System.out.println("Cant load import song window");
         }
     }

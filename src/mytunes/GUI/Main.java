@@ -6,6 +6,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.stage.Stage;
+import mytunes.BE.Album;
+import mytunes.BLL.AlbumManager;
+import mytunes.GUI.Model.AlbumModel;
+
+import java.util.List;
 
 public class Main extends Application {
     public static void main(String[] args) {
@@ -26,6 +31,5 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.sizeToScene();
-
     }
 }

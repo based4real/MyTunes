@@ -12,7 +12,7 @@ public class Song {
 
     private MediaPlayer mediaPlayer;
 
-    public Song(String songID, int id, String title, String artistName, String genre, String filePath, String pictureURL, String albumName) {
+    public Song(String songID, int id, String title, String artistName, String genre, String filePath, String pictureURL, String albumName, int artistID) {
         this.songID = songID;
         this.id = id;
         this.title = title;
@@ -22,6 +22,7 @@ public class Song {
         this.mediaPlayer = new MediaPlayer(new Media(new File(filePath).toURI().toString()));
         this.pictureURL = pictureURL;
         this.albumName = albumName;
+        this.artistID = artistID;
     }
 
     public Song(String songID, int id, String title, String artistName, String genre, String filePath, String pictureURL) {
@@ -45,7 +46,7 @@ public class Song {
         this.pictureURL = pictureURL;
     }
 
-    public Song(String songID, int id, String title, String artistName, String genre, String filePath, String pictureURL, int orderID, String albumName) {
+    public Song(String songID, int id, String title, String artistName, String genre, String filePath, String pictureURL, int orderID, String albumName, int artistID) {
         this.songID = songID;
         this.id = id;
         this.title = title;
@@ -56,6 +57,7 @@ public class Song {
         this.pictureURL = pictureURL;
         this.orderID = orderID;
         this.albumName = albumName;
+        this.artistID = artistID;
     }
 
     public double getDoubleTime() {

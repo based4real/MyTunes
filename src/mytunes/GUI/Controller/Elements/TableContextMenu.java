@@ -1,4 +1,4 @@
-package mytunes.GUI.Controller.Custom;
+package mytunes.GUI.Controller.Elements;
 
 import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
@@ -6,12 +6,15 @@ import javafx.scene.control.*;
 import mytunes.BE.Playlist;
 import mytunes.BE.Song;
 import mytunes.GUI.Model.PlaylistModel;
+import mytunes.GUI.Model.SongModel;
 
 import java.util.Optional;
 
 public class TableContextMenu {
 
     private PlaylistModel playlistModel;
+    private SongModel songModel;
+
     private ObservableList<Song> playlistSongs = null;
     private TableView<Song> tblSongs;
     private Playlist playlist;
@@ -23,6 +26,8 @@ public class TableContextMenu {
 
     public TableContextMenu(TableView<Song> songs, Playlist playlist) throws Exception {
         this.playlistModel = PlaylistModel.getInstance();
+        this.songModel = SongModel.getInstance();
+
         this.tblSongs = songs;
         this.playlist = playlist;
     }
@@ -73,6 +78,34 @@ public class TableContextMenu {
         }
     }
 
+    private void removeFromPlaylist(TableRow row, MenuItem item) {
+        item.setOnAction(event -> {
+            tblSongs.getItems().remove(row.getItem());
+            try {
+                Song song = (Song) row.getItem();
+                if (playlistModel.removeSongFromPlaylist(playlist, song))
+                    Notification.playlistDeleteSong(playlist, song);
+
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+    private void deleteSong(TableRow row, MenuItem item) {
+        item.setOnAction(event -> {
+            tblSongs.getItems().remove(row.getItem());
+            try {
+                Song song = (Song) row.getItem();
+                if (songModel.deleteSong(song))
+                    Notification.playlistDeleteSong(playlist, song);
+
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
     public void createContextMenu(TableRow row) {
         final ContextMenu contextMenu = new ContextMenu();
 
@@ -86,28 +119,17 @@ public class TableContextMenu {
         // Separator
         SeparatorMenuItem separator = new SeparatorMenuItem();
 
+        deleteSong(row, deleteSong);
         contextAddToPlaylist(row, playlistSubMenu);
-        boolean isInPlaylist = this.playlist != null;
-
-        if (isInPlaylist) {
-            deleteFromPlaylist.setOnAction(event -> {
-                tblSongs.getItems().remove(row.getItem());
-                try {
-                    Song song = (Song) row.getItem();
-                    if (playlistModel.removeSongFromPlaylist(playlist, song))
-                        Notification.playlistDeleteSong(playlist, song);
-
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            });
-        }
 
         // Update the playlistSubMenu dynamically when the context menu is requested
         row.setOnContextMenuRequested(event -> contextAddToPlaylist(row, playlistSubMenu));
 
-        if (isInPlaylist)
+        boolean isInPlaylist = this.playlist != null;
+        if (isInPlaylist) {
+            removeFromPlaylist(row, deleteFromPlaylist);
             contextMenu.getItems().addAll(deleteFromPlaylist, playlistSubMenu, separator, deleteSong);
+        }
         else
             contextMenu.getItems().addAll(playlistSubMenu, separator, deleteSong);
 

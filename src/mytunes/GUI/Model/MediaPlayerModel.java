@@ -56,6 +56,10 @@ public class MediaPlayerModel {
         });
     }
 
+    public void playNextSong(TableView<Song> tbl) {
+
+    }
+
     // This might have to be re-done but in order for our
     // UI to update, we have to call the controller.
     // Call right now ? > Model > Controller > Model

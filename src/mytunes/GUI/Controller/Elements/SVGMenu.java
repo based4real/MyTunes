@@ -1,4 +1,4 @@
-package mytunes.GUI.Controller.Custom;
+package mytunes.GUI.Controller.Elements;
 
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;

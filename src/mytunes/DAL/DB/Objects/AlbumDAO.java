@@ -138,6 +138,7 @@ public class AlbumDAO {
                 int songId = rs.getInt("Id");
                 String title = rs.getString("Title");
                 String artist = rs.getString("artistName");
+                int artistID = rs.getInt("Artist");
                 String genre = rs.getString("Genre");
                 String filePath = rs.getString("Filepath");
                 String musicBrainzID = rs.getString("SongID");
@@ -145,7 +146,7 @@ public class AlbumDAO {
                 int orderID = rs.getInt("order_id");
                 String albumName = rs.getString("albumsName");
 
-                allSongsInAlbum.add(new Song(musicBrainzID, songId, title, artist, genre, filePath, pictureURL, orderID, albumName));
+                allSongsInAlbum.add(new Song(musicBrainzID, songId, title, artist, genre, filePath, pictureURL, orderID, albumName, artistID));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

@@ -18,9 +18,11 @@ public class AlbumModel {
 
     private static AlbumModel single_instance = null;
     private AlbumManager albumManager;
+
     private AlbumModel() throws IOException {
         albumManager = new AlbumManager();
     }
+
     public static synchronized AlbumModel getInstance() throws Exception {
         if (single_instance == null)
             single_instance = new AlbumModel();
@@ -49,7 +51,7 @@ public class AlbumModel {
     }
 
     public List<Album> getAllAlbums() throws Exception {
-       return albumManager.getAllAlbums();
+        return albumManager.getAllAlbums();
     }
 
     public String getAllPlayTime(Album album) throws Exception {
@@ -60,5 +62,10 @@ public class AlbumModel {
         return albumManager.getAlbumFromSong(song);
     }
 
+    public void initalize() throws Exception {
+        List<Album> allAlbums = getAllAlbums();
+        for (Album a : allAlbums)
+            getObservableSongs(a);
 
     }
+}

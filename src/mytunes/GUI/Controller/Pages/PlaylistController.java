@@ -12,10 +12,7 @@ import javafx.scene.layout.GridPane;
 import mytunes.BE.Album;
 import mytunes.BE.Playlist;
 import mytunes.BE.Song;
-import mytunes.GUI.Controller.Custom.TitleArtistCell;
-import mytunes.GUI.Controller.Custom.ControlView;
-import mytunes.GUI.Controller.Custom.CustomPlaylistPicture;
-import mytunes.GUI.Controller.Custom.TableContextMenu;
+import mytunes.GUI.Controller.Elements.*;
 import mytunes.GUI.Model.AlbumModel;
 import mytunes.GUI.Model.MediaPlayerModel;
 import mytunes.GUI.Model.PlaylistModel;
@@ -117,62 +114,26 @@ public class PlaylistController implements Initializable {
         this.playlist = playlist;
     }
 
-    private void loadAlbum(Song song) throws Exception {
-        Album getAlbum = albumModel.getAlbumFromSong(song);
-
-        ControlView.switchToAlbum();
-        ControlView.getAlbumController().tableAlbumSongs(getAlbum);
-    }
-
-    private static void setHoverStyle(boolean isHovered, Label label) {
-        label.setUnderline(isHovered);
-        label.setStyle(isHovered ? "-fx-cursor: hand; -fx-text-fill: rgb(255, 255, 255)" : "-fx-cursor: default; -fx-text-fill: rgb(150, 150, 150)");
-    }
-
-    public class ClickableLabelTableCell<T> extends TableCell<T, String> {
-        private final Label label;
-
-        public ClickableLabelTableCell() {
-            this.label = new Label();
-
-            setHoverStyle(false, this.label);
-
-            this.label.setOnMouseEntered(event -> setHoverStyle(true, this.label));
-            this.label.setOnMouseExited(event -> setHoverStyle(false, this.label));
-
-            this.label.setOnMouseClicked(event -> {
-                T item = getTableRow().getItem();
-                if (item != null) {
-                    System.out.println("Clicked on album: " + getItem());
-                    Song song = (Song) item;
-                    try {
-                        loadAlbum(song);
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            });
-        }
-
-        @Override
-        protected void updateItem(String item, boolean empty) {
-            super.updateItem(item, empty);
-            if (empty || item == null) {
-                setText(null);
-                setGraphic(null);
-            } else {
-                label.setText(item);
-                setGraphic(label);
-            }
-        }
-    }
-
     private void setupPlistSongsTableView() {
-        columnTitle.setCellFactory(col -> new TitleArtistCell());
+        columnTitle.setCellFactory(col -> {
+            try {
+                return new TitleArtistCell();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
         columnGenre.setCellValueFactory(new PropertyValueFactory<>("genre"));
         columnDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
         columnAlbum.setCellValueFactory(new PropertyValueFactory<>("album"));
-        columnAlbum.setCellFactory(column -> new ClickableLabelTableCell<>());
+
+        columnAlbum.setCellFactory(column -> {
+            try {
+                return new ClickableLabelTableCell<>();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     private void enableRightlick() {

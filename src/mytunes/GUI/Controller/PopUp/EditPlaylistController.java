@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import mytunes.BE.Playlist;
 import mytunes.GUI.Controller.Containers.PlaylistContainer;
-import mytunes.GUI.Controller.Custom.Notification;
+import mytunes.GUI.Controller.Elements.Notification;
 import mytunes.GUI.Model.PlaylistModel;
 
 import java.net.URL;

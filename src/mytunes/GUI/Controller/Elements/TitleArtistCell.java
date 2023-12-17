@@ -1,4 +1,4 @@
-package mytunes.GUI.Controller.Custom;
+package mytunes.GUI.Controller.Elements;
 
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.effect.DropShadow;
@@ -8,7 +8,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import mytunes.BE.Artist;
 import mytunes.BE.Song;
+import mytunes.BLL.SongManager;
+import mytunes.GUI.Model.SongModel;
 
 import java.io.File;
 
@@ -22,7 +25,9 @@ public class TitleArtistCell extends TextFieldTableCell<Song, String>  {
 
     private static final int IMAGE_SIZE = 41;
 
-    public TitleArtistCell() {
+    private SongModel songModel;
+
+    public TitleArtistCell() throws Exception {
         gridPane.add(imageView, 0, 0); // Image in the first column
         gridPane.add(vBox, 1, 0); // Title in the second column
 
@@ -30,6 +35,8 @@ public class TitleArtistCell extends TextFieldTableCell<Song, String>  {
 
         titleLabel.getStyleClass().add("playlist-column-title");
         imageView.setEffect(new DropShadow(10, Color.BLACK));
+
+        songModel = SongModel.getInstance();
     }
 
     private void handleArtistClick() {
@@ -40,7 +47,19 @@ public class TitleArtistCell extends TextFieldTableCell<Song, String>  {
         // If artistLabel has been clicked on
         artistLabel.setOnMouseClicked(event -> {
             // Go to artist page or soemthing ??
+            Song song = getTableRow().getItem();
+            if (song == null)
+                return;
+
+
             System.out.println("Clicked on artist: " + getTableRow().getItem().getArtistName());
+            ControlView.switchToArtist();
+            try {
+                ControlView.getArtistController().updatePage(songModel.getArtistFromSong(song));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
         });
     }
 

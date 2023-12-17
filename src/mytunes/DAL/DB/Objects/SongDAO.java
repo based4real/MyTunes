@@ -1,12 +1,15 @@
 package mytunes.DAL.DB.Objects;
 
 import mytunes.BE.Album;
+import mytunes.BE.Artist;
 import mytunes.BE.Playlist;
 import mytunes.BE.Song;
 import mytunes.BLL.util.CacheSystem;
 import mytunes.BLL.util.ConfigSystem;
 import mytunes.DAL.DB.Connect.DatabaseConnector;
 import mytunes.DAL.REST.CoverArt;
+import org.json.Cookie;
+import org.json.JSONTokener;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -68,13 +71,14 @@ public class SongDAO {
                 int id = rs.getInt("songID");
                 String title = rs.getString("songTitle");
                 String artist = rs.getString("artistName");
+                int artistID = rs.getInt("artistID");
                 String genre = rs.getString("songGenre");
                 String filePath = rs.getString("filePath");
                 String musicBrainzID = rs.getString("songMBID");
                 String pictureURL = rs.getString("pictureURL");
                 String album = rs.getString("albumName");
 
-                Song song = new Song(musicBrainzID, id, title, artist, genre, filePath, pictureURL, album);
+                Song song = new Song(musicBrainzID, id, title, artist, genre, filePath, pictureURL, album, artistID);
                 allSongs.add(song);
             }
             return allSongs;
@@ -112,13 +116,14 @@ public class SongDAO {
                 int id = rs.getInt("songID");
                 String title = rs.getString("songTitle");
                 String artist = rs.getString("artistName");
+                int artistID = rs.getInt("artistID");
                 String genre = rs.getString("songGenre");
                 String filePath = rs.getString("filePath");
                 String musicBrainzID = rs.getString("songMBID");
                 String pictureURL = rs.getString("pictureURL");
                 String albumName = rs.getString("albumName");
 
-                return new Song(musicBrainzID, id, title, artist, genre, filePath, pictureURL, albumName);
+                return new Song(musicBrainzID, id, title, artist, genre, filePath, pictureURL, albumName, artistID);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -171,6 +176,34 @@ public class SongDAO {
         }
     }
 
+    public Artist getArtistFromSong(Song song) throws Exception {
+        String sql = "SELECT artists.*\n" +
+                "FROM artists\n" +
+                "JOIN Songs on artists.id = Songs.Artist\n" +
+                "WHERE Songs.Artist = ?";
+
+        try (Connection conn = databaseConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
+        {
+            stmt.setInt(1, song.getArtistID());
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                if (rs.getString("artist_id") != null) {
+                    int id = rs.getInt("id");
+                    String artistID = rs.getString("artist_id");
+                    String name = rs.getString("name");
+                    String alias = rs.getString("alias");
+                    String pictureURL = rs.getString("pictureURL");
+
+                    return new Artist(id, artistID, name, alias, pictureURL);
+                }
+            }
+        }
+        return null;
+    }
+
     public void updateSong(Song song) throws Exception {
         // SQL command
         String sql = "UPDATE dbo.Songs SET Title = ?, Artist = ?, Filepath = ? WHERE Id = ?";
@@ -193,22 +226,56 @@ public class SongDAO {
             throw new Exception("Could not update song", ex);
         }
     }
-    public void deleteSong(Song song) throws Exception {
-        // SQL command
-        String sql = "DELETE FROM dbo.Songs WHERE ID = (?);";
 
-        try (Connection conn = databaseConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
-        {
-            stmt.setInt(1, song.getId());
-
-            // Run the specified SQL statement
-            stmt.executeUpdate();
+    private void deleteSongFromAlbums(Connection conn, Song song) throws SQLException {
+        String deleteSql = "DELETE FROM dbo.Albums_songs WHERE song_id = ?";
+        try (PreparedStatement deleteStmt = conn.prepareStatement(deleteSql)) {
+            deleteStmt.setInt(1, song.getId());
+            deleteStmt.executeUpdate();
         }
-        catch (SQLException ex)
-        {
-            ex.printStackTrace();
-            throw new Exception("Could not delete song", ex);
+    }
+
+    private void deleteSongFromPlaylists(Connection conn, Song song) throws SQLException {
+        String deleteSql = "DELETE FROM dbo.playlists_songs WHERE song_id = ?";
+        try (PreparedStatement deleteStmt = conn.prepareStatement(deleteSql)) {
+            deleteStmt.setInt(1, song.getId());
+            deleteStmt.executeUpdate();
+        }
+    }
+
+    private void deleteSongInDb(Connection conn, Song song) throws SQLException {
+        String deleteSql = "DELETE FROM dbo.Songs WHERE ID = (?);";
+        try (PreparedStatement deleteStmt = conn.prepareStatement(deleteSql)) {
+            deleteStmt.setInt(1, song.getId());
+            deleteStmt.executeUpdate();
+        }
+    }
+
+    public boolean deleteSong(Song song) throws Exception {
+        try (Connection conn = databaseConnector.getConnection()) {
+            // Begin a transaction
+            conn.setAutoCommit(false);
+
+            try {
+                System.out.println("d");
+                // Delete songs in the playlist
+                deleteSongFromPlaylists(conn, song);
+
+                // Delete playlist
+                deleteSongFromAlbums(conn, song);
+
+                // Update the orderIDs
+                deleteSongInDb(conn, song);
+
+                // Commit the transaction
+                conn.commit();
+                return true;
+            } catch (Exception ex) {
+                // Rollback the transaction in case of an exception
+                System.out.println(ex);
+                conn.rollback();
+                throw ex;
+            }
         }
     }
 

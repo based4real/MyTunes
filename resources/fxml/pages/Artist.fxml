@@ -118,8 +118,8 @@
                   </HBox>
                   <TableView fx:id="tblSongs" minHeight="-Infinity" prefHeight="225.0" VBox.vgrow="NEVER">
                      <columns>
-                        <TableColumn fx:id="columnPos" prefWidth="50.0" text="#" />
-                        <TableColumn fx:id="columnTitle" prefWidth="596.0" text="Title" />
+                        <TableColumn fx:id="columnTitle" prefWidth="504.0" text="Title" />
+                        <TableColumn fx:id="columnAlbum" prefWidth="361.0" text="Album" />
                         <TableColumn fx:id="columnGenre" prefWidth="269.0" text="Genre" />
                         <TableColumn fx:id="columnDuration" prefWidth="50.0">
                            <graphic>
@@ -130,7 +130,19 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <HBox fx:id="boxAlbums" prefHeight="225.0" />
+                  <Label text="Albummer" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <ScrollPane minHeight="225.0" styleClass="scroll-pane_playlists" vbarPolicy="NEVER" vmax="0.0">
+                     <content>
+                        <HBox fx:id="hboxAlbums" minHeight="225.0" spacing="20.0" />
+                     </content>
+                  </ScrollPane>
                </children>
                <padding>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

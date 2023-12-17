@@ -8,7 +8,7 @@ import javafx.scene.layout.*;
 import mytunes.GUI.Controller.Containers.LibraryContainer;
 import mytunes.GUI.Controller.Pages.HomeController;
 import mytunes.GUI.Controller.Pages.SearchController;
-import mytunes.GUI.Controller.Custom.ControlView;
+import mytunes.GUI.Controller.Elements.ControlView;
 
 import java.io.IOException;
 import java.net.URL;
@@ -34,6 +34,7 @@ public class MainWindowController implements Initializable {
             loadLibrarySection();
             loadMediaPlayerSection();
             loadAlbumView();
+            loadArtistView();
             loadSearchSection();
             loadHomeSection();
 
@@ -44,9 +45,17 @@ public class MainWindowController implements Initializable {
         }
     }
 
-    public void loadAlbumView() throws IOException {
+    private void loadAlbumView() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/fxml/pages/Album.fxml"));
+        GridPane gridPane = fxmlLoader.load();
+
+        mainWindow.setCenter(gridPane);
+    }
+
+    private void loadArtistView() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/fxml/pages/Artist.fxml"));
         GridPane gridPane = fxmlLoader.load();
 
         mainWindow.setCenter(gridPane);
@@ -94,8 +103,6 @@ public class MainWindowController implements Initializable {
         GridPane gridPane = fxmlLoader.load();
 
         SearchController searchController = fxmlLoader.getController();
-        searchController.loadAlbumView(mainWindow);
-        searchController.loadArtistView(mainWindow);
         searchController.setMainWindowController(this);
     }
 

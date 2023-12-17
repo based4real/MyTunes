@@ -2,28 +2,27 @@ package mytunes.GUI.Controller.Pages;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import mytunes.BE.Album;
 import mytunes.BE.Artist;
 import mytunes.BE.Song;
-import mytunes.GUI.Controller.Custom.TitleArtistCell;
+import mytunes.GUI.Controller.Elements.ClickableLabelTableCell;
+import mytunes.GUI.Controller.Elements.TitleArtistCell;
 import mytunes.GUI.Controller.Containers.BoxContainer;
-import mytunes.GUI.Controller.Custom.ControlView;
-import mytunes.GUI.Controller.Custom.TableContextMenu;
+import mytunes.GUI.Controller.Elements.ControlView;
+import mytunes.GUI.Controller.Elements.TableContextMenu;
+import mytunes.GUI.Controller.Elements.helpers.CustomButton;
 import mytunes.GUI.Controller.MainWindowController;
 import mytunes.GUI.Model.AlbumModel;
 import mytunes.GUI.Model.ArtistModel;
 import mytunes.GUI.Model.MediaPlayerModel;
 import mytunes.GUI.Model.SongModel;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -54,8 +53,6 @@ public class SearchController implements Initializable {
     private AlbumModel albumModel;
 
     private MainWindowController mainWindowController;
-    private GridPane albumGridPane;
-    private GridPane artistGridPane;
 
     private ArtistController artistController;
     private AlbumController albumController;
@@ -70,7 +67,11 @@ public class SearchController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        setupSongTableView();
+        try {
+            setupSongTableView();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         txfSearchBarListener();
 
         ControlView.setSearchController(this);
@@ -98,114 +99,41 @@ public class SearchController implements Initializable {
         });
     }
 
-    private void setupSongTableView() {
+    private void setupSongTableView() throws Exception {
         ObservableList<Song> songs = songModel.getObservableSongs();
 
-        columnTitle.setCellFactory(col -> new TitleArtistCell());
+        columnTitle.setCellFactory(col -> {
+            try {
+                return new TitleArtistCell();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
         columnDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
         columnGenre.setCellValueFactory(new PropertyValueFactory<>("genre"));
+        columnAlbum.setCellValueFactory(new PropertyValueFactory<>("album"));
+        columnAlbum.setCellFactory(column -> {
+            try {
+                return new ClickableLabelTableCell<>();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
         tblSongs.setItems(songs);
-
         mediaPlayerModel.wasClickedTable(tblSongs);
-    }
-
-    private void checkAlbumClick(Button btn, Album album) throws IOException {
-        btn.setOnAction(e -> {
-            ControlView.switchToAlbum();
-            try {
-                albumController.tableAlbumSongs(album);
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
-            }
-        });
-    }
-
-    public void loadAlbumView(BorderPane mainWindow) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("/fxml/pages/Album.fxml"));
-        GridPane gridPane = fxmlLoader.load();
-
-        albumGridPane = gridPane;
-        albumController = fxmlLoader.getController();
-
-        mainWindow.setCenter(gridPane);
-    }
-
-    public void loadArtistView(BorderPane mainWindow) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("/fxml/pages/Artist.fxml"));
-        GridPane gridPane = fxmlLoader.load();
-
-        artistGridPane = gridPane;
-        artistController = fxmlLoader.getController();
-
-        mainWindow.setCenter(gridPane);
-    }
-
-    private void checkArtistClick(Button btn, Artist artist) throws Exception {
-        btn.setOnAction(e -> {
-            ControlView.switchToArtist();
-            try {
-                artistController.updatePage(artist);
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
-            }
-        });
     }
 
 
     private void addArtists() throws Exception {
         List<Artist> allArtists = artistModel.getAllArtists();
-        for (Artist a : allArtists) {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("/fxml/containers/Box.fxml"));
-
-            Button button = fxmlLoader.load();
-            BoxContainer boxContainer = fxmlLoader.getController();
-
-            boxContainer.setHeader(a.getName());
-            boxContainer.setDescription(a.getAlias());
-            boxContainer.setImage(a.getPictureURL());
-            boxContainer.setType("Artist");
-
-            boxContainer.setSearchController(this);
-
-            // Set userdata so can be used later to determine which
-            // id was dragged to update in database.
-            button.setUserData(boxContainer);
-
-            // With 0 on, adds on top instead of bottom
-            hboxArtists.getChildren().add(0, button);
-
-            checkArtistClick(button, a);
-        }
+        CustomButton artistButton = new CustomButton(CustomButton.Type.ARTIST, hboxArtists, allArtists);
     }
 
     private void addAlbums() throws Exception {
         List<Album> allAlbums = albumModel.getAllAlbums();
-        for (Album a : allAlbums) {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("/fxml/containers/Box.fxml"));
-
-            Button button = fxmlLoader.load();
-            BoxContainer boxContainer = fxmlLoader.getController();
-
-            boxContainer.setHeader(a.getTitle());
-            boxContainer.setDescription(a.getType());
-            boxContainer.setImage(a.getPictureURL());
-            boxContainer.setType("Album");
-
-            boxContainer.setSearchController(this);
-
-            // Set userdata so can be used later to determine which
-            // id was dragged to update in database.
-            button.setUserData(boxContainer);
-
-            // With 0 on, adds on top instead of bottom
-            hboxAlbums.getChildren().add(0, button);
-
-            checkAlbumClick(button, a);
-        }
+        CustomButton albumButton = new CustomButton(CustomButton.Type.ALBUM, hboxAlbums, allAlbums);
     }
 
 

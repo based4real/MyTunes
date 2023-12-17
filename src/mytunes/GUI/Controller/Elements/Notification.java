@@ -1,9 +1,6 @@
-package mytunes.GUI.Controller.Custom;
+package mytunes.GUI.Controller.Elements;
 
 import javafx.geometry.Pos;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import mytunes.BE.Playlist;
 import mytunes.BE.Song;

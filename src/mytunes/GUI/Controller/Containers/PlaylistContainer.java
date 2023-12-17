@@ -11,8 +11,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import mytunes.BE.Playlist;
-import mytunes.GUI.Controller.Custom.CustomPlaylistPicture;
-import mytunes.GUI.Controller.Custom.SVGMenu;
+import mytunes.GUI.Controller.Elements.CustomPlaylistPicture;
+import mytunes.GUI.Controller.Elements.SVGMenu;
 import mytunes.GUI.Controller.PopUp.EditPlaylistController;
 import mytunes.GUI.Model.PlaylistModel;
 

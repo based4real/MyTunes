@@ -21,7 +21,8 @@ public class PlaylistDAO {
         ArrayList<Playlist> allPlaylists = new ArrayList<>();
 
         try (Connection conn = databaseConnector.getConnection();
-             Statement stmt = conn.createStatement()) {
+             Statement stmt = conn.createStatement())
+        {
             String sql = "SELECT * FROM Playlists;";
             ResultSet rs = stmt.executeQuery(sql);
 
@@ -102,7 +103,8 @@ public class PlaylistDAO {
 
     public int getNextOrderID() throws Exception {
         try (Connection conn = databaseConnector.getConnection();
-             Statement stmt = conn.createStatement()) {
+             Statement stmt = conn.createStatement())
+        {
             String sql = "SELECT order_id FROM Playlists;";
             ResultSet rs = stmt.executeQuery(sql);
 
@@ -163,6 +165,7 @@ public class PlaylistDAO {
                 "    MAX(songs.PictureURL) as PictureURL,\n" +
                 "    MAX(songs.Genre) as Genre,\n" +
                 "    MAX(artists.name) as artistName,\n" +
+                "    MAX(artists.id) as artistID,\n" +
                 "    MAX(playlists_songs.order_id) as order_id,\n" +
                 "    MAX(AlbumsRanked.albumName) as albumName\n" +
                 "FROM\n" +
@@ -196,6 +199,7 @@ public class PlaylistDAO {
                 int songId = rs.getInt("Id");
                 String title = rs.getString("Title");
                 String artist = rs.getString("artistName");
+                int artistID = rs.getInt("artistID");
                 String genre = rs.getString("Genre");
                 String filePath = rs.getString("Filepath");
                 String musicBrainzID = rs.getString("SongID");
@@ -203,7 +207,7 @@ public class PlaylistDAO {
                 int orderID = rs.getInt("order_id");
                 String albumName = rs.getString("albumName");
 
-                Song song = new Song(musicBrainzID, songId, title, artist, genre, filePath, pictureURL, orderID, albumName);
+                Song song = new Song(musicBrainzID, songId, title, artist, genre, filePath, pictureURL, albumName, artistID);
                 allSongsInPlaylist.add(song);
             }
         } catch (SQLException ex) {

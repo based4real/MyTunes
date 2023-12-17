@@ -6,7 +6,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -27,13 +26,10 @@
                <HBox.margin>
                   <Insets left="20.0" top="10.0" />
                </HBox.margin>
-               <image>
-                  <Image url="@../../test.png" />
-               </image>
             </ImageView>
-            <VBox prefHeight="77.0" prefWidth="209.0">
+            <VBox pickOnBounds="false" prefHeight="77.0" prefWidth="209.0">
                <children>
-                  <Label fx:id="lblTitle" prefHeight="17.0" prefWidth="159.0" text="Titel" textFill="WHITE">
+                  <Label fx:id="lblTitle" prefHeight="17.0" prefWidth="159.0" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -41,7 +37,7 @@
                         <Insets left="15.0" top="20.0" />
                      </VBox.margin>
                   </Label>
-                  <Label fx:id="lblArtist" prefHeight="17.0" prefWidth="157.0" text="Artist" textFill="#4d4d4d">
+                  <Label fx:id="lblArtist" prefHeight="17.0" prefWidth="157.0" styleClass="artistLabel" textFill="#4d4d4d">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -53,20 +49,11 @@
             </VBox>
          </children>
       </HBox>
-      <VBox layoutX="173.0" prefHeight="77.0" prefWidth="596.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="0.0">
+      <VBox layoutX="94.0" pickOnBounds="false" prefHeight="89.0" prefWidth="346.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox alignment="CENTER" prefHeight="34.0" prefWidth="425.0" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Button mnemonicParsing="false" text="shuffle" visible="false">
-                     <HBox.margin>
-                        <Insets left="-65.0" />
-                     </HBox.margin>
-                     <styleClass>
-                        <String fx:value="media_controls" />
-                        <String fx:value="media_shuffle" />
-                     </styleClass>
-                  </Button>
-                  <Button mnemonicParsing="false" onAction="#btnPrevious" scaleX="0.85" scaleY="0.85" text="back">
+                  <Button fx:id="fxBtnPrevious" disable="true" mnemonicParsing="false" onAction="#btnPrevious" scaleX="0.85" scaleY="0.85" text="back">
                      <styleClass>
                         <String fx:value="media_left" />
                         <String fx:value="media_controls" />
@@ -75,12 +62,12 @@
                         <Insets />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="fxBtnPlay" mnemonicParsing="false" onAction="#btnPlay" scaleX="1.75" scaleY="1.75" styleClass="media_play" text="play">
+                  <Button fx:id="fxBtnPlay" disable="true" mnemonicParsing="false" onAction="#btnPlay" scaleX="1.75" scaleY="1.75" styleClass="media_play" text="play">
                      <HBox.margin>
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#btnNext" scaleX="0.85" scaleY="0.85" text="forward">
+                  <Button fx:id="fxBtnNext" disable="true" mnemonicParsing="false" onAction="#btnNext" scaleX="0.85" scaleY="0.85" text="forward">
                      <styleClass>
                         <String fx:value="media_right" />
                         <String fx:value="media_controls" />
@@ -96,19 +83,19 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="27.0" prefWidth="485.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Label fx:id="lblCurrentDuration" prefHeight="17.0" prefWidth="32.0" text="0:45" textFill="#afafaf" HBox.hgrow="ALWAYS">
+                  <Label fx:id="lblCurrentDuration" prefHeight="17.0" prefWidth="32.0" textFill="#afafaf" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets right="5.0" top="-20.0" />
                      </HBox.margin>
                   </Label>
-                  <Slider fx:id="sliderTime" maxWidth="600.0" prefHeight="5.0" prefWidth="275.0" styleClass="media_slider" HBox.hgrow="ALWAYS">
+                  <Slider fx:id="sliderTime" disable="true" maxWidth="600.0" prefHeight="5.0" prefWidth="275.0" styleClass="media_slider" HBox.hgrow="ALWAYS">
                      <padding>
                         <Insets left="-5.0" />
                      </padding>
                      <HBox.margin>
                         <Insets top="-20.0" />
                      </HBox.margin></Slider>
-                  <Label fx:id="lblMaxDuration" prefHeight="17.0" prefWidth="69.0" text="3:20" textFill="#afafaf">
+                  <Label fx:id="lblMaxDuration" prefHeight="17.0" prefWidth="69.0" textFill="#afafaf">
                      <HBox.margin>
                         <Insets left="5.0" top="-20.0" />
                      </HBox.margin></Label>
@@ -129,7 +116,7 @@
                   <Insets right="15.0" top="22.0" />
                </HBox.margin>
             </SVGPath>
-            <Slider fx:id="sliderVolume" prefHeight="14.0" prefWidth="101.0">
+            <Slider fx:id="sliderVolume" disable="true" prefHeight="14.0" prefWidth="101.0">
                <HBox.margin>
                   <Insets top="20.0" />
                </HBox.margin>

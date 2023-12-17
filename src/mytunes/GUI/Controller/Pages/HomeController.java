@@ -8,7 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import mytunes.BE.Artist;
 import mytunes.GUI.Controller.Containers.BoxContainer;
-import mytunes.GUI.Controller.Custom.ControlView;
+import mytunes.GUI.Controller.Elements.ControlView;
 import mytunes.GUI.Model.ArtistModel;
 
 import java.net.URL;

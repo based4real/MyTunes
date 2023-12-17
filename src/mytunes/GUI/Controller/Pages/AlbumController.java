@@ -13,9 +13,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import mytunes.BE.Album;
 import mytunes.BE.Song;
-import mytunes.GUI.Controller.Custom.ControlView;
-import mytunes.GUI.Controller.Custom.TitleArtistCell;
-import mytunes.GUI.Controller.Custom.TableContextMenu;
+import mytunes.GUI.Controller.Elements.ControlView;
+import mytunes.GUI.Controller.Elements.TitleArtistCell;
+import mytunes.GUI.Controller.Elements.TableContextMenu;
 import mytunes.GUI.Model.AlbumModel;
 import mytunes.GUI.Model.MediaPlayerModel;
 import mytunes.GUI.Model.PlaylistModel;
@@ -45,6 +45,7 @@ public class AlbumController implements Initializable {
     private TableColumn<Song, String> columnGenre;
     @FXML
     private TableColumn<Song, String> columnDuration;
+
 
     private AlbumModel albumModel;
     private MediaPlayerModel mediaPlayerModel;
@@ -79,7 +80,14 @@ public class AlbumController implements Initializable {
     }
 
     private void setupAlbumSongsTableView() {
-        columnTitle.setCellFactory(col -> new TitleArtistCell());
+        columnTitle.setCellFactory(col -> {
+            try {
+                return new TitleArtistCell();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
         columnGenre.setCellValueFactory(new PropertyValueFactory<>("genre"));
         columnDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
         columnPos.setCellValueFactory(new PropertyValueFactory<>("orderID"));

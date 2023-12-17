@@ -11,7 +11,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import mytunes.BE.Song;
+import mytunes.GUI.Controller.Elements.ControlView;
 import mytunes.GUI.Model.MediaPlayerModel;
+import mytunes.GUI.Model.SongModel;
 
 import java.io.File;
 import java.net.URL;
@@ -21,7 +23,7 @@ import java.util.ResourceBundle;
 public class MediaPlayerContainer implements Initializable {
 
     @FXML
-    private Button fxBtnPlay;
+    private Button fxBtnPlay, fxBtnPrevious, fxBtnNext;
 
     @FXML
     private Slider sliderVolume, sliderTime;
@@ -38,10 +40,14 @@ public class MediaPlayerContainer implements Initializable {
     private boolean wasDragged;
     private boolean wasClicked;
 
+    private Song lastPlayedSong;
+
     private MediaPlayerModel mediaPlayerModel;
+    private SongModel songModel;
 
     public MediaPlayerContainer() throws Exception {
         this.mediaPlayerModel = MediaPlayerModel.getInstance();
+        this.songModel = SongModel.getInstance();
     }
 
     @Override
@@ -49,7 +55,16 @@ public class MediaPlayerContainer implements Initializable {
         sliderDesign();
 
         initalizeVolumeControl();
+        hoverArtistLabel();
         mediaPlayerModel.setMediaPlayerContainer(this);
+    }
+
+    private void setDisable(boolean b) {
+        fxBtnPlay.setDisable(b);
+        fxBtnNext.setDisable(b);
+        fxBtnPrevious.setDisable(b);
+        sliderTime.setDisable(b);
+        sliderVolume.setDisable(b);
     }
 
     private void updateImage(Song song) {
@@ -87,14 +102,16 @@ public class MediaPlayerContainer implements Initializable {
         mediaPlayerModel.playSong(mediaPlayer);
         updatePlayerControls(mediaPlayer, song);
 
+        this.lastPlayedSong = song;
+
         // UI update
+        setDisable(false);
         updateArtistTitleLabel(song);
         updateImage(song);
         updateBtnPlayBtn(mediaPlayer);
     }
 
     public void sliderDesign() {
-
         sliderTime.valueProperty().addListener((obs, oldValue, newValue) -> {
             double percentage = 100.0 * newValue.doubleValue() / sliderTime.getMax();
             String style = String.format(Locale.US,
@@ -168,6 +185,26 @@ public class MediaPlayerContainer implements Initializable {
 
             lblCurrentDuration.setText(song.getCurrentDuration());
             sliderTime.setValue(newTime.toMillis());
+        });
+    }
+
+    private void setHoverStyle(boolean isHovered, Label label) {
+        label.setUnderline(isHovered);
+        label.setStyle(isHovered ? "-fx-cursor: hand; -fx-fill: rgb(255, 255, 255)" : "-fx-cursor: default; -fx-fill: rgb(150, 150, 150)");
+    }
+
+    private void hoverArtistLabel() {
+        // If artistLabel has been clicked on
+        lblArtist.setOnMouseClicked(event -> {
+            // Go to artist page or soemthing ??
+
+            ControlView.switchToArtist();
+            try {
+                ControlView.getArtistController().updatePage(songModel.getArtistFromSong(lastPlayedSong));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
         });
     }
 

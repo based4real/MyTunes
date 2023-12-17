@@ -1,5 +1,6 @@
 package mytunes.BLL;
 
+import mytunes.BE.Artist;
 import mytunes.BE.Playlist;
 import mytunes.BE.Song;
 import mytunes.BLL.util.SongSearcher;
@@ -34,8 +35,12 @@ public class SongManager {
         songDAO.updateSong(selectedSong);
     }
 
-    public void deleteSong(Song selectedSong) throws Exception {
-        songDAO.deleteSong(selectedSong);
+    public boolean deleteSong(Song selectedSong) throws Exception {
+        return songDAO.deleteSong(selectedSong);
+    }
+
+    public Artist getArtistFromSong(Song song) throws Exception {
+        return songDAO.getArtistFromSong(song);
     }
 
     public void updateOrderID(Playlist playlist, Song draggedSong, Song droppedSong) throws Exception {
