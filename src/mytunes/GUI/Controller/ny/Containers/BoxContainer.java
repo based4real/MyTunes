@@ -61,6 +61,7 @@ public class BoxContainer {
         Image newImage = new Image(new File(URL).toURI().toString());
         coverImg.setFitWidth(125);
         coverImg.setFitHeight(125);
+        coverImg.setPreserveRatio(false);
 
         coverImg.setImage(newImage);
     }

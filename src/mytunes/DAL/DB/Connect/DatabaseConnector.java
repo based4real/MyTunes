@@ -25,6 +25,4 @@ public class DatabaseConnector {
     public Connection getConnection() throws SQLServerException {
         return dataSource.getConnection();
     }
-
-
 }
