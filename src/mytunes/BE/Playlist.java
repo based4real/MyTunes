@@ -1,19 +1,13 @@
 package mytunes.BE;
 
-import javafx.scene.Node;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import mytunes.BLL.PlaylistManager;
 import mytunes.BLL.util.CacheSystem;
 import mytunes.BLL.util.ConfigSystem;
-import org.controlsfx.control.spreadsheet.Grid;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 public class Playlist {
 
@@ -23,7 +17,6 @@ public class Playlist {
 
     private PlaylistManager playlistManager;
     private List<Song> playlistSongs = new ArrayList<>();
-    private GridPane playlistImage;
 
     public Playlist(int id, String name, int orderID, String pictureURL, List<Song> songs) {
         this.id = id;

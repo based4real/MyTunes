@@ -125,7 +125,6 @@ public class SearchController implements Initializable {
         mediaPlayerModel.wasClickedTable(tblSongs);
     }
 
-
     private void addArtists() throws Exception {
         List<Artist> allArtists = artistModel.getAllArtists();
         CustomButton artistButton = new CustomButton(CustomButton.Type.ARTIST, hboxArtists, allArtists);
@@ -135,7 +134,6 @@ public class SearchController implements Initializable {
         List<Album> allAlbums = albumModel.getAllAlbums();
         CustomButton albumButton = new CustomButton(CustomButton.Type.ALBUM, hboxAlbums, allAlbums);
     }
-
 
     private void txfSearchBarListener() {
         txfSearchBar.textProperty().addListener((observableValue, oldValue, newValue) -> {

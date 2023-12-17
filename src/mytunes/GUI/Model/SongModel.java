@@ -2,7 +2,6 @@ package mytunes.GUI.Model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import mytunes.BE.Album;
 import mytunes.BE.Artist;
 import mytunes.BE.Playlist;
 import mytunes.BE.Song;
@@ -31,7 +30,6 @@ public class SongModel {
         return single_instance;
     }
 
-
     public Artist getArtistFromSong(Song song) throws Exception {
         return songManager.getArtistFromSong(song);
     }
@@ -52,10 +50,6 @@ public class SongModel {
         Song song = songManager.createNewSong(newSong);
         songsToBeViewed.add(song);
         return song;
-    }
-
-    public void updateSong(Song selectedSong) throws Exception {
-        songManager.updateSong(selectedSong);
     }
 
     public boolean deleteSong(Song selectedSong) throws Exception {

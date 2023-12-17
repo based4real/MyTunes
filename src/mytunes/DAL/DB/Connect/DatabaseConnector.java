@@ -4,10 +4,8 @@ import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import mytunes.BLL.util.ConfigSystem;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
-import java.util.Properties;
 
 public class DatabaseConnector {
     private SQLServerDataSource dataSource;

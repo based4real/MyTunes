@@ -53,8 +53,6 @@ public class HomeController implements Initializable {
             boxContainer.setDescription(a.getAlias());
             boxContainer.setImage(a.getPictureURL());
 
-            boxContainer.setHomeController(this);
-
             // Set userdata so can be used later to determine which
             // id was dragged to update in database.
             button.setUserData(boxContainer);

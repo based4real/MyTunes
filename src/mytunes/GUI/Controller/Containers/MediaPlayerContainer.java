@@ -188,16 +188,8 @@ public class MediaPlayerContainer implements Initializable {
         });
     }
 
-    private void setHoverStyle(boolean isHovered, Label label) {
-        label.setUnderline(isHovered);
-        label.setStyle(isHovered ? "-fx-cursor: hand; -fx-fill: rgb(255, 255, 255)" : "-fx-cursor: default; -fx-fill: rgb(150, 150, 150)");
-    }
-
     private void hoverArtistLabel() {
-        // If artistLabel has been clicked on
         lblArtist.setOnMouseClicked(event -> {
-            // Go to artist page or soemthing ??
-
             ControlView.switchToArtist();
             try {
                 ControlView.getArtistController().updatePage(songModel.getArtistFromSong(lastPlayedSong));

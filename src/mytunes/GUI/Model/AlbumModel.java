@@ -4,13 +4,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import mytunes.BE.Album;
 import mytunes.BE.Artist;
-import mytunes.BE.Playlist;
 import mytunes.BE.Song;
 import mytunes.BLL.AlbumManager;
 import mytunes.BE.REST.Release;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Comparator;
 import java.util.List;
 
@@ -66,6 +64,5 @@ public class AlbumModel {
         List<Album> allAlbums = getAllAlbums();
         for (Album a : allAlbums)
             getObservableSongs(a);
-
     }
 }

@@ -2,12 +2,9 @@ package mytunes.GUI.Controller.Containers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import mytunes.GUI.Controller.Pages.HomeController;
-import mytunes.GUI.Controller.Pages.SearchController;
 import mytunes.GUI.Model.AlbumModel;
 import mytunes.GUI.Model.ArtistModel;
 
@@ -20,21 +17,14 @@ public class BoxContainer {
     private ImageView coverImg;
 
     @FXML
-    private Button btnBox;
-
-    @FXML
     private Label lblHeader;
 
     @FXML
     private Label lblDescription;
 
-    private SearchController searchController;
-
-    private HomeController homeController;
     private ArtistModel artistModel;
     private AlbumModel albumModel;
 
-    private String type; //Artist or Album
 
     public BoxContainer() throws Exception {
         artistModel = ArtistModel.getInstance();
@@ -53,10 +43,6 @@ public class BoxContainer {
         return lblHeader.getText().toLowerCase();
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public void setImage(String URL) {
         Image newImage = new Image(new File(URL).toURI().toString());
         coverImg.setFitWidth(125);
@@ -67,13 +53,5 @@ public class BoxContainer {
     }
 
     public void btnBoxAction(ActionEvent actionEvent) throws IOException {
-    }
-
-    public void setHomeController(HomeController controller) {
-        this.homeController = controller;
-    }
-
-    public void setSearchController(SearchController controller){
-        this.searchController = controller;
     }
 }

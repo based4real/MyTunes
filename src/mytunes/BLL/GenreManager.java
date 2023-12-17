@@ -1,7 +1,6 @@
 package mytunes.BLL;
 
 import mytunes.BE.Genre;
-import mytunes.BE.Song;
 import mytunes.DAL.DB.Objects.GenreDAO;
 
 import java.io.IOException;

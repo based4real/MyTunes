@@ -47,7 +47,6 @@ public class CustomButton {
             boxContainer.setHeader(a.getName());
             boxContainer.setDescription(a.getAlias());
             boxContainer.setImage(a.getPictureURL());
-            boxContainer.setType("Artist");
 
             // Set userdata so can be used later to determine which
             // id was dragged to update in database.
@@ -83,7 +82,6 @@ public class CustomButton {
             boxContainer.setHeader(a.getTitle());
             boxContainer.setDescription(a.getType());
             boxContainer.setImage(a.getPictureURL());
-            boxContainer.setType("Album");
 
             // Set userdata so can be used later to determine which
             // id was dragged to update in database.

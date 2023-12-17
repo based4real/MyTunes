@@ -195,9 +195,4 @@ public class MBRelease {
 
         return genres;
     }
-
-    public String getFullSongTitle(JSONArray data) throws JSONException {
-
-        return "";
-    }
 }

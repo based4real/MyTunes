@@ -1,6 +1,5 @@
 package mytunes.GUI.Model;
 
-import mytunes.BE.Genre;
 import mytunes.BLL.GenreManager;
 
 import java.io.IOException;

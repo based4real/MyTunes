@@ -9,7 +9,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.GridPane;
-import mytunes.BE.Album;
 import mytunes.BE.Playlist;
 import mytunes.BE.Song;
 import mytunes.GUI.Controller.Elements.*;
@@ -40,12 +39,6 @@ public class PlaylistController implements Initializable {
 
     @FXML
     private TableView<Song> tblSongsPlaylist;
-
-    @FXML
-    private TableColumn<Playlist, String> colPlaylistNavn;
-
-    @FXML
-    private TableColumn<Song, Integer> columnID;
 
     @FXML
     private TableColumn<Song, String> columnTitle,columnGenre,columnDuration, columnAlbum;

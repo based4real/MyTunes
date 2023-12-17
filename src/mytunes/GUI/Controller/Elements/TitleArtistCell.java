@@ -8,9 +8,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import mytunes.BE.Artist;
 import mytunes.BE.Song;
-import mytunes.BLL.SongManager;
 import mytunes.GUI.Model.SongModel;
 
 import java.io.File;

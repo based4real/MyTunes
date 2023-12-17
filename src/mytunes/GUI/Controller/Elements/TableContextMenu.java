@@ -15,7 +15,6 @@ public class TableContextMenu {
     private PlaylistModel playlistModel;
     private SongModel songModel;
 
-    private ObservableList<Song> playlistSongs = null;
     private TableView<Song> tblSongs;
     private Playlist playlist;
 
@@ -64,9 +63,6 @@ public class TableContextMenu {
                         // Add song, but dont update table, else it messes up
                         playlistModel.addSongToPlaylist(p, song);
                         Notification.playlistAdded(p);
-
-                      //  if (playlistModel.addSongToPlaylist(p, song) && playlist != null )
-                            //updatePlaylistSongs(tblSongs, p);
 
                     } catch (Exception e) {
                         throw new RuntimeException(e);

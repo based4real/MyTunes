@@ -6,7 +6,6 @@ import mytunes.BE.Playlist;
 import mytunes.BE.Song;
 import mytunes.BLL.PlaylistManager;
 
-import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
 
@@ -19,8 +18,6 @@ public class PlaylistModel {
 
     private PlaylistModel() throws Exception {
         playlistManager = new PlaylistManager();
-        playlistToBeViewed = FXCollections.observableArrayList();
-        playlistToBeViewed.addAll(getPlaylists());
     }
 
     public static synchronized PlaylistModel getInstance() throws Exception {
@@ -40,10 +37,6 @@ public class PlaylistModel {
         SongsToBeViewed.sort(Comparator.comparing(Song::getOrderID));
 
         return SongsToBeViewed;
-    }
-
-    public ObservableList<Playlist> getObservablePlaylists() {
-        return playlistToBeViewed;
     }
 
     public List<Playlist> getPlaylists() throws Exception {

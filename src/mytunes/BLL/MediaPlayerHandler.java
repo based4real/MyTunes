@@ -2,18 +2,15 @@ package mytunes.BLL;
 
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
-import mytunes.BE.Song;
 
 import java.io.IOException;
-import java.util.List;
 
 public class MediaPlayerHandler {
 
     private MediaPlayer lastSong, currentSong;
-    private SongManager songManager;
 
     public MediaPlayerHandler() throws IOException {
-        this.songManager = new SongManager();
+
     }
 
     private void stopPlayingSong(MediaPlayer song) {

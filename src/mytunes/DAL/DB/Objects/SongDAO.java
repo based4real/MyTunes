@@ -1,22 +1,15 @@
 package mytunes.DAL.DB.Objects;
 
-import mytunes.BE.Album;
 import mytunes.BE.Artist;
 import mytunes.BE.Playlist;
 import mytunes.BE.Song;
 import mytunes.BLL.util.CacheSystem;
-import mytunes.BLL.util.ConfigSystem;
 import mytunes.DAL.DB.Connect.DatabaseConnector;
-import mytunes.DAL.REST.CoverArt;
-import org.json.Cookie;
-import org.json.JSONTokener;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 public class SongDAO {
     private DatabaseConnector databaseConnector;
