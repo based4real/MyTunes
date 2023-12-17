@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="89.0" prefWidth="620.0" styleClass="media_background" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.GUI.Controller.Containers.MediaPlayerContainer">
+   <stylesheets>
+      <URL value="@../../css/newstyle.css" />
+      <URL value="@../../css/library.css" />
+      <URL value="@../../css/playlists.css" />
+   </stylesheets>
+   <children>
+      <HBox prefHeight="77.0" prefWidth="285.0">
+         <children>
+            <ImageView fx:id="imgCover" fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets left="20.0" top="10.0" />
+               </HBox.margin>
+               <image>
+                  <Image url="@../../test.png" />
+               </image>
+            </ImageView>
+            <VBox prefHeight="77.0" prefWidth="209.0">
+               <children>
+                  <Label fx:id="lblTitle" prefHeight="17.0" prefWidth="159.0" text="Titel" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="15.0" top="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="lblArtist" prefHeight="17.0" prefWidth="157.0" text="Artist" textFill="#4d4d4d">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="15.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <VBox layoutX="173.0" prefHeight="77.0" prefWidth="596.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="34.0" prefWidth="425.0" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Button mnemonicParsing="false" text="shuffle" visible="false">
+                     <HBox.margin>
+                        <Insets left="-65.0" />
+                     </HBox.margin>
+                     <styleClass>
+                        <String fx:value="media_controls" />
+                        <String fx:value="media_shuffle" />
+                     </styleClass>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#btnPrevious" scaleX="0.85" scaleY="0.85" text="back">
+                     <styleClass>
+                        <String fx:value="media_left" />
+                        <String fx:value="media_controls" />
+                     </styleClass>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="fxBtnPlay" mnemonicParsing="false" onAction="#btnPlay" scaleX="1.75" scaleY="1.75" styleClass="media_play" text="play">
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#btnNext" scaleX="0.85" scaleY="0.85" text="forward">
+                     <styleClass>
+                        <String fx:value="media_right" />
+                        <String fx:value="media_controls" />
+                     </styleClass>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets left="125.0" top="13.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="27.0" prefWidth="485.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label fx:id="lblCurrentDuration" prefHeight="17.0" prefWidth="32.0" text="0:45" textFill="#afafaf" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets right="5.0" top="-20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Slider fx:id="sliderTime" maxWidth="600.0" prefHeight="5.0" prefWidth="275.0" styleClass="media_slider" HBox.hgrow="ALWAYS">
+                     <padding>
+                        <Insets left="-5.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets top="-20.0" />
+                     </HBox.margin></Slider>
+                  <Label fx:id="lblMaxDuration" prefHeight="17.0" prefWidth="69.0" text="3:20" textFill="#afafaf">
+                     <HBox.margin>
+                        <Insets left="5.0" top="-20.0" />
+                     </HBox.margin></Label>
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets left="125.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+      <HBox alignment="TOP_RIGHT" layoutX="654.0" layoutY="22.0" prefHeight="55.0" prefWidth="167.0" AnchorPane.rightAnchor="20.0">
+         <children>
+            <SVGPath content="M9 4a.5.5 0 0 0-.812-.39L5.825 5.5H3.5A.5.5 0 0 0 3 6v4a.5.5 0 0 0 .5.5h2.325l2.363 1.89A.5.5 0 0 0 9 12zM6.312 6.39 8 5.04v5.92L6.312 9.61A.5.5 0 0 0 6 9.5H4v-3h2a.5.5 0 0 0 .312-.11M12.025 8a4.486 4.486 0 0 1-1.318 3.182L10 10.475A3.489 3.489 0 0 0 11.025 8 3.49 3.49 0 0 0 10 5.525l.707-.707A4.486 4.486 0 0 1 12.025 8" fill="WHITE" scaleX="2.0" scaleY="2.0">
+               <HBox.margin>
+                  <Insets right="15.0" top="22.0" />
+               </HBox.margin>
+            </SVGPath>
+            <Slider fx:id="sliderVolume" prefHeight="14.0" prefWidth="101.0">
+               <HBox.margin>
+                  <Insets top="20.0" />
+               </HBox.margin>
+            </Slider>
+         </children>
+         <padding>
+            <Insets left="25.0" />
+         </padding>
+      </HBox>
+   </children>
+</AnchorPane>

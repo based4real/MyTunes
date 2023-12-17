@@ -1,5 +1,6 @@
 package mytunes.BLL;
 
+import mytunes.BE.Album;
 import mytunes.BE.Artist;
 import mytunes.BE.Song;
 import mytunes.DAL.DB.Objects.ArtistDAO;
@@ -35,5 +36,9 @@ public class ArtistManager {
             allArtists = artistDAO.getAllArtists();
 
         return allArtists;
+    }
+
+    public List<Album> getArtistAlbums(Artist artist) throws Exception {
+        return artistDAO.getArtistAlbums(artist);
     }
 }

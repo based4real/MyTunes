@@ -79,7 +79,7 @@ public class MusicBrainzConnector {
     }
 
     public boolean holdsData() throws Exception {
-        return (data.length() != 0);
+        return (data != null && data.length() != 0);
     }
 
 
@@ -122,7 +122,7 @@ public class MusicBrainzConnector {
 
     public static void main(String[] args) throws Exception {
         MusicBrainzConnector musicBrainzConnector = new MusicBrainzConnector();
-        boolean found = musicBrainzConnector.searchSong("Eminem", "love the way you lie");
+        boolean found = musicBrainzConnector.searchSong("Eminem", "not afraid");
 
         if (!found)
             return;

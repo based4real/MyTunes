@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="mainWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="1044.0" styleClass="background_color" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.GUI.Controller.MainWindowController">
+   <left>
+      <VBox fillWidth="false" prefHeight="259.0" prefWidth="370.0" VBox.vgrow="always">
+         <children>
+            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="114.0" prefWidth="362.0" styleClass="tabs_background">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets bottom="8.0" left="8.0" top="8.0" />
+               </VBox.margin>
+               <children>
+                  <Button alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#btnHome" prefHeight="49.0" prefWidth="215.0" styleClass="tabs_buttons" text="Hjem" textFill="WHITESMOKE">
+                     <graphic>
+                        <SVGPath id="icon_altersize" content="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z" fill="WHITESMOKE" scaleX="1.5" scaleY="1.5" stroke="WHITESMOKE">
+                           <styleClass>
+                              <String fx:value="icon_altersize" />
+                              <String fx:value="tabs_buttons" />
+                           </styleClass>
+                        </SVGPath>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets left="15.0" top="5.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Button>
+                  <Button alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#btnSearch" prefHeight="49.0" prefWidth="215.0" styleClass="tabs_buttons" text="Søg" textFill="WHITESMOKE">
+                     <graphic>
+                        <SVGPath id="icon_altersize" content="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" fill="WHITESMOKE" scaleX="1.5" scaleY="1.5" stroke="WHITESMOKE">
+                           <styleClass>
+                              <String fx:value="icon_altersize" />
+                              <String fx:value="tabs_buttons" />
+                           </styleClass>
+                        </SVGPath>
+                     </graphic>
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="15.0" top="5.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox fx:id="librarySection" prefHeight="368.0" prefWidth="362.0" styleClass="tabs_background" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets bottom="4.0" left="8.0" />
+               </VBox.margin></VBox>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <BorderPane.margin>
+            <Insets bottom="5.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets right="8.0" />
+         </padding>
+      </VBox>
+   </left>
+   <stylesheets>
+      <URL value="@../css/newstyle.css" />
+      <URL value="@../css/library.css" />
+   </stylesheets>
+   <center>
+      <VBox fx:id="mainShit" prefHeight="200.0" prefWidth="100.0" styleClass="tabs_background" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="8.0" right="8.0" top="8.0" />
+         </BorderPane.margin>
+      </VBox>
+   </center>
+</BorderPane>

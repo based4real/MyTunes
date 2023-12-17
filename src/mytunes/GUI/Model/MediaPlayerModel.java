@@ -6,7 +6,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.media.MediaPlayer;
 import mytunes.BE.Song;
 import mytunes.BLL.MediaPlayerHandler;
-import mytunes.GUI.Controller.ny.Containers.MediaPlayerContainer;
+import mytunes.GUI.Controller.Containers.MediaPlayerContainer;
 
 import java.io.IOException;
 

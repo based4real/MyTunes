@@ -1,5 +1,6 @@
 package mytunes.DAL.DB.Objects;
 
+import mytunes.BE.Album;
 import mytunes.BE.Artist;
 import mytunes.BE.Song;
 import mytunes.BLL.util.CacheSystem;
@@ -127,13 +128,12 @@ public class ArtistDAO {
         {
             List<Song> songsByArtist = new ArrayList<>();
 
-            stmt.setString(1, artist.getArtistID());
+            stmt.setInt(1, artist.getPrimaryID());
 
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 int songID = rs.getInt("Id");
-                String artistID = rs.getString("Artist");
                 String artistName = rs.getString("artistName");
 
                 String songTitle = rs.getString("Title");
@@ -145,6 +145,36 @@ public class ArtistDAO {
                 songsByArtist.add(new Song(MusicBrainzID, songID, songTitle, artistName, songGenre, songFilepath, songPictureURL));
             }
             return songsByArtist;
+        }
+    }
+
+    public List<Album> getArtistAlbums(Artist artist) throws Exception {
+        String sql = "SELECT Albums.*, artists.name AS artistName\n" +
+                "FROM Albums\n" +
+                "JOIN artists ON Albums.artist_id = artists.id\n" +
+                "WHERE artists.id = ?;";
+
+        try (Connection conn = databaseConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
+        {
+            List<Album> albumsByArtist = new ArrayList<>();
+            stmt.setString(1, artist.getArtistID());
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String released = rs.getString("released");
+                String type = rs.getString("type");
+                int artist_id = rs.getInt("artist_id");
+                String musicBrainzID = rs.getString("MusicBrainzID");
+                String pictureURL = rs.getString("pictureURL");
+                String artistName = rs.getString("artistName");
+
+                albumsByArtist.add(new Album(id, name, released, type, artist_id, pictureURL, artistName));
+            }
+            return albumsByArtist;
         }
     }
 }
