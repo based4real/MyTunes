@@ -6,7 +6,7 @@ Description
 - microsoft.sqlserver.mssql.jdbc - com.microsoft.sqlserver:mssql-jdbc:12.3.1.jre11-preview
 - controlsfx - org.controlsfx:controlsfx:11.2.0
 
-![ezcv logo]([https://i.imgur.com/oxpGBcQ.png](https://i.imgur.com/TFIBSN9.png))
+![ezcv logo](https://i.imgur.com/TFIBSN9.png)
 
 
 ## Screenshot
