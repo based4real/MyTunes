@@ -27,11 +27,6 @@ public class TableContextMenu {
         this.playlist = playlist;
     }
 
-    private void updatePlaylistSongs(TableView<Song> tbl, Playlist playlist) throws Exception {
-        playlistSongs = playlistModel.getObservableSongs(playlist);
-        tbl.setItems(playlistSongs);
-    }
-
     private Optional<ButtonType> alertPlaylist() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Allerede tilføjet");
@@ -77,7 +72,6 @@ public class TableContextMenu {
             throw new RuntimeException(e);
         }
     }
-
 
     public void createContextMenu(TableRow row) {
         final ContextMenu contextMenu = new ContextMenu();
