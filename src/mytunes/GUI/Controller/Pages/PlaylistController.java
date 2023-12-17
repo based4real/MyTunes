@@ -235,13 +235,6 @@ public class PlaylistController implements Initializable {
         updateUI(p);
     }
 
-    public void btnPlayPlaylist(ActionEvent actionEvent) {
-        List<Song> allSongs = playlist.getPlaylistSongs();
-
-        if (allSongs.size() > 0)
-            mediaPlayerModel.playSelectedSong(allSongs.get(0));
-    }
-
     public void btnPageBack(ActionEvent actionEvent) {
     }
 

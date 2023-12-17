@@ -31,10 +31,10 @@ public class HomeController implements Initializable {
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        ControlView.setHomeController(this);
+
         try {
             addArtist();
-            ControlView.setHomeController(this);
-
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -49,8 +49,6 @@ public class TitleArtistCell extends TextFieldTableCell<Song, String>  {
             if (song == null)
                 return;
 
-
-            System.out.println("Clicked on artist: " + getTableRow().getItem().getArtistName());
             ControlView.switchToArtist();
             try {
                 ControlView.getArtistController().updatePage(songModel.getArtistFromSong(song));

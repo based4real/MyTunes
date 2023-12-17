@@ -4,6 +4,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.text.TextAlignment;
 import mytunes.BE.Song;
 import mytunes.BLL.MediaPlayerHandler;
 import mytunes.GUI.Controller.Containers.MediaPlayerContainer;
@@ -19,6 +20,10 @@ public class MediaPlayerModel {
 
     private TableView<Song> playlistSongs;
     private MediaPlayerContainer mediaPlayerContainer;
+
+    private TableView<Song> lastTbl = new TableView<>();
+    int currentIdxPlaying = 0;
+    int amountMoved = 0;
 
     private MediaPlayerModel() throws IOException {
         mediaPlayerHandler = new MediaPlayerHandler();
@@ -52,12 +57,54 @@ public class MediaPlayerModel {
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2 ) {
                 Song selectedSong = tbl.getSelectionModel().getSelectedItem();
                 playSelectedSong(selectedSong);
+
+                currentIdxPlaying = tbl.getSelectionModel().getSelectedIndex();
+                copyTable(tbl);
             }
         });
     }
 
-    public void playNextSong(TableView<Song> tbl) {
+    private void copyTable(TableView<Song> tbl) {
+        lastTbl.setItems(tbl.getItems());
+        lastTbl.setSelectionModel(tbl.getSelectionModel());
+        amountMoved = 1;
+    }
 
+    public void btnPrevious() {
+        int nextSong = currentIdxPlaying - 1;
+        int size = lastTbl.getItems().size();
+        amountMoved = 1;
+
+        if (nextSong >= 0 && nextSong < size) {
+            playSelectedSong(lastTbl.getItems().get(nextSong));
+            currentIdxPlaying--;
+        }
+    }
+
+    public void btnNext() {
+        int nextSong = currentIdxPlaying + 1;
+        int size = lastTbl.getItems().size();
+        amountMoved = 1;
+
+        if (nextSong >= 0 && nextSong < size) {
+            playSelectedSong(lastTbl.getItems().get(nextSong));
+            currentIdxPlaying++;
+        }
+    }
+
+    // Should have been handled in BLL
+    public void playNextSong() {
+        int nextSong = lastTbl.getSelectionModel().getSelectedIndex() + amountMoved;
+        int size = lastTbl.getItems().size();
+
+        if (nextSong > size && nextSong <= size)
+            return;
+
+        // Remeber, we go the other way because of our sorting method.
+        playSelectedSong(lastTbl.getItems().get(nextSong));
+
+        currentIdxPlaying = nextSong;
+        amountMoved++;
     }
 
     // This might have to be re-done but in order for our

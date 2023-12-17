@@ -31,7 +31,7 @@
                   </opaqueInsets>
                   <children>
                   <TextField fx:id="txfSearchBar" maxWidth="200.0" promptText="Hvad vil du lytte til?" styleClass="search_song" />
-                      <Label text="Songs" textFill="WHITE">
+                      <Label text="Sange" textFill="WHITE">
                           <font>
                               <Font name="System Bold" size="18.0" />
                           </font>
@@ -46,7 +46,7 @@
                           <children>
                               <TableView fx:id="tblSongs" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS">
                                   <columns>
-                                      <TableColumn fx:id="columnTitle" prefWidth="282.0" text="Title" />
+                                      <TableColumn fx:id="columnTitle" prefWidth="282.0" text="Titel" />
                                       <TableColumn fx:id="columnAlbum" prefWidth="177.0" text="Album" />
                                       <TableColumn fx:id="columnGenre" prefWidth="140.0" text="Genre" />
                               <TableColumn fx:id="columnDuration" prefWidth="38.0">

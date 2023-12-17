@@ -159,8 +159,4 @@ public class ArtistController implements Initializable {
 
     public void btnNextPage(ActionEvent actionEvent) {
     }
-
-    public void btnPlayPlaylist(ActionEvent actionEvent) {
-    }
-
 }

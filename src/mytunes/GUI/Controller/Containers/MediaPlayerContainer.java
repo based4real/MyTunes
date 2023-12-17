@@ -97,6 +97,9 @@ public class MediaPlayerContainer implements Initializable {
     }
 
     public void playSelectedSong(Song song) {
+        if (song == null)
+            return;
+
         MediaPlayer mediaPlayer = song.getMediaPlayer();
 
         mediaPlayerModel.playSong(mediaPlayer);
@@ -147,44 +150,48 @@ public class MediaPlayerContainer implements Initializable {
     }
 
     private void updatePlayerControls(MediaPlayer mediaPlayer, Song song) {
-        double songLength = mediaPlayer.getTotalDuration().toMillis();
+        double songLength = mediaPlayer.getTotalDuration().toSeconds();
         sliderTime.setMax(songLength);
         lblMaxDuration.setText(song.getDuration());
 
         updateVolumeControl(mediaPlayer);
 
-        //Når man klikker en enkelt gang
-        sliderTime.valueChangingProperty().addListener((observableValue, someBoolean, isChanging) -> {
+        // User interaction (single click or touch)
+        sliderTime.valueChangingProperty().addListener((observable, oldValue, isChanging) -> {
             wasDragged = isChanging;
-            if (!wasDragged) { // User action has just ended
-                mediaPlayer.seek(new Duration(sliderTime.getValue()));
-                lblCurrentDuration.setText(mediaPlayerModel.getTimeFromDouble(sliderTime.getValue() / 1000));
+            if (!wasDragged) {
+                mediaPlayer.seek(new Duration(sliderTime.getValue() * 1000));
+                lblCurrentDuration.setText(mediaPlayerModel.getTimeFromDouble(sliderTime.getValue()));
             }
         });
 
-        // Når man dragger
-        sliderTime.valueProperty().addListener((observableValue, oldTime, newTime) -> {
-            if (wasDragged && sliderTime.isValueChanging())
-                lblCurrentDuration.setText(mediaPlayerModel.getTimeFromDouble(newTime.doubleValue() / 1000));
+        // User dragging the slider
+        sliderTime.valueProperty().addListener((observable, oldTime, newTime) -> {
+            if (wasDragged && sliderTime.isValueChanging()) {
+                lblCurrentDuration.setText(mediaPlayerModel.getTimeFromDouble(newTime.doubleValue()));
+            }
 
-            // wasClicked er VIGTIG, ellers kommer der "buggy" lyd
-            wasClicked = Math.abs(oldTime.doubleValue() - newTime.doubleValue()) / 100 > 10;
+            // Check if the slider was clicked or dragged
+            wasClicked = Math.abs(oldTime.doubleValue() - newTime.doubleValue()) > 10;
+
+            // This causes CMTimeMakeWithSeconds warning... not sure why
             if (!sliderTime.isValueChanging() && !wasDragged && wasClicked)
-                mediaPlayer.seek(new Duration(sliderTime.getValue()));
+                mediaPlayer.seek(new Duration(newTime.doubleValue() * 1000));
         });
 
-
+        // Listener for mediaplayer
         mediaPlayer.currentTimeProperty().addListener((observable, oldTime, newTime) -> {
             if (wasDragged && wasClicked)
                 return;
 
-            boolean playNextSong = sliderTime.getMax() / 100 - 5 < newTime.toMillis() / 100;
-
+            // Check if it's time to play the next song
+            boolean playNextSong = sliderTime.getMax() - 1 < newTime.toSeconds();
             if (playNextSong)
-                System.out.println("song finished");
+                mediaPlayerModel.playNextSong();
 
-            lblCurrentDuration.setText(song.getCurrentDuration());
-            sliderTime.setValue(newTime.toMillis());
+            // Update UI
+            lblCurrentDuration.setText(mediaPlayerModel.getTimeFromDouble(newTime.toSeconds()));
+            sliderTime.setValue(newTime.toSeconds());
         });
     }
 
@@ -210,8 +217,10 @@ public class MediaPlayerContainer implements Initializable {
     }
 
     public void btnNext(ActionEvent actionEvent) {
+        mediaPlayerModel.btnNext();
     }
 
     public void btnPrevious(ActionEvent actionEvent) {
+        mediaPlayerModel.btnPrevious();
     }
 }

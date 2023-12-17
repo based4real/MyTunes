@@ -60,9 +60,10 @@ public class AlbumController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        ControlView.setAlbumController(this);
+
         setupAlbumSongsTableView();
         enableRightClick();
-        ControlView.setAlbumController(this);
     }
 
     private void enableRightClick() {
@@ -136,6 +137,4 @@ public class AlbumController implements Initializable {
     public void btnNextPage(ActionEvent actionEvent) {
     }
 
-    public void btnPlayPlaylist(ActionEvent actionEvent) {
-    }
 }

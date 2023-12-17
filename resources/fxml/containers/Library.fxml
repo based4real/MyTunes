@@ -62,7 +62,7 @@
                         <Insets left="45.0" top="15.0" />
                      </HBox.margin>
                   </MenuButton>
-                  <Button alignment="TOP_LEFT" graphicTextGap="0.0" mnemonicParsing="false" styleClass="button-playlist-more" text="vis mere">
+                  <Button alignment="TOP_LEFT" disable="true" graphicTextGap="0.0" mnemonicParsing="false" styleClass="button-playlist-more" text="vis mere">
                      <HBox.margin>
                         <Insets left="25.0" top="15.0" />
                      </HBox.margin>
@@ -79,7 +79,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="playlists_album" text="Album">
+                  <Button disable="true" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="playlists_album" text="Album">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>

@@ -26,7 +26,7 @@ public class PlaylistContainer implements Initializable {
     private GridPane imagePane;
 
     @FXML
-    private Label playlistName, lblSongs;
+    private Label playlistName;
 
     @FXML
     private ImageView cover;
@@ -65,8 +65,6 @@ public class PlaylistContainer implements Initializable {
     public void updateUI(Playlist playlist) throws Exception {
         playlistName.setText(playlist.getName());
         setPicture(playlist);
-        songCountLabel();
-
     }
 
     public void setPlaylist(Playlist playlist) throws Exception {
@@ -127,11 +125,6 @@ public class PlaylistContainer implements Initializable {
             System.out.println(e);
             System.out.println("Cant load edit playlist window");
         }
-    }
-
-    private void songCountLabel() throws Exception {
-        int size = playlistModel.getSongs(playlist).size();
-        lblSongs.setText(size > 0 ? "Antal sange: " + Integer.toString(size) : "Tom");
     }
 
     private void deletePlaylist() throws Exception {

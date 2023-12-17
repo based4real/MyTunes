@@ -108,27 +108,9 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <HBox spacing="10.0" VBox.vgrow="NEVER">
-                     <children>
-                        <Button contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#btnPlayPlaylist" prefHeight="50.0" prefWidth="50.0" styleClass="playlist_play">
-                           <graphic>
-                              <SVGPath content="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" scaleX="2.0" scaleY="2.0" styleClass="playlist-button" />
-                           </graphic>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets right="15.0" />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                  </HBox>
                         <TableView fx:id="tblSongsPlaylist" minHeight="-Infinity">
                             <columns>
-                                <TableColumn fx:id="columnTitle" prefWidth="130.5" text="Title" />
+                                <TableColumn fx:id="columnTitle" prefWidth="130.5" text="Titel" />
                                 <TableColumn fx:id="columnAlbum" prefWidth="116.0" text="Album" />
                                 <TableColumn fx:id="columnGenre" prefWidth="53.0" text="Genre" />
                         <TableColumn fx:id="columnAdded" prefWidth="116.0" text="Tilføjelsesdato" />
