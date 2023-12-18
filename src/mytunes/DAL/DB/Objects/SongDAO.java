@@ -142,7 +142,7 @@ public class SongDAO {
             // Bind parameters
             stmt.setString(1, song.getTitle());
             stmt.setInt(2, song.getArtistID());
-            stmt.setString(3, song.getGenre());
+            stmt.setString(3, song.getGenreName());
             stmt.setString(4, song.getFilePath());
             stmt.setString(5, song.getMusicBrainzID());
             stmt.setString(6, storedPath);
@@ -159,7 +159,7 @@ public class SongDAO {
             }
 
             // Create song object and send up the layers
-            Song createdSong = new Song(song.getMusicBrainzID(), id, song.getTitle(), song.getArtistName(), song.getGenre(), song.getFilePath(), storedPath);
+            Song createdSong = new Song(song.getMusicBrainzID(), id, song.getTitle(), song.getArtistName(), song.getGenreName(), song.getFilePath(), storedPath);
             return createdSong;
         }
         catch (SQLException ex)
@@ -250,7 +250,6 @@ public class SongDAO {
             conn.setAutoCommit(false);
 
             try {
-                System.out.println("d");
                 // Delete songs in the playlist
                 deleteSongFromPlaylists(conn, song);
 

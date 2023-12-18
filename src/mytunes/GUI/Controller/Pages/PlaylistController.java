@@ -118,14 +118,14 @@ public class PlaylistController implements Initializable {
             }
         });
 
-        columnGenre.setCellValueFactory(new PropertyValueFactory<>("genre"));
+        columnGenre.setCellValueFactory(new PropertyValueFactory<>("genreName"));
         columnDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
         columnAlbum.setCellValueFactory(new PropertyValueFactory<>("album"));
         columnAdded.setCellValueFactory(new PropertyValueFactory<>("date"));
 
         columnAlbum.setCellFactory(column -> {
             try {
-                return new ClickableLabelTableCell<>();
+                return new ClickableLabelTableCell<>(ClickableLabelTableCell.Types.ALBUM);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

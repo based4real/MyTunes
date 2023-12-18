@@ -104,11 +104,19 @@ public class SearchController implements Initializable {
         });
 
         columnDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
-        columnGenre.setCellValueFactory(new PropertyValueFactory<>("genre"));
+        columnGenre.setCellValueFactory(new PropertyValueFactory<>("genreName"));
+        columnGenre.setCellFactory(column -> {
+            try {
+                return new ClickableLabelTableCell<>(ClickableLabelTableCell.Types.GENRE);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
         columnAlbum.setCellValueFactory(new PropertyValueFactory<>("album"));
+
         columnAlbum.setCellFactory(column -> {
             try {
-                return new ClickableLabelTableCell<>();
+                return new ClickableLabelTableCell<>(ClickableLabelTableCell.Types.ALBUM);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

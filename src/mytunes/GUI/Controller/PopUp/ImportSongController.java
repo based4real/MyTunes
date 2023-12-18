@@ -50,7 +50,7 @@ public class ImportSongController implements Initializable {
 
     public ImportSongController() throws Exception {
         songImportModel = new SongImportModel();
-        genreModel = new GenreModel();
+        genreModel = GenreModel.getInstance();
         mediaPlayerModel = MediaPlayerModel.getInstance();
         artistModel = ArtistModel.getInstance();
         songModel = SongModel.getInstance();

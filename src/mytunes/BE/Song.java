@@ -10,7 +10,8 @@ import java.sql.Timestamp;
 
 public class Song {
     private int id, artistID, orderID;
-    private String title, songID, filePath, artistName, genre, pictureURL, albumName;
+    private String title, songID, filePath, artistName, pictureURL, albumName;
+    private Genre genre;
     private Timestamp addedDate;
 
     private MediaPlayer mediaPlayer;
@@ -22,7 +23,7 @@ public class Song {
         this.id = id;
         this.title = title;
         this.artistName = artistName;
-        this.genre = genre;
+        this.genre = new Genre(genre);
         this.filePath = filePath;
         this.mediaPlayer = new MediaPlayer(new Media(new File(filePath).toURI().toString()));
         this.pictureURL = pictureURL;
@@ -36,7 +37,7 @@ public class Song {
         this.id = id;
         this.title = title;
         this.artistName = artistName;
-        this.genre = genre;
+        this.genre = new Genre(genre);
         this.filePath = filePath;
         this.mediaPlayer = new MediaPlayer(new Media(new File(filePath).toURI().toString()));
         this.pictureURL = pictureURL;
@@ -50,7 +51,7 @@ public class Song {
         this.id = id;
         this.title = title;
         this.artistName = artistName;
-        this.genre = genre;
+        this.genre = new Genre(genre);
         this.filePath = filePath;
         this.mediaPlayer = new MediaPlayer(new Media(new File(filePath).toURI().toString()));
         this.pictureURL = pictureURL;
@@ -60,7 +61,7 @@ public class Song {
         this.songID = songID;
         this.title = title;
         this.artistID = artistID;
-        this.genre = genre;
+        this.genre = new Genre(genre);
         this.filePath = filePath;
         this.mediaPlayer = new MediaPlayer(new Media(new File(filePath).toURI().toString()));
         this.pictureURL = pictureURL;
@@ -150,8 +151,12 @@ public class Song {
         this.orderID = orderID;
     }
 
-    public String getGenre() {
+    public Genre getGenre() {
         return genre;
+    }
+
+    public String getGenreName() {
+        return genre.getName();
     }
 
     public String getAlbum() {

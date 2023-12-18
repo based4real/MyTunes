@@ -191,6 +191,7 @@ public class MediaPlayerContainer implements Initializable {
                 mediaPlayerModel.playNextSong();
 
 
+
             // Update UI
             lblCurrentDuration.setText(mediaPlayerModel.getTimeFromDouble(newTime.toSeconds()));
             sliderTime.setValue(newTime.toSeconds());

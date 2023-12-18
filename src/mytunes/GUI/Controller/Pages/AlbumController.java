@@ -12,11 +12,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import mytunes.BE.Album;
+import mytunes.BE.Genre;
 import mytunes.BE.Song;
 import mytunes.GUI.Controller.Elements.Helpers.ControlView;
 import mytunes.GUI.Controller.Elements.Table.TitleArtistCell;
 import mytunes.GUI.Controller.Elements.Table.TableContextMenu;
 import mytunes.GUI.Model.AlbumModel;
+import mytunes.GUI.Model.GenreModel;
 import mytunes.GUI.Model.MediaPlayerModel;
 import mytunes.GUI.Model.PlaylistModel;
 
@@ -49,11 +51,12 @@ public class AlbumController implements Initializable {
 
     private AlbumModel albumModel;
     private MediaPlayerModel mediaPlayerModel;
-    private PlaylistModel playlistModel;
+    private GenreModel genreModel;
 
     public AlbumController() throws Exception {
         this.albumModel = AlbumModel.getInstance();
         this.mediaPlayerModel = MediaPlayerModel.getInstance();
+        this.genreModel = GenreModel.getInstance();
 
         mediaPlayerModel.setPlaylistSongs(tblSongsAlbum);
     }
@@ -89,7 +92,7 @@ public class AlbumController implements Initializable {
             }
         });
 
-        columnGenre.setCellValueFactory(new PropertyValueFactory<>("genre"));
+        columnGenre.setCellValueFactory(new PropertyValueFactory<>("genreName"));
         columnDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
         columnPos.setCellValueFactory(new PropertyValueFactory<>("orderID"));
     }
@@ -129,6 +132,19 @@ public class AlbumController implements Initializable {
         mediaPlayerModel.wasClickedTable(tblSongsAlbum);
 
         updateUI(album);
+    }
+
+    public void tableGenreSongs(Genre genre) throws Exception {
+        if (genre == null)
+            return;
+
+        tblSongsAlbum.refresh();
+        tblSongsAlbum.setItems(genreModel.getObservableSongs(genre));
+        mediaPlayerModel.wasClickedTable(tblSongsAlbum);
+
+        lblName.setText(genre.getName());
+        lblType.setText("Genre");
+
     }
 
     public void btnPageBack(ActionEvent actionEvent) {

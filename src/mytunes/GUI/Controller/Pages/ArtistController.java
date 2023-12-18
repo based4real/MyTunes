@@ -110,13 +110,13 @@ public class ArtistController implements Initializable {
             }
         });
 
-        columnGenre.setCellValueFactory(new PropertyValueFactory<>("genre"));
+        columnGenre.setCellValueFactory(new PropertyValueFactory<>("genreName"));
         columnDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
         columnAlbum.setCellValueFactory(new PropertyValueFactory<>("album"));
 
         columnAlbum.setCellFactory(column -> {
             try {
-                return new ClickableLabelTableCell<>();
+                return new ClickableLabelTableCell<>(ClickableLabelTableCell.Types.ALBUM);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

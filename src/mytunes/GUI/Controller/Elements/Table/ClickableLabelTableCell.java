@@ -6,14 +6,21 @@ import mytunes.BE.Album;
 import mytunes.BE.Song;
 import mytunes.GUI.Controller.Elements.Helpers.ControlView;
 import mytunes.GUI.Model.AlbumModel;
+import mytunes.GUI.Model.SongModel;
 
 public class ClickableLabelTableCell<T> extends TableCell<T, String> {
     private final Label label;
     private AlbumModel albumModel;
+    private SongModel songModel;
 
-    public ClickableLabelTableCell() throws Exception {
+    public enum Types {
+        ALBUM, GENRE
+    }
+
+    public ClickableLabelTableCell(Types type) throws Exception {
         this.label = new Label();
         this.albumModel = AlbumModel.getInstance();
+        this.songModel = SongModel.getInstance();
 
         setHoverStyle(false, this.label);
 
@@ -24,12 +31,20 @@ public class ClickableLabelTableCell<T> extends TableCell<T, String> {
             Song song = (Song) getTableRow().getItem();
             if (song != null) {
                 try {
-                    loadAlbum(song);
+                    switch (type) {
+                        case ALBUM -> loadAlbum(song);
+                        case GENRE -> loadGenre(song);
+                    }
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
             }
         });
+    }
+
+    private void loadGenre(Song song) throws Exception {
+        ControlView.switchToAlbum();
+        ControlView.getAlbumController().tableGenreSongs(song.getGenre());
     }
 
     private void loadAlbum(Song song) throws Exception {

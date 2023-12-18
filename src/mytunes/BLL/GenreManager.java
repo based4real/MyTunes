@@ -1,9 +1,11 @@
 package mytunes.BLL;
 
 import mytunes.BE.Genre;
+import mytunes.BE.Song;
 import mytunes.DAL.DB.Objects.GenreDAO;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,5 +24,12 @@ public class GenreManager {
             }
         }
         return allGenreNames;
+    }
+
+    public List<Song> getGenreSongs(Genre genre) throws SQLException {
+        if (genre.getGenreSongs().isEmpty())
+            genre.setGenreSongs(genreDAO.getAllSongsFromGenre(genre));
+
+        return genre.getGenreSongs();
     }
 }

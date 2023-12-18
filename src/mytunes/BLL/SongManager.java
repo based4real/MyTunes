@@ -29,7 +29,7 @@ public class SongManager {
             allSongs = songDAO.getAllSongs();
             shouldUpdate = false;
         }
-        
+
         return allSongs;
     }
 
