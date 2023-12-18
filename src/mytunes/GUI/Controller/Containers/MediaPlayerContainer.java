@@ -82,12 +82,12 @@ public class MediaPlayerContainer implements Initializable {
         lblArtist.setText(song.getArtistName());
     }
 
-    private void updateBtnPlayBtn(MediaPlayer mediaPlayer) {
+    private void updateBtnPlayBtn(MediaPlayer mediaPlayer, boolean restart) {
         boolean STATUS_STOPPED = mediaPlayer.getStatus() == MediaPlayer.Status.STOPPED;
         boolean STATUS_READY = mediaPlayer.getStatus() == MediaPlayer.Status.READY;
         boolean STATUS_PAUSED = mediaPlayer.getStatus() == MediaPlayer.Status.PAUSED;
 
-        if (STATUS_READY || STATUS_PAUSED || STATUS_STOPPED) {
+        if (STATUS_READY || STATUS_PAUSED || STATUS_STOPPED || restart) {
             fxBtnPlay.getStyleClass().clear();
             fxBtnPlay.getStyleClass().add("media_pause");
         } else {
@@ -96,13 +96,13 @@ public class MediaPlayerContainer implements Initializable {
         }
     }
 
-    public void playSelectedSong(Song song) {
+    public void playSelectedSong(Song song, boolean restart) {
         if (song == null)
             return;
 
         MediaPlayer mediaPlayer = song.getMediaPlayer();
 
-        mediaPlayerModel.playSong(mediaPlayer);
+        mediaPlayerModel.playSong(mediaPlayer, restart);
         updatePlayerControls(mediaPlayer, song);
 
         this.lastPlayedSong = song;
@@ -111,7 +111,8 @@ public class MediaPlayerContainer implements Initializable {
         setDisable(false);
         updateArtistTitleLabel(song);
         updateImage(song);
-        updateBtnPlayBtn(mediaPlayer);
+
+        updateBtnPlayBtn(mediaPlayer, restart);
     }
 
     public void sliderDesign() {
@@ -214,7 +215,7 @@ public class MediaPlayerContainer implements Initializable {
         if (song == null)
             return;
 
-        playSelectedSong(song);
+        playSelectedSong(song, false);
     }
 
     public void btnNext(ActionEvent actionEvent) {

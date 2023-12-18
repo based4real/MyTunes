@@ -110,7 +110,7 @@ public class MainWindowController implements Initializable {
         ControlView.switchToHome();
     }
 
-    public void btnSearch(ActionEvent actionEvent) throws IOException {
+    public void btnSearch(ActionEvent actionEvent) throws Exception {
         ControlView.switchToSearch();
     }
 }

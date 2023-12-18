@@ -14,6 +14,8 @@ public class ArtistManager {
     private ArtistDAO artistDAO;
     private List<Artist> allArtists = new ArrayList<>();
 
+    private boolean shouldUpdate;
+
     public ArtistManager() throws IOException {
         artistDAO = new ArtistDAO();
     }
@@ -24,6 +26,7 @@ public class ArtistManager {
         if (existing != null)
             return existing;
 
+        shouldUpdate = true;
         return artistDAO.createArtist(artist);
     }
 
@@ -32,8 +35,10 @@ public class ArtistManager {
     }
 
     public List<Artist> getAllArtists() throws Exception {
-        if (allArtists.isEmpty())
+        if (allArtists.isEmpty() || shouldUpdate) {
             allArtists = artistDAO.getAllArtists();
+            shouldUpdate = false;
+        }
 
         return allArtists;
     }

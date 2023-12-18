@@ -16,18 +16,23 @@ public class SongManager {
     private SongDAO songDAO;
     private List<Song> allSongs = new ArrayList<>();
 
+    private boolean shouldUpdate;
+
     public SongManager() throws IOException {
         songDAO = new SongDAO();
     }
 
     public List<Song> getAllSongs() throws Exception {
-        if (allSongs.isEmpty())
+        if (allSongs.isEmpty() || shouldUpdate) {
             allSongs = songDAO.getAllSongs();
+            shouldUpdate = false;
+        }
 
         return allSongs;
     }
 
     public Song createNewSong(Song newSong) throws Exception {
+        shouldUpdate = true;
         return songDAO.createSong(newSong);
     }
 
@@ -36,6 +41,7 @@ public class SongManager {
     }
 
     public boolean deleteSong(Song selectedSong) throws Exception {
+        shouldUpdate = true;
         return songDAO.deleteSong(selectedSong);
     }
 

@@ -45,13 +45,14 @@ public class MediaPlayerHandler {
             song.seek(Duration.seconds(0));
     }
 
-    public void playSong(MediaPlayer song) {
+    public void playSong(MediaPlayer song, boolean restart) {
         songEnd(song);
 
-        if (shouldPause(song))
+        if (!restart && shouldPause(song))
             return;
 
         stopPlayingSong(song);
+        currentSong.seek(Duration.seconds(0));
         currentSong.play();
 
         lastSong = song;

@@ -17,6 +17,8 @@ public class AlbumManager {
     private List<Album> allAlbums = new ArrayList<>();
     private MediaPlayerHandler mediaPlayerHandler;
 
+    private boolean shouldUpdate;
+
     public AlbumManager() throws IOException {
         this.albumDAO = new AlbumDAO();
         this.mediaPlayerHandler = new MediaPlayerHandler();
@@ -25,19 +27,25 @@ public class AlbumManager {
         for (Release r : albums)
             albumDAO.createAlbum(r, song, artist);
 
+        shouldUpdate = true;
+
         return false;
     }
 
     public List<Song> getAlbumSongs(Album album) throws Exception {
-        if (album.getAlbumSongs().isEmpty())
+        if (album.getAlbumSongs().isEmpty() || shouldUpdate) {
             album.setAlbumSongs(albumDAO.getAlbumSongs(album));
+            shouldUpdate = false;
+        }
 
         return album.getAlbumSongs();
     }
 
     public List<Album> getAllAlbums() throws Exception{
-        if (allAlbums.isEmpty())
+        if (allAlbums.isEmpty() || shouldUpdate) {
             allAlbums.addAll(albumDAO.getAllAlbums());
+            shouldUpdate = false;
+        }
 
         return allAlbums;
     }

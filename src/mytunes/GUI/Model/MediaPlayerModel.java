@@ -44,8 +44,8 @@ public class MediaPlayerModel {
         song = selected;
     }
 
-    public void playSong(MediaPlayer song) {
-        mediaPlayerHandler.playSong(song);
+    public void playSong(MediaPlayer song, boolean restart) {
+        mediaPlayerHandler.playSong(song, restart);
     }
 
     public void setPlaylistSongs(TableView<Song> tbl) {
@@ -111,7 +111,7 @@ public class MediaPlayerModel {
     // UI to update, we have to call the controller.
     // Call right now ? > Model > Controller > Model
     public void playSelectedSong(Song song) {
-        mediaPlayerContainer.playSelectedSong(song);
+        mediaPlayerContainer.playSelectedSong(song, true);
         this.setSelectedSong(song);
     }
 

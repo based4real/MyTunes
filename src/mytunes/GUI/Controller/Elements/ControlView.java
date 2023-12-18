@@ -77,8 +77,9 @@ public class ControlView {
         setMain(playlistController.mainTab);
     }
 
-    public static void switchToSearch() {
+    public static void switchToSearch() throws Exception {
         setMain(searchController.mainTab);
+        searchController.clearCheck();
     }
 
     public static void switchToArtist() {

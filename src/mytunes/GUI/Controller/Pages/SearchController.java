@@ -67,18 +67,13 @@ public class SearchController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-            setupSongTableView();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
         txfSearchBarListener();
 
         ControlView.setSearchController(this);
 
         try {
-            addArtists();
-            addAlbums();
+            setupSongTableView();
+            clearCheck();
             enableRightClick();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -100,8 +95,6 @@ public class SearchController implements Initializable {
     }
 
     private void setupSongTableView() throws Exception {
-        ObservableList<Song> songs = songModel.getObservableSongs();
-
         columnTitle.setCellFactory(col -> {
             try {
                 return new TitleArtistCell();
@@ -120,17 +113,22 @@ public class SearchController implements Initializable {
                 throw new RuntimeException(e);
             }
         });
+    }
 
+    private void addSongs() throws Exception {
+        ObservableList<Song> songs = songModel.getObservableSongs();
         tblSongs.setItems(songs);
         mediaPlayerModel.wasClickedTable(tblSongs);
     }
 
     private void addArtists() throws Exception {
+        hboxArtists.getChildren().clear();
         List<Artist> allArtists = artistModel.getAllArtists();
         CustomButton artistButton = new CustomButton(CustomButton.Type.ARTIST, hboxArtists, allArtists);
     }
 
     private void addAlbums() throws Exception {
+        hboxAlbums.getChildren().clear();
         List<Album> allAlbums = albumModel.getAllAlbums();
         CustomButton albumButton = new CustomButton(CustomButton.Type.ALBUM, hboxAlbums, allAlbums);
     }
@@ -169,6 +167,13 @@ public class SearchController implements Initializable {
                 existingButton.setManaged(visible);
             }
         }
+    }
+
+    // Could be better performance wise
+    public void clearCheck() throws Exception {
+        addSongs();
+        addAlbums();
+        addArtists();
     }
 
     public void setMainWindowController(MainWindowController controller) {
