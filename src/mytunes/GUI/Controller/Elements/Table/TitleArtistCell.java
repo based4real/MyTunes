@@ -1,4 +1,4 @@
-package mytunes.GUI.Controller.Elements;
+package mytunes.GUI.Controller.Elements.Table;
 
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.effect.DropShadow;
@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import mytunes.BE.Song;
+import mytunes.GUI.Controller.Elements.Helpers.ControlView;
 import mytunes.GUI.Model.SongModel;
 
 import java.io.File;

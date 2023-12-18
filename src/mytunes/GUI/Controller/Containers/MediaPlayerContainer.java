@@ -11,7 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import mytunes.BE.Song;
-import mytunes.GUI.Controller.Elements.ControlView;
+import mytunes.GUI.Controller.Elements.Helpers.ControlView;
 import mytunes.GUI.Model.MediaPlayerModel;
 import mytunes.GUI.Model.SongModel;
 

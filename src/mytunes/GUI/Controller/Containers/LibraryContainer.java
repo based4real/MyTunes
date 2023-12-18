@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 import mytunes.BE.Playlist;
 import mytunes.GUI.Controller.Pages.PlaylistController;
 import mytunes.GUI.Controller.PopUp.NewPlaylistController;
-import mytunes.GUI.Controller.Elements.ControlView;
+import mytunes.GUI.Controller.Elements.Helpers.ControlView;
 import mytunes.GUI.Controller.MainWindowController;
 import mytunes.GUI.Model.PlaylistModel;
 

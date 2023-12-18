@@ -15,11 +15,11 @@ import javafx.scene.layout.HBox;
 import mytunes.BE.Album;
 import mytunes.BE.Artist;
 import mytunes.BE.Song;
-import mytunes.GUI.Controller.Elements.ClickableLabelTableCell;
-import mytunes.GUI.Controller.Elements.TableContextMenu;
-import mytunes.GUI.Controller.Elements.TitleArtistCell;
-import mytunes.GUI.Controller.Elements.ControlView;
-import mytunes.GUI.Controller.Elements.helpers.CustomButton;
+import mytunes.GUI.Controller.Elements.Table.ClickableLabelTableCell;
+import mytunes.GUI.Controller.Elements.Table.TableContextMenu;
+import mytunes.GUI.Controller.Elements.Table.TitleArtistCell;
+import mytunes.GUI.Controller.Elements.Helpers.ControlView;
+import mytunes.GUI.Controller.Elements.CustomButton;
 import mytunes.GUI.Model.ArtistModel;
 import mytunes.GUI.Model.MediaPlayerModel;
 

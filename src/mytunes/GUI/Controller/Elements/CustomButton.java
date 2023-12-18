@@ -1,4 +1,4 @@
-package mytunes.GUI.Controller.Elements.helpers;
+package mytunes.GUI.Controller.Elements;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -6,7 +6,7 @@ import javafx.scene.layout.HBox;
 import mytunes.BE.Album;
 import mytunes.BE.Artist;
 import mytunes.GUI.Controller.Containers.BoxContainer;
-import mytunes.GUI.Controller.Elements.ControlView;
+import mytunes.GUI.Controller.Elements.Helpers.ControlView;
 
 import java.io.IOException;
 import java.util.List;

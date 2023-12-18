@@ -12,6 +12,10 @@ import javafx.scene.layout.GridPane;
 import mytunes.BE.Playlist;
 import mytunes.BE.Song;
 import mytunes.GUI.Controller.Elements.*;
+import mytunes.GUI.Controller.Elements.Helpers.ControlView;
+import mytunes.GUI.Controller.Elements.Table.ClickableLabelTableCell;
+import mytunes.GUI.Controller.Elements.Table.TableContextMenu;
+import mytunes.GUI.Controller.Elements.Table.TitleArtistCell;
 import mytunes.GUI.Model.AlbumModel;
 import mytunes.GUI.Model.MediaPlayerModel;
 import mytunes.GUI.Model.PlaylistModel;
@@ -20,7 +24,6 @@ import mytunes.GUI.Model.SongModel;
 import java.io.File;
 import java.net.URL;
 import java.util.Date;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class PlaylistController implements Initializable {

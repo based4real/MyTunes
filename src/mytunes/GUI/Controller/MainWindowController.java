@@ -8,7 +8,7 @@ import javafx.scene.layout.*;
 import mytunes.GUI.Controller.Containers.LibraryContainer;
 import mytunes.GUI.Controller.Pages.HomeController;
 import mytunes.GUI.Controller.Pages.SearchController;
-import mytunes.GUI.Controller.Elements.ControlView;
+import mytunes.GUI.Controller.Elements.Helpers.ControlView;
 
 import java.io.IOException;
 import java.net.URL;

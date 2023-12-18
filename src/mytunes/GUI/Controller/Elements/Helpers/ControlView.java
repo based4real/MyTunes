@@ -1,4 +1,4 @@
-package mytunes.GUI.Controller.Elements;
+package mytunes.GUI.Controller.Elements.Helpers;
 
 import javafx.scene.Parent;
 import mytunes.GUI.Controller.MainWindowController;

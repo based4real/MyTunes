@@ -1,10 +1,12 @@
-package mytunes.GUI.Controller.Elements;
+package mytunes.GUI.Controller.Elements.Table;
 
 import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import mytunes.BE.Playlist;
 import mytunes.BE.Song;
+import mytunes.GUI.Controller.Elements.Notification;
+import mytunes.GUI.Controller.Elements.SVGMenu;
 import mytunes.GUI.Model.PlaylistModel;
 import mytunes.GUI.Model.SongModel;
 

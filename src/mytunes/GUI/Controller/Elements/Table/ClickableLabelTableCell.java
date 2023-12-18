@@ -1,9 +1,10 @@
-package mytunes.GUI.Controller.Elements;
+package mytunes.GUI.Controller.Elements.Table;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import mytunes.BE.Album;
 import mytunes.BE.Song;
+import mytunes.GUI.Controller.Elements.Helpers.ControlView;
 import mytunes.GUI.Model.AlbumModel;
 
 public class ClickableLabelTableCell<T> extends TableCell<T, String> {
