@@ -73,15 +73,17 @@ public class TableCreator {
     }
 
     private void createPlaylistSongs(Connection conn) throws Exception {
-        String sql = "create table dbo.playlists_songs\n" +
+        String sql = "create table playlists_songs\n" +
                 "(\n" +
                 "    playlist_id int not null\n" +
                 "        constraint playlists_songs_Playlists_id_fk\n" +
                 "            references Playlists,\n" +
                 "    song_id     int\n" +
                 "        constraint playlists_songs_Songs_id_fk\n" +
-                "            references Songs\n" +
+                "            references Songs,\n" +
+                "    added       datetime\n" +
                 ")";
+
         try (PreparedStatement createStmt = conn.prepareStatement(sql)) {
             createStmt.executeUpdate();
         }
