@@ -1,10 +1,16 @@
-db.server=localhost
+#-------- DB --------#
+db.server=
 db.database=
 db.user=
 db.password=
 db.port=1433
 db.trusted_cert=true
 
+# 3 Options: "false", "create", "reset"
+# create: Creates tables if doesnt exist.
+# reset: Drops all tables and then create fresh tables.
+# false: Doesn't apply any database changes.
+db.first_launch=create
 
 #-------- UI --------#
 artist.default_img=https://i.imgur.com/W4lLgNF.png

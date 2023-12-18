@@ -166,7 +166,6 @@ public class PlaylistDAO {
                 "    MAX(songs.Genre) as Genre,\n" +
                 "    MAX(artists.name) as artistName,\n" +
                 "    MAX(artists.id) as artistID,\n" +
-                "    MAX(playlists_songs.order_id) as order_id,\n" +
                 "    MAX(AlbumsRanked.albumName) as albumName\n" +
                 "FROM\n" +
                 "    songs\n" +
@@ -204,7 +203,6 @@ public class PlaylistDAO {
                 String filePath = rs.getString("Filepath");
                 String musicBrainzID = rs.getString("SongID");
                 String pictureURL = rs.getString("PictureURL");
-                int orderID = rs.getInt("order_id");
                 String albumName = rs.getString("albumName");
 
                 Song song = new Song(musicBrainzID, songId, title, artist, genre, filePath, pictureURL, albumName, artistID);

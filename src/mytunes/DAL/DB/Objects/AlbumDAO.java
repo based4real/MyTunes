@@ -17,7 +17,6 @@ import java.util.List;
 public class AlbumDAO {
 
     private DatabaseConnector databaseConnector;
-
     public AlbumDAO() throws IOException {
         databaseConnector = new DatabaseConnector();
     }
@@ -29,7 +28,6 @@ public class AlbumDAO {
                 "WHERE albums.MusicBrainzID = ?";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            System.out.println(album.getReleaseId());
             stmt.setString(1, album.getReleaseId());
 
             ResultSet rs = stmt.executeQuery();

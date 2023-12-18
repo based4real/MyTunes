@@ -1,5 +1,6 @@
 package mytunes.BLL;
 
+import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
@@ -36,7 +37,17 @@ public class MediaPlayerHandler {
         return false;
     }
 
+    private void songEnd(MediaPlayer song) {
+        Duration currentTime = song.getCurrentTime();
+        Duration totalDuration = song.getTotalDuration();
+
+        if (Math.abs(currentTime.toMillis() - totalDuration.toMillis()) < 1.0)
+            song.seek(Duration.seconds(0));
+    }
+
     public void playSong(MediaPlayer song) {
+        songEnd(song);
+
         if (shouldPause(song))
             return;
 

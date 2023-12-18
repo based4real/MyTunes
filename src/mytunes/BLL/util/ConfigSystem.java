@@ -1,5 +1,8 @@
 package mytunes.BLL.util;
 
+import mytunes.DAL.DB.Connect.DatabaseConnector;
+import mytunes.DAL.DB.Initialize.TableCreator;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -8,6 +11,10 @@ import java.util.Properties;
 public class ConfigSystem {
 
     private static final String PROP_FILE = "config/config.settings";
+
+    public static enum TABLES {
+        CREATE, RESET, NONE
+    }
 
     private static Properties getConfigProperties() throws IOException {
         Properties databaseProperties = new Properties();
@@ -47,6 +54,41 @@ public class ConfigSystem {
         return getConfigProperties().getProperty("db.password");
     }
 
+    public static TABLES getDatabaseInit() throws IOException {
+        String firstLaunchStr = getConfigProperties().getProperty("db.first_launch");
+
+        switch (firstLaunchStr) {
+            case "reset":
+                return TABLES.RESET;
+            case "create":
+                return TABLES.CREATE;
+            default:
+                return null;
+        }
+    }
+
+    public static void handleDatabaseInit(TABLES type) throws Exception {
+        if (type == null)
+            return;
+
+        TableCreator tableCreator = new TableCreator();
+
+        switch(type) {
+            case RESET -> {
+                if (tableCreator.dropTables()) {
+                    tableCreator.initalize();
+                    System.out.println("Reset applied, please alter your db.first_launch to false");
+                    System.exit(0);
+                };
+            }
+            case CREATE -> {
+                tableCreator.initalize();
+                System.out.println("Created tables succesfully, please alter your db.first_launch to false");
+                System.exit(0);
+            }
+        }
+    }
+
     public static int getDatabasePort() throws IOException {
         String portStr = getConfigProperties().getProperty("db.port");
         int portInt;
@@ -54,7 +96,7 @@ public class ConfigSystem {
             portInt = Integer.parseInt(portStr);
         } catch (Exception e) {
             portInt = 1433;
-            System.out.println("Port cannot be converted to int, using default: 1433");
+            System.out.println("db.port cannot be converted to int, using default: 1433");
         }
 
         return portInt;
@@ -67,7 +109,7 @@ public class ConfigSystem {
             trustedBoolean = Boolean.parseBoolean(trustedStr);
         } catch (NumberFormatException e) {
             trustedBoolean = true;
-            System.out.println("Cert cannot be converted to boolean, using default: true");
+            System.out.println("db.trusted_cert cannot be converted to boolean, using default: true");
         }
 
         return trustedBoolean;

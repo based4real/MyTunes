@@ -8,6 +8,8 @@ import javafx.scene.SceneAntialiasing;
 import javafx.stage.Stage;
 import mytunes.BE.Album;
 import mytunes.BLL.AlbumManager;
+import mytunes.BLL.util.ConfigSystem;
+import mytunes.DAL.DB.Initialize.TableCreator;
 import mytunes.GUI.Model.AlbumModel;
 
 import java.util.List;
@@ -22,6 +24,7 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/NewMainWindow.fxml"));
         //FXMLLoader loader = new FXMLLoader(getClass().getResource("/MediaPlayerWindow.fxml"));
 
+        ConfigSystem.handleDatabaseInit(ConfigSystem.getDatabaseInit());
 
         //FXMLLoader loader = new FXMLLoader(getClass().getResource("/new/popup/ImportSong.fxml"));
         Parent root = loader.load();
@@ -31,5 +34,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.sizeToScene();
+
+
     }
 }

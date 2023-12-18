@@ -97,7 +97,7 @@ public class MediaPlayerModel {
         int nextSong = lastTbl.getSelectionModel().getSelectedIndex() + amountMoved;
         int size = lastTbl.getItems().size();
 
-        if (nextSong > size && nextSong <= size)
+        if (nextSong > 0 && nextSong <= size)
             return;
 
         // Remeber, we go the other way because of our sorting method.
