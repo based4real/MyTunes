@@ -138,10 +138,9 @@ public class AlbumDAO {
                 String filePath = rs.getString("Filepath");
                 String musicBrainzID = rs.getString("SongID");
                 String pictureURL = rs.getString("albumsPicture");
-                int orderID = rs.getInt("order_id");
                 String albumName = rs.getString("albumsName");
 
-                allSongsInAlbum.add(new Song(musicBrainzID, songId, title, artist, genre, filePath, pictureURL, orderID, albumName, artistID));
+                allSongsInAlbum.add(new Song(musicBrainzID, songId, title, artist, genre, filePath, pictureURL, albumName, artistID));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

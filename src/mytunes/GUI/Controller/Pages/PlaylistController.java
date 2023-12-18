@@ -23,6 +23,7 @@ import mytunes.GUI.Model.SongModel;
 
 import java.io.File;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -44,9 +45,7 @@ public class PlaylistController implements Initializable {
     private TableView<Song> tblSongsPlaylist;
 
     @FXML
-    private TableColumn<Song, String> columnTitle,columnGenre,columnDuration, columnAlbum;
-
-    private TableColumn<Song, Date> columnAdded;
+    private TableColumn<Song, String> columnTitle,columnGenre,columnDuration, columnAlbum, columnAdded;
 
     private PlaylistModel playlistModel;
     private Playlist playlist;
@@ -122,6 +121,7 @@ public class PlaylistController implements Initializable {
         columnGenre.setCellValueFactory(new PropertyValueFactory<>("genre"));
         columnDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
         columnAlbum.setCellValueFactory(new PropertyValueFactory<>("album"));
+        columnAdded.setCellValueFactory(new PropertyValueFactory<>("date"));
 
         columnAlbum.setCellFactory(column -> {
             try {

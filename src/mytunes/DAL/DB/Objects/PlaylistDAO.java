@@ -7,6 +7,7 @@ import mytunes.DAL.DB.Connect.DatabaseConnector;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class PlaylistDAO {
@@ -166,6 +167,7 @@ public class PlaylistDAO {
                 "    MAX(songs.Genre) as Genre,\n" +
                 "    MAX(artists.name) as artistName,\n" +
                 "    MAX(artists.id) as artistID,\n" +
+                "    MAX(playlists_songs.added) as timeAdded,\n" +
                 "    MAX(AlbumsRanked.albumName) as albumName\n" +
                 "FROM\n" +
                 "    songs\n" +
@@ -204,8 +206,9 @@ public class PlaylistDAO {
                 String musicBrainzID = rs.getString("SongID");
                 String pictureURL = rs.getString("PictureURL");
                 String albumName = rs.getString("albumName");
+                Timestamp timeAdded = rs.getTimestamp("timeAdded");
 
-                Song song = new Song(musicBrainzID, songId, title, artist, genre, filePath, pictureURL, albumName, artistID);
+                Song song = new Song(musicBrainzID, songId, title, artist, genre, filePath, pictureURL, albumName, artistID, timeAdded);
                 allSongsInPlaylist.add(song);
             }
         } catch (SQLException ex) {
@@ -216,7 +219,7 @@ public class PlaylistDAO {
     }
 
     public boolean addSongToPlaylist(Playlist playlist, Song song) throws Exception {
-        String sql = "INSERT INTO dbo.playlists_songs (playlist_id,song_id) VALUES (?,?);";
+        String sql = "INSERT INTO dbo.playlists_songs (playlist_id,song_id,added) VALUES (?,?,?);";
 
         //
         try (Connection conn = databaseConnector.getConnection();
@@ -225,6 +228,7 @@ public class PlaylistDAO {
             // Bind parameters
             stmt.setInt(1, playlist.getId());
             stmt.setInt(2, song.getId());
+            stmt.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
 
             // Run the specified SQL statement
             stmt.executeUpdate();

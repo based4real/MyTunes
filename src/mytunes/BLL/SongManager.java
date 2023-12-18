@@ -13,6 +13,7 @@ import java.util.List;
 public class SongManager {
 
     private SongSearcher songSearcher = new SongSearcher();
+    private AlbumManager albumManager;
     private SongDAO songDAO;
     private List<Song> allSongs = new ArrayList<>();
 
@@ -20,6 +21,7 @@ public class SongManager {
 
     public SongManager() throws IOException {
         songDAO = new SongDAO();
+        albumManager = new AlbumManager();
     }
 
     public List<Song> getAllSongs() throws Exception {
@@ -27,7 +29,7 @@ public class SongManager {
             allSongs = songDAO.getAllSongs();
             shouldUpdate = false;
         }
-
+        
         return allSongs;
     }
 

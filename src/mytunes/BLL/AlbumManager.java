@@ -61,6 +61,10 @@ public class AlbumManager {
     }
 
     public Album getAlbumFromSong(Song song) {
-        return albumDAO.getAlbumFromSong(song);
+        Album album = albumDAO.getAlbumFromSong(song);
+        if (song.getAlbumObject() == null)
+            song.setAlbumObject(album);
+
+        return song.getAlbumObject();
     }
 }

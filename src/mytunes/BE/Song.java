@@ -2,14 +2,20 @@ package mytunes.BE;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import mytunes.BLL.util.DateFormat;
 
 import java.io.File;
+import java.sql.Time;
+import java.sql.Timestamp;
 
 public class Song {
     private int id, artistID, orderID;
     private String title, songID, filePath, artistName, genre, pictureURL, albumName;
+    private Timestamp addedDate;
 
     private MediaPlayer mediaPlayer;
+
+    private Album inAlbum;
 
     public Song(String songID, int id, String title, String artistName, String genre, String filePath, String pictureURL, String albumName, int artistID) {
         this.songID = songID;
@@ -22,6 +28,21 @@ public class Song {
         this.pictureURL = pictureURL;
         this.albumName = albumName;
         this.artistID = artistID;
+    }
+
+    // This used for playlists.
+    public Song(String songID, int id, String title, String artistName, String genre, String filePath, String pictureURL, String albumName, int artistID, Timestamp added) {
+        this.songID = songID;
+        this.id = id;
+        this.title = title;
+        this.artistName = artistName;
+        this.genre = genre;
+        this.filePath = filePath;
+        this.mediaPlayer = new MediaPlayer(new Media(new File(filePath).toURI().toString()));
+        this.pictureURL = pictureURL;
+        this.albumName = albumName;
+        this.artistID = artistID;
+        this.addedDate = added;
     }
 
     public Song(String songID, int id, String title, String artistName, String genre, String filePath, String pictureURL) {
@@ -43,20 +64,6 @@ public class Song {
         this.filePath = filePath;
         this.mediaPlayer = new MediaPlayer(new Media(new File(filePath).toURI().toString()));
         this.pictureURL = pictureURL;
-    }
-
-    public Song(String songID, int id, String title, String artistName, String genre, String filePath, String pictureURL, int orderID, String albumName, int artistID) {
-        this.songID = songID;
-        this.id = id;
-        this.title = title;
-        this.artistName = artistName;
-        this.genre = genre;
-        this.filePath = filePath;
-        this.mediaPlayer = new MediaPlayer(new Media(new File(filePath).toURI().toString()));
-        this.pictureURL = pictureURL;
-        this.orderID = orderID;
-        this.albumName = albumName;
-        this.artistID = artistID;
     }
 
     public double getDoubleTime() {
@@ -151,4 +158,17 @@ public class Song {
         return albumName;
     }
 
+    public String getDate() {
+        DateFormat dateFormat = new DateFormat(addedDate);
+
+        return dateFormat.getDate();
+    }
+
+    public void setAlbumObject(Album album) {
+        this.inAlbum = album;
+    }
+
+    public Album getAlbumObject() {
+        return this.inAlbum;
+    }
 }

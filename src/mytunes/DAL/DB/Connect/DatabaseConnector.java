@@ -19,7 +19,6 @@ public class DatabaseConnector {
         dataSource.setPortNumber(ConfigSystem.getDatabasePort());
         dataSource.setTrustServerCertificate(ConfigSystem.getDatabaseTrustedCert());
     }
-
     public Connection getConnection() throws SQLServerException {
         return dataSource.getConnection();
     }
