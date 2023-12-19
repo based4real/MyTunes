@@ -35,15 +35,15 @@ public class SongModel {
     }
 
     public ObservableList<Song> getObservableSongs() throws Exception {
-        ObservableList<Song> SongsToBeViewed = FXCollections.observableArrayList();
+        songsToBeViewed.clear();
 
         if (songManager.getAllSongs() == null)
-            return SongsToBeViewed;
+            return songsToBeViewed;
 
-        SongsToBeViewed.addAll(songManager.getAllSongs());
-        SongsToBeViewed.sort(Comparator.comparing(Song::getOrderID));
+        songsToBeViewed.addAll(songManager.getAllSongs());
+        songsToBeViewed.sort(Comparator.comparing(Song::getOrderID));
 
-        return SongsToBeViewed;
+        return songsToBeViewed;
     }
 
     public Song createNewSong(Song newSong) throws Exception {

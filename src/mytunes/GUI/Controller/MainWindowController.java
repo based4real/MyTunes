@@ -39,7 +39,7 @@ public class MainWindowController implements Initializable {
             loadHomeSection();
 
             ControlView.setMainWindowController(this);
-            ControlView.switchToHome();
+            ControlView.switchToSearch();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

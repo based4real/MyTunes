@@ -49,7 +49,6 @@ public class MBRelease {
                 JSONArray trackArray = firstMediaObject.getJSONArray("track");
                 int trackNumber = trackArray.getJSONObject(0).getInt("number");
 
-
                 String releaseDate = releaseObject.has("date") ? releaseObject.getString("date") : "N/A";
 
                 boolean albumType = primaryType.equals("Single");
@@ -57,16 +56,12 @@ public class MBRelease {
                 Release newRelease = new Release(releaseId, releaseGroupId, title, releaseDate, albumType, trackNumber);
 
                 // Check if the set already contains this release
-                if (!artistName.equals("Various Artists") && status.equals("Official") && !albumsList.contains(newRelease)) {
+                if (!artistName.equals("Various Artists") && status.equals("Official") && !albumsList.contains(newRelease))
                     albumsList.add(newRelease);
-                }
+
             }
         } catch (Exception e) {
 
-        }
-
-        for (Release release : albumsList) {
-            System.out.println("Release ID: " + release.getReleaseId() + " | Date: " + release.getDate() + " | Title: " + release.getTitle() + " | Single: " + release.getIsSingle() + " | Pos: " + release.getSongPos());
         }
         return albumsList;
     }

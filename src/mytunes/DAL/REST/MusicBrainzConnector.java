@@ -71,15 +71,15 @@ public class MusicBrainzConnector {
             }
 
 
-            System.out.println("Releases: " + title + " | Releases Count: " + releasesCount);
+            //System.out.println("Releases: " + title + " | Releases Count: " + releasesCount);
         }
 
-        System.out.println("Recording with most releases picked: " + maxReleases + " | Title: " + maxTitle);
+        //System.out.println("Recording with most releases picked: " + maxReleases + " | Title: " + maxTitle);
         return jsonBestResult;
     }
 
     public boolean holdsData() throws Exception {
-        return (data != null && data.length() != 0);
+        return (mbRelease != null && data != null && data.length() != 0);
     }
 
 

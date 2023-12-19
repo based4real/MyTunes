@@ -4,6 +4,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import mytunes.BLL.util.DateFormat;
 
+import java.awt.*;
 import java.io.File;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -25,10 +26,25 @@ public class Song {
         this.artistName = artistName;
         this.genre = new Genre(genre);
         this.filePath = filePath;
-        this.mediaPlayer = new MediaPlayer(new Media(new File(filePath).toURI().toString()));
+        createMediaPlayer(new File(filePath));
         this.pictureURL = pictureURL;
         this.albumName = albumName;
         this.artistID = artistID;
+    }
+
+    // This is used for album songs
+    public Song(String songID, int id, String title, String artistName, String genre, String filePath, String pictureURL, String albumName, int artistID, int orderID) {
+        this.songID = songID;
+        this.id = id;
+        this.title = title;
+        this.artistName = artistName;
+        this.genre = new Genre(genre);
+        this.filePath = filePath;
+        createMediaPlayer(new File(filePath));
+        this.pictureURL = pictureURL;
+        this.albumName = albumName;
+        this.artistID = artistID;
+        this.orderID = orderID;
     }
 
     // This used for playlists.
@@ -39,7 +55,7 @@ public class Song {
         this.artistName = artistName;
         this.genre = new Genre(genre);
         this.filePath = filePath;
-        this.mediaPlayer = new MediaPlayer(new Media(new File(filePath).toURI().toString()));
+        createMediaPlayer(new File(filePath));
         this.pictureURL = pictureURL;
         this.albumName = albumName;
         this.artistID = artistID;
@@ -53,7 +69,7 @@ public class Song {
         this.artistName = artistName;
         this.genre = new Genre(genre);
         this.filePath = filePath;
-        this.mediaPlayer = new MediaPlayer(new Media(new File(filePath).toURI().toString()));
+        createMediaPlayer(new File(filePath));
         this.pictureURL = pictureURL;
     }
 
@@ -63,26 +79,29 @@ public class Song {
         this.artistID = artistID;
         this.genre = new Genre(genre);
         this.filePath = filePath;
-        this.mediaPlayer = new MediaPlayer(new Media(new File(filePath).toURI().toString()));
+        createMediaPlayer(new File(filePath));
         this.pictureURL = pictureURL;
     }
 
+    private void createMediaPlayer(File f) {
+        if(f.exists() && !f.isDirectory())
+            this.mediaPlayer = new MediaPlayer(new Media(new File(filePath).toURI().toString()));
+        else
+            this.title = "[INVALID] " + this.title;
+    }
+
     public double getDoubleTime() {
+        if (mediaPlayer == null)
+            return 0.0;
+
         return mediaPlayer.getTotalDuration().toSeconds();
     }
 
-    public String getDuration(){
+    public String getDuration() {
+        if (mediaPlayer == null)
+            return "0:00";
+
         double seconds = mediaPlayer.getTotalDuration().toSeconds();
-
-        double secs = seconds % 60;
-        double minutes = (seconds / 60) % 60;
-
-        return String.format("%d:%02d", (int)minutes, (int)secs);
-    }
-
-
-    public String getCurrentDuration() {
-        double seconds = mediaPlayer.getCurrentTime().toSeconds();
 
         double secs = seconds % 60;
         double minutes = (seconds / 60) % 60;
@@ -167,6 +186,10 @@ public class Song {
         DateFormat dateFormat = new DateFormat(addedDate);
 
         return dateFormat.getDate();
+    }
+
+    public void setDate(Timestamp date) {
+        this.addedDate = date;
     }
 
     public void setAlbumObject(Album album) {

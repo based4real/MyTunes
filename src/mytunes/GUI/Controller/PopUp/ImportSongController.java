@@ -5,11 +5,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
 import mytunes.BE.Artist;
@@ -33,6 +35,9 @@ public class ImportSongController implements Initializable {
     private TextField txtTitel, txtArtist, txtTime, txtFile, txtPicture, txtFeature;
 
     @FXML
+    private Label lblStatus;
+
+    @FXML
     private ComboBox<String> dropGenre;
 
     private GenreModel genreModel;
@@ -44,7 +49,6 @@ public class ImportSongController implements Initializable {
 
     private String artistID, artistName, artistAlias;
     private String songID, songTitle, songArtist, songGenre, songfilePath;
-    private String songAlbum;
 
     private File selectedFile;
 
@@ -60,11 +64,11 @@ public class ImportSongController implements Initializable {
     private void setDisabled(boolean disabled) {
         txtArtist.setDisable(disabled);
         txtTitel.setDisable(disabled);
-        txtFeature.setDisable(disabled);
-        txtFile.setDisable(disabled);
-        txtTime.setDisable(disabled);
+        //txtFeature.setDisable(disabled);
+        //txtFile.setDisable(disabled);
+        //txtTime.setDisable(disabled);
         dropGenre.setDisable(disabled);
-        txtPicture.setDisable(disabled);
+        //txtPicture.setDisable(disabled);
         btnImportFX.setDisable(disabled);
     }
 
@@ -77,6 +81,8 @@ public class ImportSongController implements Initializable {
     }
 
     public void btnChoose(ActionEvent actionEvent) throws Exception {
+        lblStatus.setText("");
+
         FileChooser fileChooser = new FileChooser();
 
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Audio Files (*.mp3, *.wav)", "*.mp3", "*.wav");
@@ -89,12 +95,18 @@ public class ImportSongController implements Initializable {
         if (selectedFile != null) {
             songImportModel.searchSong(selectedFile.getName());
 
+            if (!songImportModel.holdsData()) {
+                lblStatus.setTextFill(Color.DARKRED);
+                lblStatus.setText("Kan ikke finde sang data, forsøg manuel søgning.");
+                return;
+            }
+
             txtFeature.setText(songImportModel.getFeatures());
             txtArtist.setText(songImportModel.getArtist());
             txtTitel.setText(songImportModel.getTitle());
             txtFile.setText(selectedFile.getAbsolutePath());
 
-
+            // Bug here
             String imageURL = songImportModel.getPictureURL() == null ? ConfigSystem.getSongDefault() : songImportModel.getPictureURL();
 
             setPreviewImg(imageURL);
@@ -112,15 +124,16 @@ public class ImportSongController implements Initializable {
 
             setDisabled(false);
         } else {
-            System.out.println("file is not valid");
+            lblStatus.setTextFill(Color.DARKRED);
+            lblStatus.setText("Fil er ikke valid.");
         }
-
     }
 
     public void btnChoosePicture(ActionEvent actionEvent) {
     }
 
     public void btnSearch(ActionEvent actionEvent) throws Exception {
+        lblStatus.setText("");
         songImportModel.searchSongFromText(txtArtist.getText(), txtTitel.getText());
 
         if (songImportModel.holdsData()) {
@@ -128,16 +141,19 @@ public class ImportSongController implements Initializable {
             txtArtist.setText(songImportModel.getArtist());
 
             txtFeature.setText(songImportModel.getFeatures());
-            String pic = songImportModel.getPictureURL();
-            txtPicture.setText(pic);
+            String imageURL = songImportModel.getPictureURL() == null ? ConfigSystem.getSongDefault() : songImportModel.getPictureURL();
+            txtPicture.setText(imageURL);
 
-            setPreviewImg(pic);
-
-            setDisabled(false);
-         }
+            setPreviewImg(imageURL);
+         } else {
+            lblStatus.setTextFill(Color.DARKRED);
+            lblStatus.setText("Kan ikke finde sang data, forsøg manuel søgning.");
+        }
     }
 
     public void btnImport(ActionEvent actionEvent) throws Exception {
+        lblStatus.setText("");
+
         artistID = songImportModel.getArtistID();
         artistName = songImportModel.getArtist();
         artistAlias = songImportModel.getAlias();
@@ -149,10 +165,12 @@ public class ImportSongController implements Initializable {
         songGenre = dropGenre.getSelectionModel().getSelectedItem().toString();
         songfilePath = selectedFile.getPath();
 
-
         Artist artist = artistModel.createArtist(new Artist(artistID, artistName, artistAlias));
         Song song = songModel.createNewSong(new Song(songID, songTitle, artist.getPrimaryID(), songGenre ,songfilePath, txtPicture.getText()));
         albumModel.createAlbum(songImportModel.getAlbums(), song, artist);
+
+        lblStatus.setTextFill(Color.DARKGREEN);
+        lblStatus.setText("Sang importeret.");
     }
 
     @Override

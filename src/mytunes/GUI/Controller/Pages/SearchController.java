@@ -123,6 +123,10 @@ public class SearchController implements Initializable {
         });
     }
 
+    private void checkTblSearch() {
+
+    }
+
     private void addSongs() throws Exception {
         ObservableList<Song> songs = songModel.getObservableSongs();
         tblSongs.setItems(songs);

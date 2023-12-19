@@ -102,6 +102,9 @@ public class MediaPlayerContainer implements Initializable {
 
         MediaPlayer mediaPlayer = song.getMediaPlayer();
 
+        if (mediaPlayer == null)
+            return;
+
         mediaPlayerModel.playSong(mediaPlayer, restart);
         updatePlayerControls(mediaPlayer, song);
 

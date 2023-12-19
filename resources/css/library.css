@@ -219,27 +219,34 @@
 }
 
 .textfield_import {
-    -fx-prompt-text-fill: rgba(179, 179, 179, 255);
+    -fx-prompt-text-fill: rgb(179, 179, 179);
+    -fx-text-fill: rgb(179, 179, 179);
     -fx-background-color: rgba(42, 41, 42, 0.2);
     -fx-background-radius: 5px;
 }
 
 .textfield_import:hover {
-    -fx-prompt-text-fill: rgba(179, 179, 179, 255);
+    -fx-prompt-text-fill: rgb(179, 179, 179);
+    -fx-text-fill: rgb(255, 255, 255);
     -fx-background-color: rgba(42, 41, 42, 0.2);
 }
 
 .textfield_import:focused {
-    -fx-text-fill: rgba(179, 179, 179);
+    -fx-text-fill: rgb(200, 200, 200);
     -fx-background-color: rgb(42, 41, 42);
-    -fx-prompt-text-fill: rgba(179, 179, 179, 255);
+    -fx-prompt-text-fill: rgb(179, 179, 179);
 }
+
+.textfield_import:disabled {
+    -fx-opacity: 0.75;
+}
+
 
 .import_category .list-cell
 {
     -fx-background: rgba(42, 41, 42, 0.2);
     -fx-background-color: rgba(42, 41, 42, 0.2);
-    -fx-text-fill: -fx-text-base-color;
+    -fx-text-fill: rgb(200, 200, 200);
     -fx-padding: 3 0 2 7;
     -fx-cell-size: 1.66667em;
 }

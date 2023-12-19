@@ -123,7 +123,7 @@ public class AlbumController implements Initializable {
 
         String albumSongs = Integer.toString(album.getAlbumSongs().size());
 
-        lblSongsAmount.setText(albumSongs + " sange");
+        lblSongsAmount.setText(albumSongs + " sang(e)");
     }
 
     private void updateUI(Album album) throws Exception {
@@ -154,7 +154,7 @@ public class AlbumController implements Initializable {
         lblType.setText("Genre");
         String genreSongs = Integer.toString(genre.getGenreSongs().size());
 
-        lblSongsAmount.setText(genreSongs + " sange");
+        lblSongsAmount.setText(genreSongs + " sang(e)");
         lblRelease.setText("");
 
         lblPlayTime.setText(genreModel.getAllPlayTime(genre));

@@ -7,7 +7,6 @@ import mytunes.DAL.DB.Connect.DatabaseConnector;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class PlaylistDAO {
@@ -32,7 +31,6 @@ public class PlaylistDAO {
                 String name = rs.getString("name");
                 int order_id = rs.getInt("order_id");
                 String pictureURL = rs.getString("PictureURL");
-
 
                 Playlist playlist = new Playlist(id, name, order_id, pictureURL);
                 allPlaylists.add(playlist);
@@ -225,13 +223,16 @@ public class PlaylistDAO {
         try (Connection conn = databaseConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
         {
+            Timestamp currentTime = new Timestamp(System.currentTimeMillis());
             // Bind parameters
             stmt.setInt(1, playlist.getId());
             stmt.setInt(2, song.getId());
-            stmt.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+            stmt.setTimestamp(3, currentTime);
 
             // Run the specified SQL statement
             stmt.executeUpdate();
+
+            song.setDate(currentTime);
             return true;
         }
         catch (SQLException ex)
