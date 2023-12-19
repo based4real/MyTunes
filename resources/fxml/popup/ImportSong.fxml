@@ -59,7 +59,7 @@
             </HBox>
             <HBox prefHeight="30.0" prefWidth="335.0">
                <children>
-                  <Label text="Title" textFill="#e1e1e1">
+                  <Label text="Titel" textFill="#e1e1e1">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -85,12 +85,12 @@
             </HBox>
             <HBox prefHeight="30.0" prefWidth="335.0">
                <children>
-                  <Label text="Time" textFill="#e1e1e1">
+                  <Label text="Længde" textFill="#e1e1e1">
                      <font>
                         <Font size="14.0" />
                      </font>
                      <HBox.margin>
-                        <Insets right="63.0" top="5.0" />
+                        <Insets right="43.0" top="5.0" />
                      </HBox.margin>
                   </Label>
                   <TextField fx:id="txtTime" disable="true" prefHeight="30.0" prefWidth="245.0" promptText="...." styleClass="textfield_import" />
@@ -98,16 +98,16 @@
             </HBox>
             <HBox prefHeight="30.0" prefWidth="335.0">
                <children>
-                  <Label text="File" textFill="#e1e1e1">
+                  <Label text="Fil" textFill="#e1e1e1">
                      <font>
                         <Font size="14.0" />
                      </font>
                      <HBox.margin>
-                        <Insets right="73.0" top="5.0" />
+                        <Insets right="78.0" top="5.0" />
                      </HBox.margin>
                   </Label>
                   <TextField fx:id="txtFile" prefHeight="30.0" prefWidth="179.0" promptText="...." styleClass="textfield_import" />
-                  <Button mnemonicParsing="false" onAction="#btnChoose" prefHeight="31.0" prefWidth="56.0" styleClass="import_choose" text="Choose">
+                  <Button mnemonicParsing="false" onAction="#btnChoose" prefHeight="31.0" prefWidth="56.0" styleClass="import_choose" text="Vælg">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -116,7 +116,7 @@
             </HBox>
             <HBox prefHeight="30.0" prefWidth="335.0">
                <children>
-                  <Label text="Picture" textFill="#e1e1e1">
+                  <Label text="Billede" textFill="#e1e1e1">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -133,8 +133,8 @@
       <Label fx:id="lblStatus" layoutX="23.0" layoutY="409.0" prefHeight="17.0" prefWidth="335.0" />
       <HBox layoutX="177.0" layoutY="372.0" prefHeight="30.0" prefWidth="204.0" spacing="25.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#btnSearch" styleClass="import_search" text="Search for data" />
-            <Button fx:id="btnImportFX" disable="true" mnemonicParsing="false" onAction="#btnImport" styleClass="import_import" text="Import" />
+            <Button mnemonicParsing="false" onAction="#btnSearch" styleClass="import_search" text="Søg efter data" />
+            <Button fx:id="btnImportFX" disable="true" mnemonicParsing="false" onAction="#btnImport" styleClass="import_import" text="Importer" />
          </children>
       </HBox>
    </children>
