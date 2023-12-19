@@ -50,7 +50,7 @@ public class AlbumDAO {
         return null;
     }
 
-    private boolean doesAlbumExist(Connection conn, Album album, Song song) {
+    private boolean doesSongExistInAlbum(Connection conn, Album album, Song song) {
         String sql = "SELECT * FROM Albums_songs WHERE album_id = ? AND song_id = ?";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -190,7 +190,7 @@ public class AlbumDAO {
                 if (createdAlbum == null)
                     createdAlbum = createAlbum(conn, album, artist);
 
-                if (!doesAlbumExist(conn, createdAlbum, song))
+                if (!doesSongExistInAlbum(conn, createdAlbum, song))
                     addSongToAlbum(conn, album, createdAlbum, song);
 
                 conn.commit();
