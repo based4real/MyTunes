@@ -18,7 +18,6 @@ public class CoverArt {
     private JSONArray data;
 
     private String frontImage, frontThumbnail;
-    private String backImage, backThumbnail;
 
     private JSONObject object;
 
@@ -63,8 +62,7 @@ public class CoverArt {
         if (JsonUtil.isValidJson(getResponse.body())) {
             return JsonUtil.getArrayFromURL(getResponse, "images");
         } else {
-            // Handle the case where the response is not a valid JSON
-            return new JSONArray(); // or handle as appropriate for your application
+            return new JSONArray();
         }
     }
 
