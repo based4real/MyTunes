@@ -50,7 +50,7 @@ public class AlbumManager {
         return allAlbums;
     }
 
-    public String getAllplayTime(Album album) throws Exception {
+    public String getAllPlayTime(Album album) throws Exception {
         List<Song> playlistSongs = getAlbumSongs(album);
         double totalTime = 0;
 

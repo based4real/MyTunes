@@ -13,8 +13,11 @@ public class GenreManager {
     private GenreDAO genreDAO;
     private List<String> allGenreNames = new ArrayList<>();
 
+    private MediaPlayerHandler mediaPlayerHandler;
+
     public GenreManager() throws IOException {
         genreDAO = new GenreDAO();
+        mediaPlayerHandler = new MediaPlayerHandler();
     }
 
     public List<String> getAllGenreNames() throws Exception {
@@ -32,4 +35,15 @@ public class GenreManager {
 
         return genre.getGenreSongs();
     }
+
+    public String getAllPlayTime(Genre genre) throws Exception {
+        List<Song> genreSongs = getGenreSongs(genre);
+        double totalTime = 0;
+
+        for (Song s : genreSongs)
+            totalTime = totalTime + s.getDoubleTime();
+
+        return mediaPlayerHandler.getRewrittenTimeFromDouble(totalTime);
+    }
+
 }

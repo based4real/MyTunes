@@ -15,6 +15,7 @@ import mytunes.BE.Album;
 import mytunes.BE.Genre;
 import mytunes.BE.Song;
 import mytunes.GUI.Controller.Elements.Helpers.ControlView;
+import mytunes.GUI.Controller.Elements.Table.ClickableLabelTableCell;
 import mytunes.GUI.Controller.Elements.Table.TitleArtistCell;
 import mytunes.GUI.Controller.Elements.Table.TableContextMenu;
 import mytunes.GUI.Model.AlbumModel;
@@ -93,6 +94,13 @@ public class AlbumController implements Initializable {
         });
 
         columnGenre.setCellValueFactory(new PropertyValueFactory<>("genreName"));
+        columnGenre.setCellFactory(column -> {
+            try {
+                return new ClickableLabelTableCell<>(ClickableLabelTableCell.Types.GENRE);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
         columnDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
         columnPos.setCellValueFactory(new PropertyValueFactory<>("orderID"));
     }
@@ -144,7 +152,12 @@ public class AlbumController implements Initializable {
 
         lblName.setText(genre.getName());
         lblType.setText("Genre");
+        String genreSongs = Integer.toString(genre.getGenreSongs().size());
 
+        lblSongsAmount.setText(genreSongs + " sange");
+        lblRelease.setText("");
+
+        lblPlayTime.setText(genreModel.getAllPlayTime(genre));
     }
 
     public void btnPageBack(ActionEvent actionEvent) {

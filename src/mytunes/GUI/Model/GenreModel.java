@@ -47,4 +47,8 @@ public class GenreModel {
 
         return SongsToBeViewed;
     }
+
+    public String getAllPlayTime(Genre genre) throws Exception {
+        return genreManager.getAllPlayTime(genre);
+    }
 }

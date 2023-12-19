@@ -18,6 +18,8 @@ public class DatabaseConnector {
         dataSource.setPassword(ConfigSystem.getDatabasePassword());
         dataSource.setPortNumber(ConfigSystem.getDatabasePort());
         dataSource.setTrustServerCertificate(ConfigSystem.getDatabaseTrustedCert());
+
+        dataSource.setLoginTimeout(10);
     }
     public Connection getConnection() throws SQLServerException {
         return dataSource.getConnection();

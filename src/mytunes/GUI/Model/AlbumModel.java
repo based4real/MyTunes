@@ -53,7 +53,7 @@ public class AlbumModel {
     }
 
     public String getAllPlayTime(Album album) throws Exception {
-        return albumManager.getAllplayTime(album);
+        return albumManager.getAllPlayTime(album);
     }
 
     public Album getAlbumFromSong(Song song) {

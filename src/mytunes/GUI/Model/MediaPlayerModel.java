@@ -99,7 +99,7 @@ public class MediaPlayerModel {
 
         if (nextSong <= 0 || nextSong > size)
             return;
-        
+
         // Remeber, we go the other way because of our sorting method.
         playSelectedSong(lastTbl.getItems().get(nextSong));
 
