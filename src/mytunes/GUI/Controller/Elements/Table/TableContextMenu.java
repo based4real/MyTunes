@@ -95,9 +95,7 @@ public class TableContextMenu {
             tblSongs.getItems().remove(row.getItem());
             try {
                 Song song = (Song) row.getItem();
-                if (songModel.deleteSong(song))
-                    Notification.playlistDeleteSong(playlist, song);
-
+                songModel.deleteSong(song);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

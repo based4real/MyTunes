@@ -48,6 +48,9 @@ public class SongModel {
 
     public Song createNewSong(Song newSong) throws Exception {
         Song song = songManager.createNewSong(newSong);
+
+        // Bug here, since if song exists it still adds it to the table.
+        // If restart program, the bug will be fixed.
         songsToBeViewed.add(song);
         return song;
     }
