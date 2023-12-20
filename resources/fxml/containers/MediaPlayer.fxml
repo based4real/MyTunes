@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="89.0" prefWidth="620.0" styleClass="media_background" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.GUI.Controller.Containers.MediaPlayerContainer">
+<AnchorPane prefHeight="89.0" styleClass="media_background" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytunes.GUI.Controller.Containers.MediaPlayerContainer">
    <stylesheets>
       <URL value="@../../css/newstyle.css" />
       <URL value="@../../css/library.css" />
@@ -78,7 +78,7 @@
                   </Button>
                </children>
                <VBox.margin>
-                  <Insets left="125.0" top="13.0" />
+                  <Insets left="95.0" top="13.0" />
                </VBox.margin>
             </HBox>
             <HBox alignment="CENTER" prefHeight="27.0" prefWidth="485.0" VBox.vgrow="ALWAYS">
